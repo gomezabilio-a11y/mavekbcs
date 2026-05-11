@@ -126,3 +126,12 @@
 - [x] SAP DRC: update overview and key features with exact provided content
 - [x] SAP TRM: update overview and key features with exact provided content
 - [x] SAP Cash Management: update overview and key features with exact provided content
+
+## Phase 18: Solution Pages - English Content Update (7 remaining solutions)
+- [x] SAP MBC: update overview and key features with exact provided content
+- [x] SAP FSCM: update overview and key features with exact provided content
+- [x] SAP BRIM: update overview and key features with exact provided content
+- [x] SAP GRC: update overview and key features with exact provided content
+- [x] SAP Analytics Cloud: update overview and key features with exact provided content
+- [x] Oracle PBCS: update overview and key features with exact provided content
+- [x] SAP RE-FX: update overview and key features with exact provided content
