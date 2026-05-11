@@ -1,0 +1,65 @@
+# MAVEK BCS Website TODO
+
+## Phase 2: Foundation
+- [x] Global CSS: dark blue & white corporate theme, typography (Inter/Playfair)
+- [x] Database schema: users, clientContracts tables
+- [x] i18n context and language switcher (EN/KO/JA)
+- [x] Top navigation with mega-menu (Industries, Solutions, Insights)
+- [x] Footer with sitemap links and language selector
+- [x] App.tsx routing for all pages
+
+## Phase 3: Core Pages
+- [x] Homepage: hero, value proposition, featured industries, solutions overview, latest insights
+- [x] About page: company overview
+- [x] CSR sub-page
+- [x] Contact page
+- [x] Careers page
+
+## Phase 4: Industries (12 pages)
+- [x] Automotive
+- [x] Semiconductors
+- [x] Pharmaceuticals
+- [x] Telecommunications
+- [x] Oil & Gas
+- [x] Renewable Energy
+- [x] Financial Services
+- [x] Real Estate
+- [x] Retail
+- [x] Energy
+- [x] Utilities
+- [x] Electronics Manufacturing
+
+## Phase 5: Solutions (8 categories, 16 solution pages)
+- [x] Closing category page + SAP AFC, SAP Group Reporting, Oracle FCCS, Oracle ARCS, Oracle Close Manager, Blackline
+- [x] Tax category page + SAP DRC
+- [x] Treasury category page + SAP TRM, SAP Cash Management, SAP MBC
+- [x] Financial Supply Chain category page + SAP FSCM
+- [x] Billing category page + SAP BRIM
+- [x] Risk category page + SAP GRC
+- [x] Planning category page + SAP Analytics Cloud, Oracle PBCS
+- [x] Lease category page + SAP RE-FX
+
+## Phase 6: Insights (60 articles)
+- [x] Insights listing page with category filtering and search
+- [x] All 60 articles pre-populated in siteData with tags and cross-references
+- [x] Individual article detail pages
+
+## Phase 7: Client Portal
+- [x] Client portal login page
+- [x] Protected dashboard: Remaining Service Hours display
+- [x] Protected dashboard: Contract Status display
+- [x] Admin portal: manage client contracts (hours + status) at /admin
+
+## Phase 8: Multi-Language Support
+- [x] English translations (primary)
+- [x] Korean translations
+- [x] Japanese translations
+- [x] Language switcher in nav and footer
+
+## Phase 9: Polish
+- [x] Responsive design (mobile/tablet/desktop)
+- [x] Mega-menu dropdowns for Industries, Solutions
+- [x] Cross-reference links between insights, industries, and solutions
+- [x] Zero TypeScript errors
+- [x] All vitest tests passing
+- [x] CSS @import ordering fixed

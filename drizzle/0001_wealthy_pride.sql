@@ -1,0 +1,103 @@
+CREATE TABLE `client_contracts` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`clientName` varchar(256),
+	`contractStatus` enum('active','pending','completed','on_hold','expired') NOT NULL DEFAULT 'active',
+	`remainingHours` int NOT NULL DEFAULT 0,
+	`totalHours` int NOT NULL DEFAULT 0,
+	`contractStartDate` timestamp,
+	`contractEndDate` timestamp,
+	`projectDescription` text,
+	`notes` text,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `client_contracts_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `industries` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`slug` varchar(128) NOT NULL,
+	`name` varchar(256) NOT NULL,
+	`nameKo` varchar(256),
+	`nameJa` varchar(256),
+	`description` text,
+	`descriptionKo` text,
+	`descriptionJa` text,
+	`heroContent` text,
+	`heroContentKo` text,
+	`heroContentJa` text,
+	`imageUrl` varchar(512),
+	`sortOrder` int DEFAULT 0,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `industries_id` PRIMARY KEY(`id`),
+	CONSTRAINT `industries_slug_unique` UNIQUE(`slug`)
+);
+--> statement-breakpoint
+CREATE TABLE `insights` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`slug` varchar(256) NOT NULL,
+	`title` varchar(512) NOT NULL,
+	`titleKo` varchar(512),
+	`titleJa` varchar(512),
+	`excerpt` text,
+	`excerptKo` text,
+	`excerptJa` text,
+	`content` text,
+	`contentKo` text,
+	`contentJa` text,
+	`category` varchar(128),
+	`tags` json,
+	`relatedIndustries` json,
+	`relatedSolutions` json,
+	`imageUrl` varchar(512),
+	`readTimeMinutes` int DEFAULT 5,
+	`publishedAt` timestamp NOT NULL DEFAULT (now()),
+	`featured` boolean DEFAULT false,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `insights_id` PRIMARY KEY(`id`),
+	CONSTRAINT `insights_slug_unique` UNIQUE(`slug`)
+);
+--> statement-breakpoint
+CREATE TABLE `solution_categories` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`slug` varchar(128) NOT NULL,
+	`name` varchar(256) NOT NULL,
+	`nameKo` varchar(256),
+	`nameJa` varchar(256),
+	`description` text,
+	`descriptionKo` text,
+	`descriptionJa` text,
+	`iconName` varchar(64),
+	`sortOrder` int DEFAULT 0,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `solution_categories_id` PRIMARY KEY(`id`),
+	CONSTRAINT `solution_categories_slug_unique` UNIQUE(`slug`)
+);
+--> statement-breakpoint
+CREATE TABLE `solutions` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`categoryId` int NOT NULL,
+	`slug` varchar(128) NOT NULL,
+	`name` varchar(256) NOT NULL,
+	`nameKo` varchar(256),
+	`nameJa` varchar(256),
+	`shortDescription` text,
+	`shortDescriptionKo` text,
+	`shortDescriptionJa` text,
+	`fullDescription` text,
+	`fullDescriptionKo` text,
+	`fullDescriptionJa` text,
+	`keyFeatures` json,
+	`keyFeaturesKo` json,
+	`keyFeaturesJa` json,
+	`benefits` json,
+	`benefitsKo` json,
+	`benefitsJa` json,
+	`youtubeVideoId` varchar(64),
+	`imageUrl` varchar(512),
+	`vendor` varchar(64),
+	`sortOrder` int DEFAULT 0,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `solutions_id` PRIMARY KEY(`id`),
+	CONSTRAINT `solutions_slug_unique` UNIQUE(`slug`)
+);

@@ -1,0 +1,335 @@
+import { Link } from "wouter";
+import { ArrowRight, ChevronRight } from "lucide-react";
+import Layout from "@/components/Layout";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { INDUSTRIES, SOLUTION_CATEGORIES, INSIGHTS } from "@/lib/siteData";
+
+interface IndustryDetailProps {
+  params: { slug: string };
+}
+
+const industryContent: Record<string, {
+  overview: string; overviewKo: string; overviewJa: string;
+  challenges: string[]; challengesKo: string[]; challengesJa: string[];
+  solutions: string[]; solutionsKo: string[]; solutionsJa: string[];
+}> = {
+  "automotive": {
+    overview: "The automotive industry is undergoing unprecedented transformation driven by electrification, autonomous vehicles, and new mobility business models. Finance teams must adapt to new revenue recognition models, complex supply chains, and significant capital investment cycles.",
+    overviewKo: "자동차 산업은 전동화, 자율주행차 및 새로운 모빌리티 비즈니스 모델에 의해 전례 없는 변혁을 겪고 있습니다. 재무 팀은 새로운 수익 인식 모델, 복잡한 공급망 및 상당한 자본 투자 주기에 적응해야 합니다.",
+    overviewJa: "自動車産業は、電動化、自動運転車、新しいモビリティビジネスモデルによって前例のない変革を遂げています。財務チームは、新しい収益認識モデル、複雑なサプライチェーン、大規模な資本投資サイクルに適応する必要があります。",
+    challenges: ["Complex multi-tier supplier financial management", "EV transition investment planning and ROI tracking", "Revenue recognition for subscription and mobility services", "Currency risk across global manufacturing operations"],
+    challengesKo: ["복잡한 다계층 공급업체 재무 관리", "EV 전환 투자 계획 및 ROI 추적", "구독 및 모빌리티 서비스에 대한 수익 인식", "글로벌 제조 운영 전반의 통화 위험"],
+    challengesJa: ["複雑なマルチティアサプライヤーの財務管理", "EV転換の投資計画とROI追跡", "サブスクリプションとモビリティサービスの収益認識", "グローバル製造業務全体の為替リスク"],
+    solutions: ["sap-afc", "sap-analytics-cloud", "sap-fscm", "sap-trm"],
+    solutionsKo: ["SAP AFC", "SAP 애널리틱스 클라우드", "SAP FSCM", "SAP TRM"],
+    solutionsJa: ["SAP AFC", "SAP アナリティクスクラウド", "SAP FSCM", "SAP TRM"],
+  },
+  "semiconductors": {
+    overview: "Semiconductor companies operate in a highly cyclical industry with long R&D investment cycles, complex IP licensing arrangements, and significant capital expenditure requirements. Financial management must support both the operational complexity and strategic investment decisions.",
+    overviewKo: "반도체 기업은 긴 R&D 투자 주기, 복잡한 IP 라이선싱 계약 및 상당한 자본 지출 요구 사항을 가진 고도로 주기적인 산업에서 운영됩니다.",
+    overviewJa: "半導体企業は、長いR&D投資サイクル、複雑なIPライセンス契約、大規模な設備投資要件を持つ高度に周期的な業界で運営されています。",
+    challenges: ["R&D cost capitalization and amortization tracking", "Complex IP royalty management across multiple licensees", "Demand volatility and inventory valuation", "Multi-currency consolidation across global fab operations"],
+    challengesKo: ["R&D 비용 자본화 및 상각 추적", "여러 라이선시에 걸친 복잡한 IP 로열티 관리", "수요 변동성 및 재고 평가", "글로벌 팹 운영 전반의 다중 통화 연결"],
+    challengesJa: ["R&Dコストの資本化と償却追跡", "複数のライセンシーにわたる複雑なIPロイヤルティ管理", "需要変動と在庫評価", "グローバルファブ運営全体のマルチ通貨連結"],
+    solutions: ["sap-analytics-cloud", "sap-afc", "sap-trm", "sap-group-reporting"],
+    solutionsKo: ["SAP 애널리틱스 클라우드", "SAP AFC", "SAP TRM", "SAP 그룹 보고"],
+    solutionsJa: ["SAP アナリティクスクラウド", "SAP AFC", "SAP TRM", "SAP グループレポーティング"],
+  },
+  "pharmaceuticals": {
+    overview: "Pharmaceutical companies face unique financial challenges including long product development cycles spanning 10-15 years, complex clinical trial cost management, royalty arrangements, and stringent regulatory reporting requirements across multiple jurisdictions.",
+    overviewKo: "제약 회사는 10-15년에 걸친 긴 제품 개발 주기, 복잡한 임상 시험 비용 관리, 로열티 계약 및 여러 관할 지역에 걸친 엄격한 규제 보고 요구 사항 등 독특한 재무 과제에 직면합니다.",
+    overviewJa: "製薬会社は、10〜15年にわたる長い製品開発サイクル、複雑な臨床試験コスト管理、ロイヤルティ契約、複数の管轄にわたる厳格な規制報告要件など、独自の財務課題に直面しています。",
+    challenges: ["Clinical trial cost management and capitalization", "Complex royalty and milestone payment tracking", "Transfer pricing across global entities", "Regulatory reporting for FDA, EMA, and other agencies"],
+    challengesKo: ["임상 시험 비용 관리 및 자본화", "복잡한 로열티 및 마일스톤 지불 추적", "글로벌 법인 간 이전 가격 책정", "FDA, EMA 및 기타 기관에 대한 규제 보고"],
+    challengesJa: ["臨床試験コスト管理と資本化", "複雑なロイヤルティとマイルストーン支払いの追跡", "グローバルエンティティ間の移転価格", "FDA、EMAおよびその他の機関への規制報告"],
+    solutions: ["sap-afc", "sap-grc", "sap-analytics-cloud", "sap-group-reporting"],
+    solutionsKo: ["SAP AFC", "SAP GRC", "SAP 애널리틱스 클라우드", "SAP 그룹 보고"],
+    solutionsJa: ["SAP AFC", "SAP GRC", "SAP アナリティクスクラウド", "SAP グループレポーティング"],
+  },
+  "telecommunications": {
+    overview: "Telecommunications companies manage some of the most complex billing environments in any industry, with millions of customers on diverse pricing plans, significant network infrastructure investments, and regulatory obligations across multiple markets.",
+    overviewKo: "통신 회사는 다양한 요금제를 가진 수백만 명의 고객, 상당한 네트워크 인프라 투자 및 여러 시장에 걸친 규제 의무로 업계에서 가장 복잡한 청구 환경을 관리합니다.",
+    overviewJa: "通信会社は、多様な料金プランを持つ数百万の顧客、大規模なネットワークインフラ投資、複数市場にわたる規制義務を持つ業界で最も複雑な請求環境を管理しています。",
+    challenges: ["High-volume subscription billing and revenue recognition", "Network asset capitalization and depreciation", "Roaming revenue settlement and intercarrier billing", "Spectrum license accounting and amortization"],
+    challengesKo: ["대용량 구독 청구 및 수익 인식", "네트워크 자산 자본화 및 감가상각", "로밍 수익 정산 및 통신사 간 청구", "스펙트럼 라이선스 회계 및 상각"],
+    challengesJa: ["大量のサブスクリプション請求と収益認識", "ネットワーク資産の資本化と減価償却", "ローミング収益決済とキャリア間請求", "スペクトラムライセンスの会計と償却"],
+    solutions: ["sap-brim", "sap-analytics-cloud", "sap-fscm", "sap-drc"],
+    solutionsKo: ["SAP BRIM", "SAP 애널리틱스 클라우드", "SAP FSCM", "SAP DRC"],
+    solutionsJa: ["SAP BRIM", "SAP アナリティクスクラウド", "SAP FSCM", "SAP DRC"],
+  },
+  "oil-and-gas": {
+    overview: "Oil and gas companies operate in one of the most financially complex industries, managing commodity price volatility, joint venture structures, production sharing agreements, and significant environmental liabilities alongside capital-intensive exploration and production activities.",
+    overviewKo: "석유 및 가스 회사는 원자재 가격 변동성, 합작 투자 구조, 생산 분배 계약 및 상당한 환경 부채를 자본 집약적인 탐사 및 생산 활동과 함께 관리하는 가장 재무적으로 복잡한 산업 중 하나에서 운영됩니다.",
+    overviewJa: "石油・ガス会社は、商品価格変動、ジョイントベンチャー構造、生産分配契約、大規模な環境負債を資本集約的な探鉱・生産活動とともに管理する、最も財務的に複雑な業界の一つで運営されています。",
+    challenges: ["Joint venture accounting and partner reporting", "Commodity price hedging and risk management", "Production sharing agreement accounting", "Decommissioning liability estimation and provisioning"],
+    challengesKo: ["합작 투자 회계 및 파트너 보고", "원자재 가격 헤징 및 위험 관리", "생산 분배 계약 회계", "해체 부채 추정 및 충당금"],
+    challengesJa: ["ジョイントベンチャー会計とパートナーレポーティング", "商品価格ヘッジとリスク管理", "生産分配契約の会計", "廃止費用負債の見積もりと引当"],
+    solutions: ["sap-trm", "sap-analytics-cloud", "sap-grc", "sap-group-reporting"],
+    solutionsKo: ["SAP TRM", "SAP 애널리틱스 클라우드", "SAP GRC", "SAP 그룹 보고"],
+    solutionsJa: ["SAP TRM", "SAP アナリティクスクラウド", "SAP GRC", "SAP グループレポーティング"],
+  },
+  "renewable-energy": {
+    overview: "The renewable energy sector is experiencing rapid growth, driven by the global energy transition. Financial management in this sector requires expertise in project finance, green bond accounting, ESG reporting, and the management of long-term power purchase agreements.",
+    overviewKo: "재생 에너지 부문은 글로벌 에너지 전환에 힘입어 빠른 성장을 경험하고 있습니다. 이 부문의 재무 관리는 프로젝트 재무, 그린 본드 회계, ESG 보고 및 장기 전력 구매 계약 관리에 대한 전문 지식이 필요합니다.",
+    overviewJa: "再生可能エネルギーセクターは、グローバルなエネルギー転換に後押しされて急速な成長を遂げています。このセクターの財務管理には、プロジェクト財務、グリーンボンド会計、ESGレポーティング、長期電力購入契約の管理に関する専門知識が必要です。",
+    challenges: ["Project finance and SPV accounting", "Green bond and sustainability-linked financing", "ESG metric collection and reporting", "Long-term power purchase agreement accounting"],
+    challengesKo: ["프로젝트 재무 및 SPV 회계", "그린 본드 및 지속 가능성 연계 금융", "ESG 지표 수집 및 보고", "장기 전력 구매 계약 회계"],
+    challengesJa: ["プロジェクト財務とSPV会計", "グリーンボンドとサステナビリティ連動型ファイナンス", "ESGメトリクスの収集とレポーティング", "長期電力購入契約の会計"],
+    solutions: ["sap-analytics-cloud", "sap-group-reporting", "sap-trm", "sap-re-fx"],
+    solutionsKo: ["SAP 애널리틱스 클라우드", "SAP 그룹 보고", "SAP TRM", "SAP RE-FX"],
+    solutionsJa: ["SAP アナリティクスクラウド", "SAP グループレポーティング", "SAP TRM", "SAP RE-FX"],
+  },
+  "financial-services": {
+    overview: "Financial services organizations — including banks, insurers, and asset managers — operate under some of the most demanding regulatory frameworks in any industry. Financial close, regulatory reporting, and risk management must be executed with precision and speed.",
+    overviewKo: "은행, 보험사, 자산 관리자를 포함한 금융 서비스 조직은 업계에서 가장 까다로운 규제 프레임워크 하에서 운영됩니다. 재무 결산, 규제 보고 및 위험 관리는 정밀도와 속도를 갖춰 실행되어야 합니다.",
+    overviewJa: "銀行、保険会社、資産管理会社を含む金融サービス組織は、業界で最も厳しい規制フレームワークの下で運営されています。財務決算、規制報告、リスク管理は精度とスピードをもって実行されなければなりません。",
+    challenges: ["IFRS 9/17 and regulatory capital reporting", "Real-time liquidity monitoring and stress testing", "Multi-entity consolidation across complex group structures", "Anti-money laundering and compliance reporting"],
+    challengesKo: ["IFRS 9/17 및 규제 자본 보고", "실시간 유동성 모니터링 및 스트레스 테스트", "복잡한 그룹 구조 전반의 다중 법인 연결", "자금 세탁 방지 및 규정 준수 보고"],
+    challengesJa: ["IFRS 9/17と規制資本報告", "リアルタイムの流動性モニタリングとストレステスト", "複雑なグループ構造全体のマルチエンティティ連結", "マネーロンダリング防止とコンプライアンス報告"],
+    solutions: ["sap-afc", "sap-group-reporting", "sap-grc", "sap-analytics-cloud"],
+    solutionsKo: ["SAP AFC", "SAP 그룹 보고", "SAP GRC", "SAP 애널리틱스 클라우드"],
+    solutionsJa: ["SAP AFC", "SAP グループレポーティング", "SAP GRC", "SAP アナリティクスクラウド"],
+  },
+  "real-estate": {
+    overview: "Real estate companies manage complex portfolios of owned and leased properties, requiring sophisticated financial management for lease accounting, property valuation, investment analysis, and IFRS 16 compliance.",
+    overviewKo: "부동산 회사는 임대 회계, 부동산 평가, 투자 분석 및 IFRS 16 준수를 위한 정교한 재무 관리가 필요한 소유 및 임차 부동산의 복잡한 포트폴리오를 관리합니다.",
+    overviewJa: "不動産会社は、リース会計、不動産評価、投資分析、IFRS 16コンプライアンスのための高度な財務管理が必要な所有・賃借不動産の複雑なポートフォリオを管理しています。",
+    challenges: ["IFRS 16 lease accounting and disclosure", "Property portfolio valuation and impairment testing", "Fund accounting for real estate investment vehicles", "Tenant billing and service charge reconciliation"],
+    challengesKo: ["IFRS 16 리스 회계 및 공시", "부동산 포트폴리오 평가 및 손상 테스트", "부동산 투자 수단에 대한 펀드 회계", "임차인 청구 및 서비스 요금 조정"],
+    challengesJa: ["IFRS 16リース会計と開示", "不動産ポートフォリオの評価と減損テスト", "不動産投資ビークルのファンド会計", "テナント請求とサービスチャージ調整"],
+    solutions: ["sap-re-fx", "sap-analytics-cloud", "sap-afc", "oracle-fccs"],
+    solutionsKo: ["SAP RE-FX", "SAP 애널리틱스 클라우드", "SAP AFC", "Oracle FCCS"],
+    solutionsJa: ["SAP RE-FX", "SAP アナリティクスクラウド", "SAP AFC", "Oracle FCCS"],
+  },
+  "retail": {
+    overview: "Retail and e-commerce organizations face the dual challenge of managing high transaction volumes with real-time accuracy while navigating increasingly complex multi-jurisdiction tax compliance requirements. The shift to omnichannel retailing adds further complexity.",
+    overviewKo: "소매 및 이커머스 조직은 점점 복잡해지는 다중 관할 세금 준수 요구 사항을 탐색하면서 실시간 정확도로 높은 거래량을 관리하는 이중 과제에 직면합니다.",
+    overviewJa: "小売・Eコマース組織は、ますます複雑化する多管轄の税務コンプライアンス要件をナビゲートしながら、リアルタイムの精度で高い取引量を管理するという二重の課題に直面しています。",
+    challenges: ["Multi-jurisdiction VAT and sales tax compliance", "Omnichannel revenue recognition and returns management", "Supplier payment terms and working capital optimization", "Seasonal demand planning and inventory finance"],
+    challengesKo: ["다중 관할 부가가치세 및 판매세 준수", "옴니채널 수익 인식 및 반품 관리", "공급업체 지불 조건 및 운전 자본 최적화", "계절적 수요 계획 및 재고 재무"],
+    challengesJa: ["多管轄のVATと売上税コンプライアンス", "オムニチャネルの収益認識と返品管理", "サプライヤー支払い条件と運転資本最適化", "季節需要計画と在庫財務"],
+    solutions: ["sap-drc", "sap-brim", "sap-fscm", "sap-analytics-cloud"],
+    solutionsKo: ["SAP DRC", "SAP BRIM", "SAP FSCM", "SAP 애널리틱스 클라우드"],
+    solutionsJa: ["SAP DRC", "SAP BRIM", "SAP FSCM", "SAP アナリティクスクラウド"],
+  },
+  "energy": {
+    overview: "Energy companies face the dual pressure of managing volatile commodity markets while transitioning to cleaner energy sources. Financial management must support both the operational complexity of existing assets and the strategic investment in new energy infrastructure.",
+    overviewKo: "에너지 기업은 더 깨끗한 에너지원으로 전환하면서 변동성 있는 원자재 시장을 관리하는 이중 압박에 직면합니다.",
+    overviewJa: "エネルギー企業は、よりクリーンなエネルギー源への移行を進めながら、変動する商品市場を管理するという二重のプレッシャーに直面しています。",
+    challenges: ["Commodity price risk management and hedging", "Capital project accounting for large infrastructure investments", "Regulatory compliance across multiple energy markets", "Asset retirement obligation accounting"],
+    challengesKo: ["원자재 가격 위험 관리 및 헤징", "대규모 인프라 투자를 위한 자본 프로젝트 회계", "여러 에너지 시장에 걸친 규제 준수", "자산 폐기 의무 회계"],
+    challengesJa: ["商品価格リスク管理とヘッジ", "大規模インフラ投資の資本プロジェクト会計", "複数のエネルギー市場にわたる規制コンプライアンス", "資産廃止債務会計"],
+    solutions: ["sap-trm", "sap-analytics-cloud", "sap-grc", "sap-afc"],
+    solutionsKo: ["SAP TRM", "SAP 애널리틱스 클라우드", "SAP GRC", "SAP AFC"],
+    solutionsJa: ["SAP TRM", "SAP アナリティクスクラウド", "SAP GRC", "SAP AFC"],
+  },
+  "utilities": {
+    overview: "Utility companies operate in highly regulated environments with significant infrastructure assets, long-term customer contracts, and complex tariff structures. Financial management must support both regulatory compliance and strategic investment planning.",
+    overviewKo: "공공 서비스 기업은 상당한 인프라 자산, 장기 고객 계약 및 복잡한 요금 구조를 가진 고도로 규제된 환경에서 운영됩니다.",
+    overviewJa: "公益事業会社は、大規模なインフラ資産、長期顧客契約、複雑な料金構造を持つ高度に規制された環境で運営されています。",
+    challenges: ["Regulated asset base accounting and rate case support", "Long-term contract revenue recognition", "Infrastructure investment planning and tracking", "Environmental compliance cost management"],
+    challengesKo: ["규제 자산 기반 회계 및 요금 사례 지원", "장기 계약 수익 인식", "인프라 투자 계획 및 추적", "환경 규정 준수 비용 관리"],
+    challengesJa: ["規制資産ベース会計とレートケースサポート", "長期契約の収益認識", "インフラ投資計画と追跡", "環境コンプライアンスコスト管理"],
+    solutions: ["sap-analytics-cloud", "sap-re-fx", "sap-afc", "sap-grc"],
+    solutionsKo: ["SAP 애널리틱스 클라우드", "SAP RE-FX", "SAP AFC", "SAP GRC"],
+    solutionsJa: ["SAP アナリティクスクラウド", "SAP RE-FX", "SAP AFC", "SAP GRC"],
+  },
+  "electronics-manufacturing": {
+    overview: "Electronics manufacturers operate in highly competitive global markets with complex supply chains, rapid product cycles, and significant warranty obligations. Financial management must support both the operational efficiency and strategic agility required to compete.",
+    overviewKo: "전자 제조업체는 복잡한 공급망, 빠른 제품 주기 및 상당한 보증 의무를 가진 고도로 경쟁적인 글로벌 시장에서 운영됩니다.",
+    overviewJa: "電子機器メーカーは、複雑なサプライチェーン、急速な製品サイクル、大規模な保証義務を持つ高度に競争的なグローバル市場で運営されています。",
+    challenges: ["Product cost accounting and margin analysis", "Warranty provision estimation and management", "Global supply chain finance and supplier risk", "R&D capitalization and product lifecycle costing"],
+    challengesKo: ["제품 원가 회계 및 마진 분석", "보증 충당금 추정 및 관리", "글로벌 공급망 재무 및 공급업체 위험", "R&D 자본화 및 제품 수명 주기 원가 계산"],
+    challengesJa: ["製品原価会計とマージン分析", "保証引当金の見積もりと管理", "グローバルサプライチェーン財務とサプライヤーリスク", "R&D資本化と製品ライフサイクルコスト計算"],
+    solutions: ["sap-afc", "sap-analytics-cloud", "sap-fscm", "sap-drc"],
+    solutionsKo: ["SAP AFC", "SAP 애널리틱스 클라우드", "SAP FSCM", "SAP DRC"],
+    solutionsJa: ["SAP AFC", "SAP アナリティクスクラウド", "SAP FSCM", "SAP DRC"],
+  },
+};
+
+export default function IndustryDetail({ params }: IndustryDetailProps) {
+  const { language } = useLanguage();
+  const { slug } = params;
+
+  const industry = INDUSTRIES.find((i) => i.slug === slug);
+  const content = industryContent[slug];
+
+  if (!industry) {
+    return (
+      <Layout>
+        <div className="container py-24 text-center">
+          <h1 className="text-2xl font-bold mb-4">Industry not found</h1>
+          <Link href="/industries" className="btn-outline-navy no-underline">Back to Industries</Link>
+        </div>
+      </Layout>
+    );
+  }
+
+  const name = language === "ko" ? industry.nameKo : language === "ja" ? industry.nameJa : industry.name;
+  const overview = content ? (language === "ko" ? content.overviewKo : language === "ja" ? content.overviewJa : content.overview) : industry.description;
+  const challenges = content ? (language === "ko" ? content.challengesKo : language === "ja" ? content.challengesJa : content.challenges) : [];
+
+  // Find related solutions
+  const relatedSolutionSlugs = content?.solutions || [];
+  const relatedSolutions = SOLUTION_CATEGORIES.flatMap((cat) =>
+    cat.solutions.filter((s) => relatedSolutionSlugs.includes(s.slug)).map((s) => ({ ...s, categorySlug: cat.slug }))
+  );
+
+  // Find related insights
+  const relatedInsights = INSIGHTS.filter((i) => i.relatedIndustries.includes(slug)).slice(0, 4);
+
+  return (
+    <Layout>
+      {/* Hero */}
+      <section
+        className="py-24 relative overflow-hidden"
+        style={{ backgroundColor: "var(--navy-dark)" }}
+      >
+        <div
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: `repeating-linear-gradient(
+              45deg, transparent, transparent 40px, rgba(255,255,255,0.2) 40px, rgba(255,255,255,0.2) 41px
+            )`,
+          }}
+        />
+        <div className="container relative z-10">
+          <div className="flex items-center gap-2 text-xs text-gray-400 mb-8">
+            <Link href="/industries" className="no-underline hover:text-white transition-colors">Industries</Link>
+            <ChevronRight size={12} />
+            <span className="text-gray-300">{name}</span>
+          </div>
+          <div className="max-w-3xl">
+            <div className="text-5xl mb-6">{industry.icon}</div>
+            <h1
+              className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              {name}
+            </h1>
+            <p className="text-lg text-gray-300 leading-relaxed">
+              {language === "ko" ? industry.descriptionKo : language === "ja" ? industry.descriptionJa : industry.description}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Overview */}
+      <section className="bg-white py-20">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="lg:col-span-2">
+              <div className="section-divider" />
+              <h2 className="text-3xl font-bold mb-6" style={{ color: "var(--navy-dark)" }}>
+                {language === "ko" ? "산업 개요" : language === "ja" ? "業界概要" : "Industry Overview"}
+              </h2>
+              <p className="text-gray-600 leading-relaxed text-lg">{overview}</p>
+            </div>
+            <div>
+              <div className="section-divider" />
+              <h3 className="text-lg font-bold mb-4" style={{ color: "var(--navy)" }}>
+                {language === "ko" ? "주요 과제" : language === "ja" ? "主要な課題" : "Key Challenges"}
+              </h3>
+              <ul className="space-y-3">
+                {challenges.map((challenge, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm text-gray-600">
+                    <div className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: "var(--gold)" }} />
+                    {challenge}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Related Solutions */}
+      {relatedSolutions.length > 0 && (
+        <section className="section-off-white py-20">
+          <div className="container">
+            <div className="section-divider" />
+            <h2 className="text-3xl font-bold mb-3" style={{ color: "var(--navy-dark)" }}>
+              {language === "ko" ? "관련 솔루션" : language === "ja" ? "関連ソリューション" : "Relevant Solutions"}
+            </h2>
+            <p className="text-gray-500 mb-10 text-sm">
+              {language === "ko" ? "이 산업에 맞춤화된 솔루션" : language === "ja" ? "この業界向けにカスタマイズされたソリューション" : "Solutions tailored for this industry"}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {relatedSolutions.map((sol) => (
+                <Link
+                  key={sol.slug}
+                  href={`/solutions/${sol.categorySlug}/${sol.slug}`}
+                  className="flex gap-5 p-6 bg-white border border-gray-100 card-hover no-underline group"
+                >
+                  <div
+                    className="w-10 h-10 flex items-center justify-center shrink-0 text-xs font-bold text-white"
+                    style={{ backgroundColor: sol.vendor === "SAP" ? "var(--navy)" : sol.vendor === "Oracle" ? "var(--navy-mid)" : "var(--navy-light)" }}
+                  >
+                    {sol.vendor.slice(0, 2)}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm mb-1 group-hover:text-[var(--navy)] transition-colors" style={{ color: "var(--navy-dark)" }}>
+                      {language === "ko" ? sol.nameKo : language === "ja" ? sol.nameJa : sol.name}
+                    </h4>
+                    <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">
+                      {language === "ko" ? sol.shortDescriptionKo : language === "ja" ? sol.shortDescriptionJa : sol.shortDescription}
+                    </p>
+                  </div>
+                  <ArrowRight size={14} className="shrink-0 mt-1 text-gray-400 group-hover:text-[var(--navy)] transition-colors" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Related Insights */}
+      {relatedInsights.length > 0 && (
+        <section className="section-navy py-20">
+          <div className="container">
+            <div className="section-divider" />
+            <h2 className="text-3xl font-bold text-white mb-10" style={{ fontFamily: "'Playfair Display', serif" }}>
+              {language === "ko" ? "관련 인사이트" : language === "ja" ? "関連インサイト" : "Related Insights"}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {relatedInsights.map((insight) => (
+                <Link
+                  key={insight.slug}
+                  href={`/insights/${insight.slug}`}
+                  className="p-5 no-underline group card-hover"
+                  style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
+                >
+                  <span
+                    className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 mb-3 inline-block"
+                    style={{ backgroundColor: "var(--gold)", color: "var(--navy-dark)" }}
+                  >
+                    {insight.category}
+                  </span>
+                  <h4 className="text-sm font-bold text-white leading-snug group-hover:text-gray-200 transition-colors">
+                    {language === "ko" ? insight.titleKo : language === "ja" ? insight.titleJa : insight.title}
+                  </h4>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CTA */}
+      <section className="bg-white py-16">
+        <div className="container text-center">
+          <h3 className="text-2xl font-bold mb-4" style={{ color: "var(--navy-dark)" }}>
+            {language === "ko" ? `${name} 재무 혁신에 대해 논의하시겠습니까?` : language === "ja" ? `${name}の財務変革について話し合いますか？` : `Ready to discuss ${name} finance transformation?`}
+          </h3>
+          <p className="text-gray-500 mb-8 max-w-lg mx-auto text-sm">
+            {language === "ko" ? "업계 전문 컨설턴트와 귀사의 특정 과제에 대해 이야기하세요." : language === "ja" ? "業界専門のコンサルタントと貴社の具体的な課題についてお話しください。" : "Speak with our industry specialists about your specific challenges."}
+          </p>
+          <Link href="/contact" className="btn-navy no-underline">
+            {language === "ko" ? "전문가에게 문의" : language === "ja" ? "専門家に相談" : "Speak with an Expert"}
+            <ArrowRight size={14} />
+          </Link>
+        </div>
+      </section>
+    </Layout>
+  );
+}
