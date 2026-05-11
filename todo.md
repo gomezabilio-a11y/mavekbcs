@@ -80,3 +80,13 @@
 - [x] Source and add Macro image (wide context shot) to each industry page
 - [x] Source and add Detail image (close-up/specific shot) to each industry page
 - [x] Ensure all images are responsive (object-cover, aspect-ratio containers)
+
+## Phase 12: Solution Page Content (English)
+- [ ] SAP AFC: update overview and key features with provided English content
+- [ ] SAP Group Reporting: update overview and key features with provided English content
+- [ ] Oracle FCCS: update overview and key features with provided English content
+- [ ] Oracle ARCS: update overview and key features with provided English content
+- [ ] Blackline: update overview and key features with provided English content
+- [ ] SAP DRC: update overview and key features with provided English content
+- [ ] SAP TRM: update overview and key features with provided English content
+- [ ] SAP MBC: update overview and key features with provided English content
