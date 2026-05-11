@@ -116,3 +116,13 @@
 - [x] Update SolutionDetail layout: rich narrative overview, structured key features with icons, Why MAVEK BCS CTA section
 - [x] Populate all 15 solutions with provided English narrative content
 - [x] Ensure layout is flexible for future KO/JA text length variations
+
+## Phase 17: Solution Pages - English Content Update (8 solutions)
+- [x] SAP AFC: update overview and key features with exact provided content
+- [x] SAP Group Reporting: update overview and key features with exact provided content
+- [x] Oracle FCCS: update overview and key features with exact provided content
+- [x] Oracle ARCS: update overview and key features with exact provided content
+- [x] Blackline: update overview and key features with exact provided content
+- [x] SAP DRC: update overview and key features with exact provided content
+- [x] SAP TRM: update overview and key features with exact provided content
+- [x] SAP Cash Management: update overview and key features with exact provided content
