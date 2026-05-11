@@ -82,11 +82,21 @@
 - [x] Ensure all images are responsive (object-cover, aspect-ratio containers)
 
 ## Phase 12: Solution Page Content (English)
-- [ ] SAP AFC: update overview and key features with provided English content
-- [ ] SAP Group Reporting: update overview and key features with provided English content
-- [ ] Oracle FCCS: update overview and key features with provided English content
-- [ ] Oracle ARCS: update overview and key features with provided English content
-- [ ] Blackline: update overview and key features with provided English content
-- [ ] SAP DRC: update overview and key features with provided English content
-- [ ] SAP TRM: update overview and key features with provided English content
-- [ ] SAP MBC: update overview and key features with provided English content
+- [x] SAP AFC: update overview and key features with provided English content
+- [x] SAP Group Reporting: update overview and key features with provided English content
+- [x] Oracle FCCS: update overview and key features with provided English content
+- [x] Oracle ARCS: update overview and key features with provided English content
+- [x] Blackline: update overview and key features with provided English content
+- [x] SAP DRC: update overview and key features with provided English content
+- [x] SAP TRM: update overview and key features with provided English content
+- [x] SAP MBC: update overview and key features with provided English content
+
+## Phase 13: Remaining Solution Page Content (English)
+- [x] Oracle Close Manager: update overview and key features with provided English content
+- [x] SAP Cash Management: update overview and key features with provided English content
+- [x] SAP FSCM: update overview and key features with provided English content
+- [x] SAP BRIM: update overview and key features with provided English content
+- [x] SAP GRC: update overview and key features with provided English content
+- [x] SAP Analytics Cloud: update overview and key features with provided English content
+- [x] Oracle PBCS: update overview and key features with provided English content
+- [x] SAP RE-FX: update overview and key features with provided English content
