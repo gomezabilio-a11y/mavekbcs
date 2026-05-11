@@ -50,8 +50,8 @@ export const INDUSTRIES = [
   { slug: "electronics-manufacturing", name: "Electronics Manufacturing", nameKo: "전자 제조", nameJa: "電子機器製造", icon: "🖥️",
     description: "Managing complex global supply chains, product cost accounting, and warranty provisions for electronics manufacturers operating in competitive markets.",
     descriptionKo: "경쟁 시장에서 운영되는 전자 제조업체를 위한 복잡한 글로벌 공급망, 제품 원가 회계 및 보증 충당금을 관리합니다.",
-    descriptionJa: "競争市場で運営される電子機器メーカー向けの複雑なグローバルサプライチェーン、製品原価会計、保証引当金を管理します。" },
-];
+    descriptionJa: "競争市場で運営される電子機器メーカー向けの複雑なグローバルサプライチェーン、製品原価会計、保証引当金を管理します。" }
+      ];
 
 export const SOLUTION_CATEGORIES = [
   {
@@ -109,17 +109,6 @@ export const SOLUTION_CATEGORIES = [
         shortDescriptionJa: "Oracleのクラウド調整プラットフォームでアカウント調整を自動化し、リスクを軽減します。",
       },
       {
-        slug: "oracle-close-manager",
-        name: "Oracle Close Manager",
-        nameKo: "Oracle 결산 관리자",
-        nameJa: "Oracle クローズマネージャー",
-        vendor: "Oracle",
-        youtubeVideoId: "Z695fc7mAmQ",
-        shortDescription: "Manage and monitor the entire financial close process with Oracle's task management solution.",
-        shortDescriptionKo: "Oracle의 작업 관리 솔루션으로 전체 재무 결산 프로세스를 관리하고 모니터링합니다.",
-        shortDescriptionJa: "Oracleのタスク管理ソリューションで財務決算プロセス全体を管理・監視します。",
-      },
-      {
         slug: "blackline",
         name: "Blackline",
         nameKo: "블랙라인",
@@ -129,8 +118,8 @@ export const SOLUTION_CATEGORIES = [
         shortDescription: "Modern accounting platform that automates and controls the financial close process.",
         shortDescriptionKo: "재무 결산 프로세스를 자동화하고 제어하는 현대적인 회계 플랫폼.",
         shortDescriptionJa: "財務決算プロセスを自動化・制御する最新の会計プラットフォーム。",
-      },
-    ],
+      }
+      ],
   },
   {
     slug: "tax",
@@ -152,8 +141,8 @@ export const SOLUTION_CATEGORIES = [
         shortDescription: "Achieve global e-invoicing and tax reporting compliance with SAP DRC.",
         shortDescriptionKo: "SAP DRC로 글로벌 전자 인보이스 및 세금 보고 규정 준수를 달성합니다.",
         shortDescriptionJa: "SAP DRCでグローバルな電子請求書と税務報告のコンプライアンスを達成します。",
-      },
-    ],
+      }
+      ],
   },
   {
     slug: "treasury",
@@ -197,8 +186,8 @@ export const SOLUTION_CATEGORIES = [
         shortDescription: "Connect to multiple banks through a single, standardized interface for payment processing.",
         shortDescriptionKo: "단일 표준화된 인터페이스를 통해 여러 은행에 연결하여 결제를 처리합니다.",
         shortDescriptionJa: "単一の標準化されたインターフェースを通じて複数の銀行に接続し、支払いを処理します。",
-      },
-    ],
+      }
+      ],
   },
   {
     slug: "financial-supply-chain",
@@ -220,8 +209,8 @@ export const SOLUTION_CATEGORIES = [
         shortDescription: "End-to-end financial supply chain management covering credit, collections, and dispute resolution.",
         shortDescriptionKo: "신용, 수금 및 분쟁 해결을 포함하는 엔드투엔드 재무 공급망 관리.",
         shortDescriptionJa: "クレジット、回収、紛争解決をカバーするエンドツーエンドの財務サプライチェーン管理。",
-      },
-    ],
+      }
+      ],
   },
   {
     slug: "billing",
@@ -243,8 +232,8 @@ export const SOLUTION_CATEGORIES = [
         shortDescription: "Flexible billing and revenue management for subscription, usage-based, and hybrid business models.",
         shortDescriptionKo: "구독, 사용 기반 및 하이브리드 비즈니스 모델을 위한 유연한 청구 및 수익 관리.",
         shortDescriptionJa: "サブスクリプション、使用量ベース、ハイブリッドビジネスモデルのための柔軟な請求・収益管理。",
-      },
-    ],
+      }
+      ],
   },
   {
     slug: "risk",
@@ -266,8 +255,8 @@ export const SOLUTION_CATEGORIES = [
         shortDescription: "Integrated governance, risk, and compliance management to protect your enterprise.",
         shortDescriptionKo: "기업을 보호하기 위한 통합 거버넌스, 위험 및 규정 준수 관리.",
         shortDescriptionJa: "企業を守るための統合ガバナンス・リスク・コンプライアンス管理。",
-      },
-    ],
+      }
+      ],
   },
   {
     slug: "planning",
@@ -300,8 +289,8 @@ export const SOLUTION_CATEGORIES = [
         shortDescription: "Cloud-based planning and budgeting solution for agile financial planning.",
         shortDescriptionKo: "민첩한 재무 계획을 위한 클라우드 기반 계획 및 예산 솔루션.",
         shortDescriptionJa: "アジャイルな財務計画のためのクラウドベースの計画・予算ソリューション。",
-      },
-    ],
+      }
+      ],
   },
   {
     slug: "lease",
@@ -323,10 +312,10 @@ export const SOLUTION_CATEGORIES = [
         shortDescription: "Comprehensive real estate and lease management with IFRS 16 compliance built in.",
         shortDescriptionKo: "IFRS 16 준수가 내장된 포괄적인 부동산 및 리스 관리.",
         shortDescriptionJa: "IFRS 16コンプライアンスを内蔵した包括的な不動産・リース管理。",
-      },
-    ],
-  },
-];
+      }
+      ],
+  }
+      ];
 
 export const INSIGHT_CATEGORIES = [
   "Financial Close",
@@ -340,8 +329,8 @@ export const INSIGHT_CATEGORIES = [
   "Finance Transformation",
   "Industry Trends",
   "Technology",
-  "Industry Focus",
-];
+  "Industry Focus"
+      ];
 
 export const INSIGHTS: Array<{
   slug: string;
@@ -1134,5 +1123,5 @@ export const INSIGHTS: Array<{
     relatedSolutions: ["sap-analytics-cloud"],
     readTimeMinutes: 7,
     featured: false,
-  },
-];
+  }
+      ];

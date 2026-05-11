@@ -103,3 +103,16 @@
 
 ## Phase 14: Solution Page YouTube Videos
 - [x] Replace all 16 solution YouTube video IDs with correct provided URLs
+
+## Phase 15: Remove Oracle Close Manager & Korean Solution Translations
+- [x] Remove Oracle Close Manager from siteData.ts (solutions list)
+- [x] Remove Oracle Close Manager from SolutionDetail.tsx data
+- [x] Verify no broken links or references to oracle-close-manager remain
+- [x] Update all 15 solution pages with Korean overviewKo and keyFeaturesKo
+
+## Phase 16: Solution Pages - Rich English Content & Layout
+- [ ] Remove Oracle Close Manager from siteData.ts and SolutionDetail.tsx
+- [ ] Apply Korean translations for all 15 solutions (overviewKo, keyFeaturesKo)
+- [ ] Update SolutionDetail layout: rich narrative overview, structured key features with icons, Why MAVEK BCS CTA section
+- [ ] Populate all 15 solutions with provided English narrative content
+- [ ] Ensure layout is flexible for future KO/JA text length variations
