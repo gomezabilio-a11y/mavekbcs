@@ -111,8 +111,8 @@
 - [x] Update all 15 solution pages with Korean overviewKo and keyFeaturesKo
 
 ## Phase 16: Solution Pages - Rich English Content & Layout
-- [ ] Remove Oracle Close Manager from siteData.ts and SolutionDetail.tsx
-- [ ] Apply Korean translations for all 15 solutions (overviewKo, keyFeaturesKo)
-- [ ] Update SolutionDetail layout: rich narrative overview, structured key features with icons, Why MAVEK BCS CTA section
-- [ ] Populate all 15 solutions with provided English narrative content
-- [ ] Ensure layout is flexible for future KO/JA text length variations
+- [x] Remove Oracle Close Manager from siteData.ts and SolutionDetail.tsx
+- [x] Apply Korean translations for all 15 solutions (overviewKo, keyFeaturesKo)
+- [x] Update SolutionDetail layout: rich narrative overview, structured key features with icons, Why MAVEK BCS CTA section
+- [x] Populate all 15 solutions with provided English narrative content
+- [x] Ensure layout is flexible for future KO/JA text length variations
