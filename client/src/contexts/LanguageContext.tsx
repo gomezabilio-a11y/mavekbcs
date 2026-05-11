@@ -245,9 +245,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     return "en";
   });
 
+  useEffect(() => {
+    document.documentElement.setAttribute("data-lang", language);
+    document.documentElement.setAttribute("lang", language === "ko" ? "ko" : language === "ja" ? "ja" : "en");
+  }, [language]);
+
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem("mavek-lang", lang);
+    document.documentElement.setAttribute("data-lang", lang);
+    document.documentElement.setAttribute("lang", lang === "ko" ? "ko" : lang === "ja" ? "ja" : "en");
   };
 
   const t = (key: string): string => {

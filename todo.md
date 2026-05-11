@@ -68,3 +68,15 @@
 - [x] Populate all 12 industry pages with provided English professional content (overview + 4 key challenges)
 - [x] Maintain narrative/consulting tone (no bullet points)
 - [x] Keep existing corporate design consistent
+
+## Phase 11: Layout Architecture & Multi-Language Design
+- [x] Upgrade global typography: Noto Sans KR + Noto Sans JP for Korean/Japanese, premium serif for EN headings
+- [x] Add CJK-specific line-height and font-feature-settings for premium rendering
+- [x] Make industry page overview container flexible (no fixed height, auto-expand for long CJK text)
+- [x] Make Key Challenges grid flexible (wrap gracefully for longer Korean/Japanese bullet text)
+- [x] Header language switcher: always visible, accessible on all screen sizes
+- [x] Footer language switcher: visible and accessible
+- [x] Source and add Hero image to IndustryDetail hero section (responsive, overlay-safe)
+- [x] Source and add Macro image (wide context shot) to each industry page
+- [x] Source and add Detail image (close-up/specific shot) to each industry page
+- [x] Ensure all images are responsive (object-cover, aspect-ratio containers)

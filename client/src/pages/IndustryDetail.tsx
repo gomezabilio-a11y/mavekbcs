@@ -147,12 +147,77 @@ const industryContent: Record<string, {
   },
 };
 
+// Industry images: hero (full-width background), macro (wide shot), detail (close-up)
+const industryImages: Record<string, { hero: string; macro: string; detail: string }> = {
+  "automotive": {
+    hero: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+    macro: "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=900&q=80",
+    detail: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900&q=80",
+  },
+  "semiconductors": {
+    hero: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80",
+    macro: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=900&q=80",
+    detail: "https://images.unsplash.com/photo-1601132359864-c974e79890ac?w=900&q=80",
+  },
+  "pharmaceuticals": {
+    hero: "https://images.unsplash.com/photo-1576671081837-49000212a370?w=1600&q=80",
+    macro: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=900&q=80",
+    detail: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=900&q=80",
+  },
+  "telecommunications": {
+    hero: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=80",
+    macro: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=900&q=80",
+    detail: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=900&q=80",
+  },
+  "oil-and-gas": {
+    hero: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1600&q=80",
+    macro: "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=900&q=80",
+    detail: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=80",
+  },
+  "renewable-energy": {
+    hero: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600&q=80",
+    macro: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=900&q=80",
+    detail: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=900&q=80",
+  },
+  "financial-services": {
+    hero: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&q=80",
+    macro: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=80",
+    detail: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80",
+  },
+  "real-estate": {
+    hero: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80",
+    macro: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&q=80",
+    detail: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=900&q=80",
+  },
+  "retail": {
+    hero: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=80",
+    macro: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=900&q=80",
+    detail: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80",
+  },
+  "energy": {
+    hero: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1600&q=80",
+    macro: "https://images.unsplash.com/photo-1548337138-e87d889cc369?w=900&q=80",
+    detail: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=900&q=80",
+  },
+  "utilities": {
+    hero: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=1600&q=80",
+    macro: "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=900&q=80",
+    detail: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=80",
+  },
+  "electronics-manufacturing": {
+    hero: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80",
+    macro: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=900&q=80",
+    detail: "https://images.unsplash.com/photo-1601132359864-c974e79890ac?w=900&q=80",
+  },
+};
+
 export default function IndustryDetail({ params }: IndustryDetailProps) {
   const { language } = useLanguage();
   const { slug } = params;
 
   const industry = INDUSTRIES.find((i) => i.slug === slug);
   const content = industryContent[slug];
+  const images = industryImages[slug];
 
   if (!industry) {
     return (
@@ -182,32 +247,45 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
     <Layout>
       {/* Hero */}
       <section
-        className="py-24 relative overflow-hidden"
+        className="py-32 relative overflow-hidden"
         style={{ backgroundColor: "var(--navy-dark)" }}
       >
+        {/* Background image with dark overlay */}
+        {images?.hero && (
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${images.hero})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              opacity: 0.25,
+            }}
+          />
+        )}
+        {/* Gradient overlay for text legibility */}
         <div
-          className="absolute inset-0 opacity-5"
+          className="absolute inset-0"
           style={{
-            backgroundImage: `repeating-linear-gradient(
-              45deg, transparent, transparent 40px, rgba(255,255,255,0.2) 40px, rgba(255,255,255,0.2) 41px
-            )`,
+            background: "linear-gradient(to right, rgba(10,14,30,0.92) 50%, rgba(10,14,30,0.5) 100%)",
           }}
         />
         <div className="container relative z-10">
           <div className="flex items-center gap-2 text-xs text-gray-400 mb-8">
-            <Link href="/industries" className="no-underline hover:text-white transition-colors">Industries</Link>
+            <Link href="/industries" className="no-underline hover:text-white transition-colors">
+              {language === "ko" ? "산업" : language === "ja" ? "業界" : "Industries"}
+            </Link>
             <ChevronRight size={12} />
             <span className="text-gray-300">{name}</span>
           </div>
           <div className="max-w-3xl">
             <div className="text-5xl mb-6">{industry.icon}</div>
             <h1
-              className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight"
-              style={{ fontFamily: "'Playfair Display', serif" }}
+              className="text-5xl md:text-6xl font-bold text-white mb-6"
+              style={{ fontFamily: language === "ko" ? "'Noto Sans KR', sans-serif" : language === "ja" ? "'Noto Sans JP', sans-serif" : "'Playfair Display', serif", lineHeight: language === "en" ? "1.1" : "1.3" }}
             >
               {name}
             </h1>
-            <p className="text-lg text-gray-300 leading-relaxed">
+            <p className="text-lg text-gray-300" style={{ lineHeight: language === "en" ? "1.7" : "1.9", maxWidth: "640px" }}>
               {language === "ko" ? industry.descriptionKo : language === "ja" ? industry.descriptionJa : industry.description}
             </p>
           </div>
@@ -217,29 +295,81 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
       {/* Overview */}
       <section className="bg-white py-20">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Overview text + Key Challenges */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
             <div className="lg:col-span-2">
               <div className="section-divider" />
-              <h2 className="text-3xl font-bold mb-6" style={{ color: "var(--navy-dark)" }}>
+              <h2
+                className="text-3xl font-bold mb-6"
+                style={{
+                  color: "var(--navy-dark)",
+                  fontFamily: language === "ko" ? "'Noto Sans KR', sans-serif" : language === "ja" ? "'Noto Sans JP', sans-serif" : "'Playfair Display', serif",
+                  lineHeight: language === "en" ? "1.2" : "1.4",
+                }}
+              >
                 {language === "ko" ? "산업 개요" : language === "ja" ? "業界概要" : "Industry Overview"}
               </h2>
-              <p className="text-gray-600 leading-relaxed text-lg">{overview}</p>
+              <p
+                className="text-gray-600 text-lg"
+                style={{
+                  lineHeight: language === "en" ? "1.8" : "2.0",
+                  wordBreak: language === "ko" ? "keep-all" : "normal",
+                  overflowWrap: "break-word",
+                }}
+              >
+                {overview}
+              </p>
             </div>
             <div>
               <div className="section-divider" />
-              <h3 className="text-lg font-bold mb-4" style={{ color: "var(--navy)" }}>
+              <h3
+                className="text-lg font-bold mb-4"
+                style={{
+                  color: "var(--navy)",
+                  fontFamily: language === "ko" ? "'Noto Sans KR', sans-serif" : language === "ja" ? "'Noto Sans JP', sans-serif" : undefined,
+                }}
+              >
                 {language === "ko" ? "주요 과제" : language === "ja" ? "主要な課題" : "Key Challenges"}
               </h3>
               <ul className="space-y-3">
                 {challenges.map((challenge, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-sm text-gray-600">
-                    <div className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: "var(--gold)" }} />
+                  <li
+                    key={idx}
+                    className="flex items-start gap-3 text-sm text-gray-600"
+                    style={{
+                      lineHeight: language === "en" ? "1.6" : "1.85",
+                      wordBreak: language === "ko" ? "keep-all" : "normal",
+                    }}
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ backgroundColor: "var(--gold)" }} />
                     {challenge}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
+
+          {/* Macro + Detail images */}
+          {images && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                <img
+                  src={images.macro}
+                  alt={`${name} - industry overview`}
+                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+              <div className="overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                <img
+                  src={images.detail}
+                  alt={`${name} - detail view`}
+                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

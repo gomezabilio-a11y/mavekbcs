@@ -95,20 +95,67 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', 'Noto Sans KR', 'Noto Sans JP', system-ui, sans-serif;
     font-feature-settings: "kern" 1, "liga" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    line-height: 1.75;
   }
   h1, h2, h3 {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Playfair Display', 'Noto Sans KR', 'Noto Sans JP', Georgia, serif;
     letter-spacing: -0.02em;
     color: var(--navy-dark);
+    line-height: 1.2;
   }
   h4, h5, h6 {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', 'Noto Sans KR', 'Noto Sans JP', system-ui, sans-serif;
     font-weight: 600;
     letter-spacing: -0.01em;
+  }
+  /* Korean language typography */
+  [data-lang="ko"] body,
+  [data-lang="ko"] p,
+  [data-lang="ko"] li,
+  [data-lang="ko"] span {
+    font-family: 'Noto Sans KR', 'Inter', system-ui, sans-serif;
+    font-feature-settings: "kern" 1, "liga" 0, "calt" 0;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    line-height: 1.9;
+    letter-spacing: -0.01em;
+    text-rendering: optimizeLegibility;
+  }
+  [data-lang="ko"] h1,
+  [data-lang="ko"] h2,
+  [data-lang="ko"] h3 {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-feature-settings: "kern" 1;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.35;
+    word-break: keep-all;
+  }
+  /* Japanese language typography */
+  [data-lang="ja"] body,
+  [data-lang="ja"] p,
+  [data-lang="ja"] li,
+  [data-lang="ja"] span {
+    font-family: 'Noto Sans JP', 'Inter', system-ui, sans-serif;
+    font-feature-settings: "kern" 1, "liga" 0, "palt" 1;
+    word-break: normal;
+    overflow-wrap: break-word;
+    line-height: 1.9;
+    letter-spacing: 0.01em;
+    text-rendering: optimizeLegibility;
+  }
+  [data-lang="ja"] h1,
+  [data-lang="ja"] h2,
+  [data-lang="ja"] h3 {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-feature-settings: "kern" 1, "palt" 1;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
