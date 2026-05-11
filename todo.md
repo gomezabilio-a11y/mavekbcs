@@ -152,3 +152,6 @@
 - [x] SAP Analytics Cloud: update overviewJa and keyFeaturesJa with exact provided content
 - [x] Oracle PBCS: update overviewJa and keyFeaturesJa with exact provided content
 - [x] SAP RE-FX: update overviewJa and keyFeaturesJa with exact provided content
+
+## Phase 20: Solution Pages - Why MAVEK BCS Japanese Section
+- [x] Update Japanese "Why MAVEK BCS" section title, heading, body text, and CTA button labels in SolutionDetail.tsx

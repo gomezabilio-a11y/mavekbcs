@@ -331,17 +331,17 @@ export default function SolutionDetail({ params }: SolutionDetailProps) {
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 mb-6">
               <div className="h-px w-12" style={{ backgroundColor: "var(--gold)" }} />
-              <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--gold)" }}>Why MAVEK BCS</span>
+              <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--gold)" }}>{language === "ja" ? "MAVEK BCSを選ぶ理由" : language === "ko" ? "MAVEK BCS를 선택하는 이유" : "Why MAVEK BCS"}</span>
               <div className="h-px w-12" style={{ backgroundColor: "var(--gold)" }} />
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-              {language === "ko" ? "글로벌 재무 성공을 위한 당신의 파트너" : language === "ja" ? "グローバル財務成功へのブリッジ" : "Your Bridge to Global Financial Success"}
+              {language === "ko" ? "글로벌 재무 성공을 위한 당신의 파트너" : language === "ja" ? "グローバルな財務的成功への架け橋" : "Your Bridge to Global Financial Success"}
             </h2>
             <p className="text-gray-300 text-lg leading-relaxed mb-10 max-w-3xl mx-auto">
               {language === "ko"
                 ? "MAVEK BCS는 단순히 소프트웨어를 구현하는 것이 아니라 재무 탁월성을 설계합니다. 모든 솔루션 뒤에는 비즈니스 목표가 있다는 것을 이해합니다 — 더 빠른 성장, 낮은 리스크, 그리고 높은 투명성. 세계 최고 수준의 기술과 깊은 기능적·산업적 전문성을 결합하여, 귀사를 민첩성과 지속 가능한 성공의 미래로 이끌겠습니다. 귀사의 글로벌 재무 혁신이 저희의 궁극적인 사명입니다."
                 : language === "ja"
-                ? "MAVEKBCSは、単にソフトウェアを導入するだけでなく、財務の卓越性を設計します。すべてのソリューションの背後にはビジネス目標があることを理解しています — より速い成長、低いリスク、そして高い透明性。世界クラスのテクノロジーと深い機能的・業界的専門知識を組み合わせることで、貴社をアジリティと持続可能な成功の未来へと導きます。"
+                ? "MAVEK BCSは、単にソフトウェアを導入するだけではありません。私たちは「財務的卓越性（Financial Excellence）」を設計します。あらゆるソリューションの背後には、成長の加速、リスクの低減、そして透明性の向上という明確なビジネス目標があることを、私たちは深く理解しています。世界クラスのテクノロジーと、当社の深い専門知識および業界への知見を組み合わせることで、貴社のビジネスをアジリティ（機敏性）と持続可能な成功が共存する未来へと導きます。貴社のグローバルな財務変革を実現することこそが、私たちの究極の使命です。"
                 : "At MAVEK BCS, we don't just implement software; we engineer financial excellence. We understand that behind every solution is a business goal — faster growth, lower risk, and higher transparency. By combining these world-class technologies with our deep functional and industry expertise, we lead your business to a future of agility and sustainable success. Your global financial transformation is our ultimate mission."
               }
             </p>
@@ -351,7 +351,7 @@ export default function SolutionDetail({ params }: SolutionDetailProps) {
                 <ArrowRight size={16} />
               </Link>
               <Link href="/solutions" className="btn-outline-navy no-underline" style={{ borderColor: "rgba(255,255,255,0.3)", color: "white" }}>
-                {language === "ko" ? "모든 솔루션 보기" : language === "ja" ? "すべてのソリューション" : "Explore All Solutions"}
+                {language === "ko" ? "모든 솔루션 보기" : language === "ja" ? "すべてのソリューションを見る" : "Explore All Solutions"}
               </Link>
             </div>
           </div>
