@@ -205,3 +205,10 @@
 - [x] Update Korea office address (EN/KO/JA) in Contact page and all other locations
 - [x] Update Hong Kong office address (EN/KO/JA) in Contact page and all other locations
 - [x] Simplify Philippines office to "Taguig, Metro Manila, Philippines" in all locations
+
+## Phase 28: Footer & Terminology Fixes
+- [x] Fix footer Korea address: Seoul → Incheon NEATT (EN/KO/JA)
+- [x] Fix footer Philippines address: Makati → Taguig, Metro Manila
+- [x] Change language selector order: EN → JA → KO (currently EN → KO → JA)
+- [x] Replace all "금융 솔루션" with "재무 솔루션" across all Korean text
+- [x] Replace all "金融ソリューション" with "財務ソリューション" across all Japanese text

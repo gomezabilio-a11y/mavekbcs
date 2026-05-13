@@ -43,8 +43,8 @@ export default function Navbar() {
 
   const languages: { code: Language; label: string }[] = [
     { code: "en", label: "EN" },
-    { code: "ko", label: "한국어" },
     { code: "ja", label: "日本語" },
+    { code: "ko", label: "한국어" },
   ];
 
   return (
