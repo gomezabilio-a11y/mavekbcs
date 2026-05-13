@@ -221,3 +221,8 @@
 - [x] Add Korean translation for SAP AFC article
 - [x] Add Japanese translation for SAP AFC article
 - [x] Add multilingual article body support (articleContentKo, articleContentJa Records) to InsightDetail.tsx
+
+## Phase 31: Blog Article Update - Why CFOs Invest in Finance Transformation
+- [x] Add English article body for why-cfos-invest-in-finance-transformation
+- [x] Add Korean article body for why-cfos-invest-in-finance-transformation
+- [x] Add Japanese article body for why-cfos-invest-in-finance-transformation
