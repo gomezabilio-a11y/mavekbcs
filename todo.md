@@ -155,3 +155,20 @@
 
 ## Phase 20: Solution Pages - Why MAVEK BCS Japanese Section
 - [x] Update Japanese "Why MAVEK BCS" section title, heading, body text, and CTA button labels in SolutionDetail.tsx
+
+## Phase 21: Solution Pages - Korean Content Update (all 15 solutions)
+- [ ] SAP AFC: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] SAP Group Reporting: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] Oracle FCCS: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] Oracle ARCS: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] Blackline: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] SAP DRC: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] SAP TRM: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] SAP Cash Management: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] SAP MBC: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] SAP FSCM: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] SAP BRIM: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] SAP GRC: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] SAP Analytics Cloud: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] Oracle PBCS: update overviewKo and keyFeaturesKo with exact provided content
+- [ ] SAP RE-FX: update overviewKo and keyFeaturesKo with exact provided content
