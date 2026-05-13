@@ -133,7 +133,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/portal" className="text-xs text-gray-400 hover:text-white transition-colors no-underline">
+                <Link href="/portal/login" className="text-xs text-gray-400 hover:text-white transition-colors no-underline">
                   {t("nav.clientPortal")}
                 </Link>
               </li>

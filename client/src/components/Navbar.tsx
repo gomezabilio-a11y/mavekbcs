@@ -192,34 +192,14 @@ export default function Navbar() {
               </div>
 
               {/* Client portal */}
-              {isAuthenticated ? (
-                <div className="flex items-center gap-2">
-                  <Link
-                    href="/portal"
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white no-underline transition-colors"
-                    style={{ backgroundColor: "var(--navy)" }}
-                  >
-                    <User size={13} />
-                    {t("nav.clientPortal")}
-                  </Link>
-                  <button
-                    className="p-1.5 text-gray-500 hover:text-[var(--navy)] transition-colors"
-                  onClick={() => logoutMutation.mutate(undefined)}
-                    title="Sign out"
-                  >
-                    <LogOut size={14} />
-                  </button>
-                </div>
-              ) : (
-                <a
-                  href={getLoginUrl()}
-                  className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white no-underline transition-colors"
-                  style={{ backgroundColor: "var(--navy)" }}
-                >
-                  <User size={13} />
-                  {t("nav.clientPortal")}
-                </a>
-              )}
+              <Link
+                href="/portal/login"
+                className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white no-underline transition-colors"
+                style={{ backgroundColor: "var(--navy)" }}
+              >
+                <User size={13} />
+                {t("nav.clientPortal")}
+              </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -363,7 +343,7 @@ export default function Navbar() {
                 ))}
               </div>
               {isAuthenticated ? (
-                <Link href="/portal" className="block px-3 py-2.5 text-sm font-semibold no-underline" style={{ color: "var(--navy)" }}>
+                <Link href="/portal/login" className="block px-3 py-2.5 text-sm font-semibold no-underline" style={{ color: "var(--navy)" }}>
                   {t("nav.clientPortal")}
                 </Link>
               ) : (
