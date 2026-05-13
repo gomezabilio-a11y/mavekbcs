@@ -184,3 +184,13 @@
 - [x] Add Japanese (JA) translations for all CSR sections
 - [x] Add CTA section inviting partners to join cultural journey
 - [x] Update LanguageContext.tsx csr.title and csr.subtitle for KO and JA
+
+## Phase 24: CSR Page - Korean Translation Update
+- [ ] Update heroBody1Ko and heroBody2Ko with provided single-paragraph Korean text
+- [ ] Update monthlyBody1Ko and monthlyBody2Ko (merge into single paragraph)
+- [ ] Update all 4 pillars: titleKo, visionKo, initiativesKo (4 items each)
+
+## Phase 25: CSR Page - Japanese Translation Update
+- [x] Update heroHeadlineJa, heroBody1Ja, heroBody2Ja with provided Japanese text
+- [x] Update monthlyHeadlineJa, monthlyBody1Ja with provided Japanese text
+- [x] Update all 4 pillars: titleJa, visionJa, initiativesJa (4 items each)

@@ -8,26 +8,26 @@ const pillars = [
     icon: Music,
     title: "Classical Music & Opera Sponsorship",
     titleKo: "클래식 음악 및 오페라 후원",
-    titleJa: "クラシック音楽・オペラのスポンサーシップ",
+    titleJa: "クラシック音楽およびオペラへの協賛",
     vision: "Providing a platform for world-class artists to perform at the highest level.",
-    visionKo: "세계적 수준의 예술가들이 최고의 무대에서 공연할 수 있는 플랫폼을 제공합니다.",
-    visionJa: "世界クラスのアーティストが最高レベルで演奏できるプラットフォームを提供します。",
+    visionKo: "세계적인 수준의 예술가들이 최고 단계에서 공연할 수 있는 플랫폼 제공",
+    visionJa: "世界レベルの芸術家が最高の舞台でパフォーマンスを披露できるプラットフォームの提供",
     initiatives: ["Quarterly opera in Key cities", "Quarterly ballet in Seoul & Tokyo", "Exclusive VIP events for partners and clients"],
-    initiativesKo: ["주요 도시에서의 분기별 오페라 공연", "서울 및 도쿄에서의 분기별 발레 공연", "파트너 및 고객을 위한 독점 VIP 이벤트"],
-    initiativesJa: ["主要都市での四半期ごとのオペラ公演", "ソウル・東京での四半期ごとのバレエ公演", "パートナー・クライアント向けの限定VIPイベント"],
+    initiativesKo: ["주요 도시 오페라 초청", "서울 및 도쿄 내 분기별 발레 공연 개최", "파트너 및 고객을 위한 독점 VIP 이벤트", "신진 클래식 음악가 및 발레 무용수 지원"],
+    initiativesJa: ["主要都市でのオペラ招待公演", "ソウルおよび東京における四半期ごとのバレエ公演", "パートナーおよびクライアント向け独占VIPイベント", "新進クラシック音楽家およびバレエダンサーへの支援"],
     color: "var(--navy)",
   },
   {
     icon: Star,
     title: "Artist Development & Mentorship",
-    titleKo: "예술가 육성 및 멘토십",
-    titleJa: "アーティスト育成・メンタープログラム",
+    titleKo: "예술가 육성 및 멘토링",
+    titleJa: "芸術家の育成およびメンタリング",
     vision: "Actively supporting and nurturing emerging talent across Asia-Pacific.",
-    visionKo: "아시아 태평양 전역의 신진 예술가들을 적극적으로 지원하고 육성합니다.",
-    visionJa: "アジア太平洋全域の新進アーティストを積極的に支援・育成します。",
+    visionKo: "아시아 태평양 전역의 신진 인재를 발굴하고 적극적으로 육성",
+    visionJa: "アジア太平洋地域の新進気鋭の才能を発掘し、積極的に育成",
     initiatives: ["Scholarship programs for musicians", "Ballet mentorship and training", "Internship opportunities with international orchestras", "Annual classical music competition"],
-    initiativesKo: ["음악가를 위한 장학 프로그램", "발레 멘토십 및 훈련", "국제 오케스트라 인턴십 기회", "연간 클래식 음악 경연대회"],
-    initiativesJa: ["音楽家向け奨学金プログラム", "バレエのメンタリングとトレーニング", "国際オーケストラでのインターンシップ機会", "年次クラシック音楽コンクール"],
+    initiativesKo: ["유망한 클래식 음악가를 위한 장학금 프로그램", "발레 무용수 멘토링 및 훈련 지원", "국제 오케스트라 인턴십 기회 제공", "상금이 수여되는 연례 클래식 음악 경연 대회"],
+    initiativesJa: ["有望なクラシック音楽家のための奨学金プログラム", "バレエダンサーへのメンタリングおよびトレーニング支援", "国際的なオーケストラでのインターンシップ機会", "賞金授与を伴う年次クラシック音楽コンクール"],
     color: "var(--navy-mid)",
   },
   {
@@ -36,24 +36,24 @@ const pillars = [
     titleKo: "문화 교류 프로그램",
     titleJa: "文化交流プログラム",
     vision: "Facilitating exchange between the Asia-Pacific and the global performing arts community.",
-    visionKo: "아시아 태평양과 글로벌 공연 예술 커뮤니티 간의 교류를 촉진합니다.",
-    visionJa: "アジア太平洋とグローバルな舞台芸術コミュニティとの交流を促進します。",
+    visionKo: "아시아 태평양 지역과 글로벌 공연 예술 커뮤니티 간의 교류 촉진",
+    visionJa: "アジア太平洋地域と世界の舞台芸術コミュニティとの交流を促進",
     initiatives: ["International orchestra residencies in Asia-Pacific", "Cross-border ballet collaborations", "Artist exchange programs with European conservatories"],
-    initiativesKo: ["아시아 태평양 국제 오케스트라 레지던시", "국경을 초월한 발레 협업", "유럽 음악원과의 예술가 교류 프로그램"],
-    initiativesJa: ["アジア太平洋における国際オーケストラ・レジデンシー", "国境を越えたバレエのコラボレーション", "ヨーロッパの音楽院とのアーティスト交流プログラム"],
+    initiativesKo: ["아시아 태평양 지역 내 국제 오케스트라 상주 공연", "국가 간 발레 협업 프로젝트", "유럽 음악원과의 예술가 교류 프로그램", "공연 예술을 통한 문화 외교 실현"],
+    initiativesJa: ["アジア太平洋地域における国際オーケストラのレジデンス公演", "国境を越えたバレエのコラボレーション", "欧州の音楽院との芸術家交流プログラム", "舞台芸術を通じた文化外交の推進"],
     color: "var(--navy-light)",
   },
   {
     icon: Users,
     title: "Community Access to Culture",
-    titleKo: "지역 사회의 문화 접근성",
-    titleJa: "地域社会への文化アクセス",
+    titleKo: "지역사회 문화 접근성 확대",
+    titleJa: "地域社会の文化アクセスの拡大",
     vision: "Ensuring access to performing arts is not limited by economic circumstances.",
-    visionKo: "공연 예술에 대한 접근이 경제적 여건에 의해 제한되지 않도록 보장합니다.",
-    visionJa: "舞台芸術へのアクセスが経済的な事情によって制限されないよう保証します。",
+    visionKo: "경제적 여건에 상관없이 누구나 공연 예술을 향유할 수 있는 환경 조성",
+    visionJa: "経済状況に左右されず、誰もが舞台芸術を享受できる環境の整備",
     initiatives: ["Free classical music performances in schools", "Subsidized tickets for students and young professionals", "Educational outreach programs"],
-    initiativesKo: ["학교에서의 무료 클래식 음악 공연", "학생 및 젊은 전문가를 위한 보조 티켓", "교육 아웃리치 프로그램"],
-    initiativesJa: ["学校での無料クラシック音楽公演", "学生・若手プロフェッショナル向け補助チケット", "教育アウトリーチプログラム"],
+    initiativesKo: ["학교 대상 무료 클래식 음악 공연", "학생 및 젊은 전문가를 위한 티켓 보조금 지원", "오케스트라와 함께하는 교육 홍보 프로그램", "공공장소에서의 지역사회 콘서트 개최"],
+    initiativesJa: ["学校での無料クラシック音楽公演", "学生や若手専門家向けのチケット補助金制度", "オーケストラによる教育アウトリーチプログラム", "公共スペースでのコミュニティコンサート"],
     color: "var(--navy)",
   },
 ];
@@ -65,21 +65,21 @@ export default function CSR() {
     language === "ko"
       ? "정교함과 열정의 만남: 예술적 탁월함을 향한 여정"
       : language === "ja"
-      ? "精緻さと情熱の出会い：芸術的卓越性への旅"
+      ? "精緻さと情熱の融合：芸術的卓越性への追求"
       : "Where Precision Meets Passion: Supporting Artistic Excellence";
 
   const heroBody1 =
     language === "ko"
-      ? "MAVEK BCS는 공연 예술, 특히 클래식 음악, 오페라, 발레를 지원하는 데 깊이 헌신하고 있습니다."
+      ? "MAVEK BCS는 공연 예술, 특히 클래식 음악, 오페라, 발레 지원에 깊은 헌신을 다하고 있습니다."
       : language === "ja"
-      ? "MAVEK BCSは、舞台芸術、特にクラシック音楽、オペラ、バレエの支援に深くコミットしています。"
+      ? "MAVEK BCSは、舞台芸術、特にクラシック音楽、オペラ、バレエの支援に深くコミットしています。私たちは、文化的な卓越性がコミュニティを豊かにし、芸術家に有意義な雇用を提供し、人々が時代を超越した芸術的伝統とつながる場を創出すると信じています。"
       : "MAVEK BCS is deeply committed to supporting the performing arts, particularly classical music, opera, and ballet.";
 
   const heroBody2 =
     language === "ko"
-      ? "우리는 문화적 탁월함이 우리 공동체를 풍요롭게 하고, 예술가들에게 의미 있는 일자리를 제공하며, 사람들이 시대를 초월한 예술적 전통과 교감할 수 있는 공간을 창출한다고 믿습니다."
+      ? "우리는 문화적 탁월함이 공동체를 풍요롭게 하고, 예술가들에게 의미 있는 고용을 제공하며, 사람들이 시대를 초월한 예술적 전통과 연결될 수 있는 공간을 창조한다고 믿습니다."
       : language === "ja"
-      ? "文化的な卓越性がコミュニティを豊かにし、アーティストに意義ある雇用を提供し、人々が時代を超えた芸術的伝統とつながる空間を生み出すと私たちは信じています。"
+      ? ""
       : "We believe that cultural excellence enriches our communities, provides meaningful employment for artists, and creates spaces where people can connect with timeless artistic traditions.";
 
   const monthlyHeadline =
@@ -91,16 +91,16 @@ export default function CSR() {
 
   const monthlyBody1 =
     language === "ko"
-      ? "매월, 우리는 소중한 파트너, 고객 및 팀원들을 홍콩, 서울, 도쿄, 마닐라의 독점적인 클래식 음악 및 발레 공연에 초대합니다."
+      ? "매달 우리는 소중한 파트너와 고객, 그리고 팀원들을 홍콩, 서울, 도쿄, 마닐라 등 아시아 태평양 전역에서 열리는 독점 클래식 음악 및 발레 공연에 초대합니다. 이러한 이벤트는 단순한 엔터테인먼트를 넘어, 예술적 탁월함을 기념하고 의미 있는 관계를 형성하며 지역의 활기찬 문화 생태계를 지원하는 기회입니다."
       : language === "ja"
-      ? "毎月、私たちは大切なパートナー、クライアント、チームメンバーを香港、ソウル、東京、マニラの限定クラシック音楽・バレエ公演にご招待しています。"
+      ? "毎月、大切なパートナーやクライアント、そしてチームメンバーを、香港、ソウル、東京、マニラなどアジア太平洋地域で開催される独占的なクラシック音楽やバレエの公演に招待しています。これらのイベントは単なる娯楽ではなく、芸術的卓越性を称え、有意義な関係を育み、地域の活気ある文化エコシステムを支援するための貴重な機会です。"
       : "Every month, we invite our valued partners, clients, and team members to exclusive classical music and ballet performances in Hong Kong, Seoul, Tokyo, and Manila.";
 
   const monthlyBody2 =
     language === "ko"
-      ? "이러한 이벤트는 예술적 탁월함을 기념하고, 의미 있는 관계를 육성하며, 아시아 태평양 지역의 활기찬 문화 생태계를 지원하는 기회입니다."
+      ? ""
       : language === "ja"
-      ? "これらのイベントは、芸術的卓越性を称え、意義ある関係を育み、アジア太平洋地域の活気ある文化エコシステムを支援する機会です。"
+      ? ""
       : "These events are opportunities to celebrate artistic excellence, foster meaningful relationships, and support the vibrant cultural ecosystems in the Asia-Pacific region.";
 
   const pillarsHeadline =
