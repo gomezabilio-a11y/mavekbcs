@@ -399,10 +399,10 @@ export default function Home() {
             className="text-4xl font-bold text-white mb-6"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Ready to Transform Your Finance Function?
+            {t("home.bottom.title")}
           </h2>
           <p className="text-gray-300 mb-10 max-w-xl mx-auto">
-            Speak with our experts to discover how MAVEK BCS can help your organization achieve financial excellence.
+            {t("home.bottom.body")}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/contact" className="btn-gold no-underline">
