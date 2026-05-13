@@ -58,6 +58,15 @@ export default function Insights() {
                   href={`/insights/${insight.slug}`}
                   className="flex flex-col bg-white border border-gray-100 card-hover no-underline group"
                 >
+                  {insight.thumbnailUrl && (
+                    <div className="h-44 overflow-hidden relative" style={{ backgroundColor: "var(--navy)" }}>
+                      <img
+                        src={insight.thumbnailUrl}
+                        alt={insight.title}
+                        className="w-full h-full object-cover opacity-70 group-hover:opacity-80 transition-opacity"
+                      />
+                    </div>
+                  )}
                   <div className="p-6 flex-1">
                     <div className="flex items-center gap-2 mb-4">
                       <span className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5" style={{ backgroundColor: "var(--navy-dark)", color: "white" }}>
