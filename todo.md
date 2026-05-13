@@ -278,8 +278,8 @@
 
 ## Phase 38: Featured Article Full Translations (3 articles)
 - [x] Update "Why CFOs Invest in Finance Transformation" EN/KO/JA body content in InsightDetail.tsx
-- [ ] Update article 2 (TBD) EN/KO/JA body content in InsightDetail.tsx
-- [ ] Update article 3 (TBD) EN/KO/JA body content in InsightDetail.tsx
+- [x] Update article 2 (Global E-Invoicing Trends) EN/KO/JA body content in InsightDetail.tsx - completed in Phase 39
+- [x] Update article 3 - N/A (only 3 featured articles total, all 3 now fully translated)
 
 ## Phase 39: Replace Featured Article + Global E-Invoicing Trends
 - [x] Replace "Why Financial Close is Still Broken" with "Global E-Invoicing Trends" in siteData.ts (featured flag, slug, title, excerpt, tags, etc.)
