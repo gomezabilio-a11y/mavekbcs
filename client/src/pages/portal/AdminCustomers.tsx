@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { PlusCircle, Edit2, Clock, Loader2 } from "lucide-react";
+import { PlusCircle, Edit2, Clock, Loader2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 interface CustomerRow {
@@ -53,6 +53,8 @@ export default function AdminCustomers() {
   const [contractEnd, setContractEnd] = useState("");
   const [contractNotes, setContractNotes] = useState("");
 
+  const [deleteCustomer, setDeleteCustomer] = useState<CustomerRow | null>(null);
+
   const customersQuery = trpc.portalV2.adminListUsers.useQuery(
     { adminToken: adminToken ?? "" },
     { enabled: !!adminToken }
@@ -82,6 +84,15 @@ export default function AdminCustomers() {
       utils.portalV2.adminListUsers.invalidate();
       setContractCustomer(null);
       toast.success("Contract hours updated");
+    },
+    onError: (e) => toast.error(e.message),
+  });
+
+  const deleteMutation = trpc.portalV2.adminDeleteCustomer.useMutation({
+    onSuccess: () => {
+      utils.portalV2.adminListUsers.invalidate();
+      setDeleteCustomer(null);
+      toast.success("Customer deleted");
     },
     onError: (e) => toast.error(e.message),
   });
@@ -164,6 +175,15 @@ export default function AdminCustomers() {
                             >
                               <Edit2 size={13} />
                               {t.edit}
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="text-red-400 hover:text-red-300 h-7 px-2 gap-1"
+                              onClick={() => setDeleteCustomer(c)}
+                            >
+                              <Trash2 size={13} />
+                              {t.delete ?? "Delete"}
                             </Button>
                           </div>
                         </td>
@@ -391,6 +411,31 @@ export default function AdminCustomers() {
               }}
             >
               {contractMutation.isPending ? <Loader2 size={14} className="animate-spin" /> : t.save}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={!!deleteCustomer} onOpenChange={(o) => !o && setDeleteCustomer(null)}>
+        <DialogContent className="bg-[#111827] border-gray-700 text-white max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="text-red-400">{t.deleteCustomer ?? "Delete Customer"}</DialogTitle>
+          </DialogHeader>
+          <p className="text-gray-300 text-sm py-2">
+            {t.deleteConfirm ?? "Are you sure you want to delete"} <strong className="text-white">{deleteCustomer?.companyName}</strong>?
+            {" "}{t.deleteWarning ?? "This will permanently remove all their tickets and contract data."}
+          </p>
+          <DialogFooter>
+            <Button variant="ghost" className="text-gray-400" onClick={() => setDeleteCustomer(null)}>{t.cancel}</Button>
+            <Button
+              className="bg-red-600 hover:bg-red-700 text-white"
+              disabled={deleteMutation.isPending}
+              onClick={() => {
+                if (!deleteCustomer) return;
+                deleteMutation.mutate({ adminToken: adminToken ?? "", portalUserId: deleteCustomer.id });
+              }}
+            >
+              {deleteMutation.isPending ? <Loader2 size={14} className="animate-spin" /> : (t.confirmDelete ?? "Delete")}
             </Button>
           </DialogFooter>
         </DialogContent>

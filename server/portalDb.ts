@@ -300,3 +300,15 @@ export async function updateTicketByAdmin(
 
   return getTicketById(ticketId);
 }
+
+/** Delete a portal user and cascade-delete their tickets and contract */
+export async function deletePortalUser(portalUserId: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  // Delete tickets first (FK dependency)
+  await db.delete(tickets).where(eq(tickets.portalUserId, portalUserId));
+  // Delete contract
+  await db.delete(portalContracts).where(eq(portalContracts.portalUserId, portalUserId));
+  // Delete user
+  await db.delete(portalUsers).where(eq(portalUsers.id, portalUserId));
+}

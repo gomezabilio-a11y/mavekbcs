@@ -18,6 +18,7 @@ import {
   getAllTickets,
   getTicketById,
   updateTicketByAdmin,
+  deletePortalUser,
 } from "../portalDb";
 import { storagePut } from "../storage";
 import { SignJWT, jwtVerify } from "jose";
@@ -301,5 +302,15 @@ export const portalRouter = router({
       const ticket = await getTicketById(input.ticketId);
       if (!ticket) throw new TRPCError({ code: "NOT_FOUND" });
       return ticket;
+    }),
+
+  /** Delete a customer account (admin only) */
+  adminDeleteCustomer: publicProcedure
+    .input(z.object({ adminToken: z.string(), portalUserId: z.number() }))
+    .mutation(async ({ input }) => {
+      const admin = await verifyAdminToken(input.adminToken);
+      if (!admin) throw new TRPCError({ code: "UNAUTHORIZED" });
+      await deletePortalUser(input.portalUserId);
+      return { success: true };
     }),
 });

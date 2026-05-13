@@ -250,3 +250,8 @@
 - [x] Update AdminCustomers and AdminTickets to use AdminLayout and adminToken auth
 - [x] Create initial master admin account in DB (mavek_admin / MavekAdmin2024)
 - [x] TypeScript 0 errors verified
+
+## Phase 34: Admin Portal - Customer Delete Feature
+- [x] Add deleteCustomer tRPC procedure in portal.ts (cascade delete tickets + contract)
+- [x] Add delete button with confirmation dialog in AdminCustomers.tsx
+- [x] TypeScript 0 errors verified
