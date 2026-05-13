@@ -12,9 +12,9 @@ const pillars = [
     vision: "Providing a platform for world-class artists to perform at the highest level.",
     visionKo: "세계적 수준의 예술가들이 최고의 무대에서 공연할 수 있는 플랫폼을 제공합니다.",
     visionJa: "世界クラスのアーティストが最高レベルで演奏できるプラットフォームを提供します。",
-    initiatives: ["Monthly performances in Hong Kong", "Quarterly ballet in Seoul & Tokyo", "Exclusive VIP events for partners and clients"],
-    initiativesKo: ["홍콩에서의 월례 공연", "서울 및 도쿄에서의 분기별 발레 공연", "파트너 및 고객을 위한 독점 VIP 이벤트"],
-    initiativesJa: ["香港での月例公演", "ソウル・東京での四半期ごとのバレエ公演", "パートナー・クライアント向けの限定VIPイベント"],
+    initiatives: ["Quarterly opera in Key cities", "Quarterly ballet in Seoul & Tokyo", "Exclusive VIP events for partners and clients"],
+    initiativesKo: ["주요 도시에서의 분기별 오페라 공연", "서울 및 도쿄에서의 분기별 발레 공연", "파트너 및 고객을 위한 독점 VIP 이벤트"],
+    initiativesJa: ["主要都市での四半期ごとのオペラ公演", "ソウル・東京での四半期ごとのバレエ公演", "パートナー・クライアント向けの限定VIPイベント"],
     color: "var(--navy)",
   },
   {
