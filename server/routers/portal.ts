@@ -4,7 +4,7 @@
  */
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { router, publicProcedure, protectedProcedure } from "../_core/trpc";
+import { router, publicProcedure } from "../_core/trpc";
 import {
   createPortalUser,
   getAllPortalUsers,
@@ -22,6 +22,7 @@ import {
 import { storagePut } from "../storage";
 import { SignJWT, jwtVerify } from "jose";
 import { ENV } from "../_core/env";
+import { verifyAdminToken } from "./admin";
 
 // ── Portal JWT helpers ────────────────────────────────────────────────────────
 const PORTAL_JWT_SECRET = new TextEncoder().encode(ENV.cookieSecret + "_portal");
@@ -165,9 +166,10 @@ export const portalRouter = router({
   // ── Admin: User Management ────────────────────────────────────────────────
 
   /** Create a new portal customer account (admin only) */
-  adminCreateUser: protectedProcedure
+  adminCreateUser: publicProcedure
     .input(
       z.object({
+        adminToken: z.string(),
         username: z.string().min(3).max(128),
         password: z.string().min(6),
         companyName: z.string().min(1).max(256),
@@ -176,47 +178,49 @@ export const portalRouter = router({
         timezone: z.string().default("UTC"),
       })
     )
-    .mutation(async ({ ctx, input }) => {
-      if (ctx.user.role !== "admin") {
-        throw new TRPCError({ code: "FORBIDDEN" });
-      }
-      return createPortalUser(input);
+    .mutation(async ({ input }) => {
+      const admin = await verifyAdminToken(input.adminToken);
+      if (!admin) throw new TRPCError({ code: "UNAUTHORIZED" });
+      const { adminToken: _t, ...data } = input;
+      return createPortalUser(data);
     }),
 
   /** List all portal customers (admin only) */
-  adminListUsers: protectedProcedure.query(async ({ ctx }) => {
-    if (ctx.user.role !== "admin") {
-      throw new TRPCError({ code: "FORBIDDEN" });
-    }
-    const users = await getAllPortalUsers();
-    // Attach contract summary
-    const withContracts = await Promise.all(
-      users.map(async (u) => {
-        const contract = await getContractByPortalUserId(u.id);
-        const total = contract ? parseFloat(String(contract.totalHours)) : 0;
-        const used = contract ? parseFloat(String(contract.usedHours)) : 0;
-        return {
-          id: u.id,
-          username: u.username,
-          companyName: u.companyName,
-          email: u.email,
-          language: u.language,
-          timezone: u.timezone,
-          isActive: u.isActive,
-          createdAt: u.createdAt,
-          totalHours: total,
-          usedHours: used,
-          remainingHours: Math.max(0, total - used),
-        };
-      })
-    );
-    return withContracts;
-  }),
+  adminListUsers: publicProcedure
+    .input(z.object({ adminToken: z.string() }))
+    .query(async ({ input }) => {
+      const admin = await verifyAdminToken(input.adminToken);
+      if (!admin) throw new TRPCError({ code: "UNAUTHORIZED" });
+      const users = await getAllPortalUsers();
+      // Attach contract summary
+      const withContracts = await Promise.all(
+        users.map(async (u) => {
+          const contract = await getContractByPortalUserId(u.id);
+          const total = contract ? parseFloat(String(contract.totalHours)) : 0;
+          const used = contract ? parseFloat(String(contract.usedHours)) : 0;
+          return {
+            id: u.id,
+            username: u.username,
+            companyName: u.companyName,
+            email: u.email,
+            language: u.language,
+            timezone: u.timezone,
+            isActive: u.isActive,
+            createdAt: u.createdAt,
+            totalHours: total,
+            usedHours: used,
+            remainingHours: Math.max(0, total - used),
+          };
+        })
+      );
+      return withContracts;
+    }),
 
   /** Update portal user (admin only) */
-  adminUpdateUser: protectedProcedure
+  adminUpdateUser: publicProcedure
     .input(
       z.object({
+        adminToken: z.string(),
         id: z.number(),
         companyName: z.string().optional(),
         email: z.string().email().optional(),
@@ -226,9 +230,10 @@ export const portalRouter = router({
         password: z.string().min(6).optional(),
       })
     )
-    .mutation(async ({ ctx, input }) => {
-      if (ctx.user.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
-      const { id, ...data } = input;
+    .mutation(async ({ input }) => {
+      const admin = await verifyAdminToken(input.adminToken);
+      if (!admin) throw new TRPCError({ code: "UNAUTHORIZED" });
+      const { adminToken: _t, id, ...data } = input;
       await updatePortalUser(id, data);
       return { success: true };
     }),
@@ -236,9 +241,10 @@ export const portalRouter = router({
   // ── Admin: Contract Management ────────────────────────────────────────────
 
   /** Set/update contract hours for a customer (admin only) */
-  adminSetContract: protectedProcedure
+  adminSetContract: publicProcedure
     .input(
       z.object({
+        adminToken: z.string(),
         portalUserId: z.number(),
         totalHours: z.number().min(0),
         contractStartDate: z.string().optional(), // ISO string
@@ -246,8 +252,9 @@ export const portalRouter = router({
         notes: z.string().optional(),
       })
     )
-    .mutation(async ({ ctx, input }) => {
-      if (ctx.user.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    .mutation(async ({ input }) => {
+      const admin = await verifyAdminToken(input.adminToken);
+      if (!admin) throw new TRPCError({ code: "UNAUTHORIZED" });
       return upsertPortalContract(input.portalUserId, {
         totalHours: input.totalHours,
         contractStartDate: input.contractStartDate ? new Date(input.contractStartDate) : undefined,
@@ -259,32 +266,38 @@ export const portalRouter = router({
   // ── Admin: Ticket Management ──────────────────────────────────────────────
 
   /** List all tickets from all customers (admin only) */
-  adminListTickets: protectedProcedure.query(async ({ ctx }) => {
-    if (ctx.user.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
-    return getAllTickets();
-  }),
+  adminListTickets: publicProcedure
+    .input(z.object({ adminToken: z.string() }))
+    .query(async ({ input }) => {
+      const admin = await verifyAdminToken(input.adminToken);
+      if (!admin) throw new TRPCError({ code: "UNAUTHORIZED" });
+      return getAllTickets();
+    }),
 
   /** Update ticket status + feedback + spent hours (admin only) */
-  adminUpdateTicket: protectedProcedure
+  adminUpdateTicket: publicProcedure
     .input(
       z.object({
+        adminToken: z.string(),
         ticketId: z.number(),
         status: z.enum(["open", "in_progress", "resolved", "closed"]).optional(),
         adminFeedback: z.string().optional(),
         spentHours: z.number().min(0).optional(),
       })
     )
-    .mutation(async ({ ctx, input }) => {
-      if (ctx.user.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
-      const { ticketId, ...data } = input;
+    .mutation(async ({ input }) => {
+      const admin = await verifyAdminToken(input.adminToken);
+      if (!admin) throw new TRPCError({ code: "UNAUTHORIZED" });
+      const { adminToken: _t, ticketId, ...data } = input;
       return updateTicketByAdmin(ticketId, data);
     }),
 
   /** Get single ticket detail (admin only) */
-  adminGetTicket: protectedProcedure
-    .input(z.object({ ticketId: z.number() }))
-    .query(async ({ ctx, input }) => {
-      if (ctx.user.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+  adminGetTicket: publicProcedure
+    .input(z.object({ adminToken: z.string(), ticketId: z.number() }))
+    .query(async ({ input }) => {
+      const admin = await verifyAdminToken(input.adminToken);
+      if (!admin) throw new TRPCError({ code: "UNAUTHORIZED" });
       const ticket = await getTicketById(input.ticketId);
       if (!ticket) throw new TRPCError({ code: "NOT_FOUND" });
       return ticket;

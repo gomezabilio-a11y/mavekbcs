@@ -110,6 +110,21 @@ export const tickets = mysqlTable("tickets", {
 export type Ticket = typeof tickets.$inferSelect;
 export type InsertTicket = typeof tickets.$inferInsert;
 
+// ── Portal: Admin Users (standalone, no Manus OAuth) ─────────────────────────
+export const adminUsers = mysqlTable("admin_users", {
+  id: int("id").autoincrement().primaryKey(),
+  username: varchar("username", { length: 128 }).notNull().unique(),
+  passwordHash: varchar("passwordHash", { length: 256 }).notNull(),
+  displayName: varchar("displayName", { length: 256 }).notNull(),
+  role: mysqlEnum("role", ["master", "staff"]).default("staff").notNull(),
+  isActive: boolean("isActive").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type AdminUser = typeof adminUsers.$inferSelect;
+export type InsertAdminUser = typeof adminUsers.$inferInsert;
+
 // Industries
 export const industries = mysqlTable("industries", {
   id: int("id").autoincrement().primaryKey(),

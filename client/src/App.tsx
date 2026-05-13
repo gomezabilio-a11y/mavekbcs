@@ -29,7 +29,10 @@ import PortalTickets from "./pages/portal/PortalTickets";
 import PortalNewTicket from "./pages/portal/PortalNewTicket";
 import AdminCustomers from "./pages/portal/AdminCustomers";
 import AdminTickets from "./pages/portal/AdminTickets";
+import AdminLogin from "./pages/portal/AdminLogin";
+import AdminStaff from "./pages/portal/AdminStaff";
 import { PortalProvider } from "./contexts/PortalContext";
+import { AdminProvider } from "./contexts/AdminContext";
 
 function Router() {
   return (
@@ -52,8 +55,10 @@ function Router() {
       <Route path="/portal/dashboard" component={PortalDashboard} />
       <Route path="/portal/tickets/new" component={PortalNewTicket} />
       <Route path="/portal/tickets" component={PortalTickets} />
+      <Route path="/portal/admin/login" component={AdminLogin} />
       <Route path="/portal/admin/customers" component={AdminCustomers} />
       <Route path="/portal/admin/tickets" component={AdminTickets} />
+      <Route path="/portal/admin/staff" component={AdminStaff} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
       <Route path="/404" component={NotFound} />
@@ -68,10 +73,12 @@ function App() {
       <ThemeProvider defaultTheme="light">
         <LanguageProvider>
           <PortalProvider>
+          <AdminProvider>
           <TooltipProvider>
             <Toaster />
             <Router />
           </TooltipProvider>
+          </AdminProvider>
           </PortalProvider>
         </LanguageProvider>
       </ThemeProvider>

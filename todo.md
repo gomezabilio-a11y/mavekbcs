@@ -238,3 +238,15 @@
 - [x] Multilingual UI strings for portal (EN/KO/JA) covering all portal labels, statuses, and messages
 - [x] Closed membership: disable public signup, admin-only account creation
 - [x] Vitest tests for portal DB helpers and i18n (9 tests passing)
+
+## Phase 33: Admin Portal Standalone Auth System
+- [x] Add admin_users table to drizzle schema (id, username, passwordHash, displayName, role: master|staff, isActive, createdAt)
+- [x] Run DB migration for admin_users table
+- [x] Server: adminAuth tRPC procedures (login, me, logout, listStaff, createStaff, updateStaff)
+- [x] AdminContext: session management for admin users (separate from portal customer session)
+- [x] Admin Login page at /portal/admin/login
+- [x] Protect all /portal/admin/* routes: redirect to /portal/admin/login if not authenticated
+- [x] Staff Management page (master-only): create/edit/deactivate staff accounts
+- [x] Update AdminCustomers and AdminTickets to use AdminLayout and adminToken auth
+- [x] Create initial master admin account in DB (mavek_admin / MavekAdmin2024)
+- [x] TypeScript 0 errors verified

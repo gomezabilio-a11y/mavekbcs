@@ -2,7 +2,8 @@ import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { usePortalT, TIMEZONES } from "@/lib/portalI18n";
 import { useLanguage } from "@/contexts/LanguageContext";
-import PortalLayout from "./PortalLayout";
+import { useAdminSession } from "@/contexts/AdminContext";
+import AdminLayout from "./AdminLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,6 +32,7 @@ export default function AdminCustomers() {
   const { language } = useLanguage();
   const t = usePortalT(language as "en" | "ko" | "ja");
   const utils = trpc.useUtils();
+  const { adminToken } = useAdminSession();
 
   // Dialogs
   const [showCreate, setShowCreate] = useState(false);
@@ -51,7 +53,10 @@ export default function AdminCustomers() {
   const [contractEnd, setContractEnd] = useState("");
   const [contractNotes, setContractNotes] = useState("");
 
-  const customersQuery = trpc.portalV2.adminListUsers.useQuery();
+  const customersQuery = trpc.portalV2.adminListUsers.useQuery(
+    { adminToken: adminToken ?? "" },
+    { enabled: !!adminToken }
+  );
 
   const createMutation = trpc.portalV2.adminCreateUser.useMutation({
     onSuccess: () => {
@@ -90,7 +95,7 @@ export default function AdminCustomers() {
   };
 
   return (
-    <PortalLayout>
+    <AdminLayout>
       <div className="p-6 max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-white">{t.customers}</h1>
@@ -236,6 +241,7 @@ export default function AdminCustomers() {
               className="bg-[#c9a84c] hover:bg-[#b8973b] text-black"
               disabled={createMutation.isPending || !newUsername || !newPassword || !newCompany}
               onClick={() => createMutation.mutate({
+                adminToken: adminToken ?? "",
                 username: newUsername, password: newPassword, companyName: newCompany,
                 email: newEmail || undefined, language: newLang, timezone: newTz,
               })}
@@ -314,6 +320,7 @@ export default function AdminCustomers() {
                 const company = (document.getElementById("edit-company") as HTMLInputElement)?.value;
                 const email = (document.getElementById("edit-email") as HTMLInputElement)?.value;
                 updateMutation.mutate({
+                  adminToken: adminToken ?? "",
                   id: editCustomer.id,
                   companyName: company,
                   email: email || undefined,
@@ -374,6 +381,7 @@ export default function AdminCustomers() {
               onClick={() => {
                 if (!contractCustomer) return;
                 contractMutation.mutate({
+                  adminToken: adminToken ?? "",
                   portalUserId: contractCustomer.id,
                   totalHours: parseFloat(contractHours),
                   contractStartDate: contractStart || undefined,
@@ -387,6 +395,6 @@ export default function AdminCustomers() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </PortalLayout>
+    </AdminLayout>
   );
 }

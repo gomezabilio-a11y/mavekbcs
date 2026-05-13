@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO admin_users (username, passwordHash, displayName, role, isActive, createdAt, updatedAt)\nVALUES (\n  'mavek_admin',\n  '$2b$10$cKLNlRAXFDaHl3l92hr/K.3Y3MJVelnrsOIlMHGEFP4yEuaMIm8Gq',\n  'MAVEK Master Admin',\n  'master',\n  1,\n  NOW(),\n  NOW()\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute INSERT INTO admin_users (username, passwordHash, displayName, role, isActive, createdAt, updatedAt)\nVALUES (\n  'mavek_admin',\n  '$2b$10$cKLNlRAXFDaHl3l92hr/K.3Y3MJVelnrsOIlMHGEFP4yEuaMIm8Gq',\n  'MAVEK Master Admin',\n  'master',\n  1,\n  NOW(),\n  NOW()\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 2014
+}

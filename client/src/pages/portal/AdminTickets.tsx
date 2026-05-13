@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { usePortalT, getStatusColor, formatInTimezone } from "@/lib/portalI18n";
-import { usePortalSession } from "@/contexts/PortalContext";
+import { useAdminSession } from "@/contexts/AdminContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import PortalLayout from "./PortalLayout";
+import AdminLayout from "./AdminLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -35,8 +35,8 @@ interface TicketRow {
 export default function AdminTickets() {
   const { language } = useLanguage();
   const t = usePortalT(language as "en" | "ko" | "ja");
-  const { portalUser } = usePortalSession();
-  const tz = portalUser?.timezone ?? "UTC";
+  const { adminToken } = useAdminSession();
+  const tz = "UTC";
   const utils = trpc.useUtils();
 
   const [editTicket, setEditTicket] = useState<TicketRow | null>(null);
@@ -45,7 +45,10 @@ export default function AdminTickets() {
   const [spentHours, setSpentHours] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("all");
 
-  const ticketsQuery = trpc.portalV2.adminListTickets.useQuery();
+  const ticketsQuery = trpc.portalV2.adminListTickets.useQuery(
+    { adminToken: adminToken ?? "" },
+    { enabled: !!adminToken }
+  );
 
   const updateMutation = trpc.portalV2.adminUpdateTicket.useMutation({
     onSuccess: () => {
@@ -70,7 +73,7 @@ export default function AdminTickets() {
   const statusOptions = ["all", "open", "in_progress", "resolved", "closed"];
 
   return (
-    <PortalLayout>
+    <AdminLayout>
       <div className="p-6 max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-white">{t.allTickets}</h1>
@@ -236,6 +239,7 @@ export default function AdminTickets() {
               onClick={() => {
                 if (!editTicket) return;
                 updateMutation.mutate({
+                  adminToken: adminToken ?? "",
                   ticketId: editTicket.id,
                   status: newStatus as "open" | "in_progress" | "resolved" | "closed",
                   adminFeedback: feedback || undefined,
@@ -248,6 +252,6 @@ export default function AdminTickets() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </PortalLayout>
+    </AdminLayout>
   );
 }
