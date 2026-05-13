@@ -225,7 +225,7 @@ export async function getTicketsByPortalUser(portalUserId: number): Promise<Tick
     .orderBy(desc(tickets.createdAtUtc));
 }
 
-export async function getAllTickets(): Promise<(Ticket & { companyName: string; username: string })[]> {
+export async function getAllTickets(): Promise<(Ticket & { companyName: string; username: string; userTimezone: string })[]> {
   const db = await getDb();
   if (!db) return [];
   const rows = await db
@@ -247,6 +247,7 @@ export async function getAllTickets(): Promise<(Ticket & { companyName: string; 
       resolvedAt: tickets.resolvedAt,
       companyName: portalUsers.companyName,
       username: portalUsers.username,
+      userTimezone: portalUsers.timezone,
     })
     .from(tickets)
     .leftJoin(portalUsers, eq(tickets.portalUserId, portalUsers.id))
@@ -256,6 +257,7 @@ export async function getAllTickets(): Promise<(Ticket & { companyName: string; 
     ...r,
     companyName: r.companyName ?? "",
     username: r.username ?? "",
+    userTimezone: r.userTimezone ?? "UTC",
   }));
 }
 

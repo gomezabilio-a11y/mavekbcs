@@ -23,6 +23,7 @@ interface TicketRow {
   description: string;
   screenshotUrl: string | null;
   screenshotUrls: string | null;
+  userTimezone: string;
   status: string;
   adminFeedback: string | null;
   spentHours: string | null;
@@ -37,7 +38,6 @@ export default function AdminTickets() {
   const { language } = useLanguage();
   const t = usePortalT(language as "en" | "ko" | "ja");
   const { adminToken } = useAdminSession();
-  const tz = "UTC";
   const utils = trpc.useUtils();
 
   const [editTicket, setEditTicket] = useState<TicketRow | null>(null);
@@ -135,7 +135,8 @@ export default function AdminTickets() {
                           {ticket.hoursDeducted && <span className="ml-1 text-green-500 text-[10px]">✓</span>}
                         </td>
                         <td className="px-4 py-3 text-gray-400 text-xs">
-                          {formatInTimezone(ticket.createdAtUtc, tz, language as "en" | "ko" | "ja")}
+                          {formatInTimezone(ticket.createdAtUtc, ticket.userTimezone, language as "en" | "ko" | "ja")}
+                          <span className="text-[10px] text-gray-600 block mt-0.5">{ticket.userTimezone}</span>
                         </td>
                         <td className="px-4 py-3 text-right">
                           <div className="flex justify-end gap-2">
