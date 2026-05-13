@@ -60,22 +60,28 @@ export default function Contact() {
 
   const offices = [
     {
-      city: language === "ko" ? "서울" : language === "ja" ? "ソウル" : "Seoul",
-      address: language === "ko" ? "서울특별시 강남구 테헤란로 152" : language === "ja" ? "ソウル特別市江南区テヘラン路152" : "152 Teheran-ro, Gangnam-gu, Seoul",
-      phone: "+82 2 1234 5678",
-      email: "seoul@mavekbcs.com",
+      city: language === "ko" ? "홍콩" : language === "ja" ? "香港" : "Hong Kong",
+      address: language === "ko" ? "홍콩 센트럴 스탠리 스트리트 28, 3층" : language === "ja" ? "香港 中環 士丹利街 28号 3階" : "3F, 28 Stanley Street, Central, Hong Kong",
+      phone: "+852 1234 5678",
+      email: "hongkong@mavekbcs.com",
     },
     {
-      city: language === "ko" ? "도쿄" : language === "ja" ? "東京" : "Tokyo",
-      address: language === "ko" ? "도쿄도 치요다구 마루노우치 2-4-1" : language === "ja" ? "東京都千代田区丸の内2-4-1" : "2-4-1 Marunouchi, Chiyoda-ku, Tokyo",
-      phone: "+81 3 1234 5678",
-      email: "tokyo@mavekbcs.com",
+      city: language === "ko" ? "일본" : language === "ja" ? "日本" : "Japan",
+      address: language === "ko" ? "일본 오사카부 오사카시 기타구 소네자키신치 1-13-22 미도스지 프론트 타워 1층" : language === "ja" ? "大阪府大阪市北区曽根崎新地 1-13-22 御堂筋フロントタワー 1F" : "1F Midosuji Front Tower, 1-13-22 Sonezakishinchi, Kita-gu, Osaka-shi, Osaka, Japan",
+      phone: "+81 6 1234 5678",
+      email: "japan@mavekbcs.com",
     },
     {
-      city: language === "ko" ? "싱가포르" : language === "ja" ? "シンガポール" : "Singapore",
-      address: "1 Raffles Place, #20-01, Singapore 048616",
-      phone: "+65 6123 4567",
-      email: "singapore@mavekbcs.com",
+      city: language === "ko" ? "한국" : language === "ja" ? "韓国" : "Korea",
+      address: language === "ko" ? "대한민국 인천광역시 연수구 컨벤시아대로 165 동북아트레이드타워(NEATT) 26층" : language === "ja" ? "大韓民国 仁川広域市 延寿区 コンベンシア大路 165 東北アジア貿易タワー(NEATT) 26階" : "26F Northeast Asia Trade Tower, 165 Convensia-daero, Yeonsu-gu, Incheon, Republic of Korea",
+      phone: "+82 32 1234 5678",
+      email: "korea@mavekbcs.com",
+    },
+    {
+      city: language === "ko" ? "필리핀" : language === "ja" ? "フィリピン" : "Philippines",
+      address: "Taguig, Metro Manila, Philippines",
+      phone: "+63 2 1234 5678",
+      email: "philippines@mavekbcs.com",
     },
   ];
 

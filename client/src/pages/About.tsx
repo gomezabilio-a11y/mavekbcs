@@ -8,7 +8,9 @@ const offices = [
     city: "Hong Kong",
     cityKo: "홍콩",
     cityJa: "香港",
-    address: "Central, Hong Kong SAR",
+    address: "3F, 28 Stanley Street, Central, Hong Kong",
+    addressKo: "홍콩 센트럴 스탠리 스트리트 28, 3층",
+    addressJa: "香港 中環 士丹利街 28号 3階",
     description: "Our Asia-Pacific headquarters, serving clients across Greater China and Southeast Asia.",
     descriptionKo: "아시아 태평양 본사로, 중화권 및 동남아시아 전역의 고객을 지원합니다.",
     descriptionJa: "アジア太平洋本社として、中国圏および東南アジア全域のクライアントにサービスを提供しています。",
@@ -17,7 +19,9 @@ const offices = [
     city: "Japan",
     cityKo: "일본",
     cityJa: "日本",
-    address: "Tokyo, Japan",
+    address: "1F Midosuji Front Tower, 1-13-22 Sonezakishinchi, Kita-gu, Osaka-shi, Osaka, Japan",
+    addressKo: "일본 오사카부 오사카시 기타구 소네자키신치 1-13-22 미도스지 프론트 타워 1층",
+    addressJa: "大阪府大阪市北区曽根崎新地 1-13-22 御堂筋フロントタワー 1F",
     description: "Serving Japan's leading corporations with deep expertise in SAP and Oracle implementations.",
     descriptionKo: "SAP 및 Oracle 구현에 대한 깊은 전문성으로 일본 주요 기업을 지원합니다.",
     descriptionJa: "SAPとOracleの実装における深い専門知識で日本の主要企業にサービスを提供しています。",
@@ -26,7 +30,9 @@ const offices = [
     city: "Korea",
     cityKo: "한국",
     cityJa: "韓国",
-    address: "Seoul, South Korea",
+    address: "26F Northeast Asia Trade Tower, 165 Convensia-daero, Yeonsu-gu, Incheon, Republic of Korea",
+    addressKo: "대한민국 인천광역시 연수구 컨벤시아대로 165 동북아트레이드타워(NEATT) 26층",
+    addressJa: "大韓民国 仁川広域市 延寿区 コンベンシア大路 165 東北アジア貿易タワー(NEATT) 26階",
     description: "Supporting Korea's dynamic corporate sector with financial technology transformation.",
     descriptionKo: "재무 기술 혁신으로 한국의 역동적인 기업 부문을 지원합니다.",
     descriptionJa: "財務テクノロジー変革で韓国のダイナミックな企業セクターをサポートしています。",
@@ -35,10 +41,12 @@ const offices = [
     city: "Philippines",
     cityKo: "필리핀",
     cityJa: "フィリピン",
-    address: "Makati, Philippines",
-    description: "Delivering financial consulting services to the Philippines' growing business community.",
-    descriptionKo: "필리핀의 성장하는 비즈니스 커뮤니티에 재무 컨설팅 서비스를 제공합니다.",
-    descriptionJa: "フィリピンの成長するビジネスコミュニティに財務コンサルティングサービスを提供しています。",
+    address: "Taguig, Metro Manila, Philippines",
+    addressKo: "Taguig, Metro Manila, Philippines",
+    addressJa: "Taguig, Metro Manila, Philippines",
+    description: "Back office operations supporting MAVEK BCS global delivery.",
+    descriptionKo: "MAVEK BCS 글로벌 딜리버리를 지원하는 백오피스 운영 센터입니다.",
+    descriptionJa: "MAVEK BCSのグローバルデリバリーを支えるバックオフィス拠点です。",
   },
 ];
 
@@ -191,7 +199,7 @@ export default function About() {
                     {language === "ko" ? office.cityKo : language === "ja" ? office.cityJa : office.city}
                   </h4>
                 </div>
-                <p className="text-xs text-gray-400 mb-3 font-medium">{office.address}</p>
+                <p className="text-xs text-gray-400 mb-3 font-medium">{language === "ko" ? (office.addressKo || office.address) : language === "ja" ? (office.addressJa || office.address) : office.address}</p>
                 <p className="text-sm text-gray-600 leading-relaxed">
                   {language === "ko" ? office.descriptionKo : language === "ja" ? office.descriptionJa : office.description}
                 </p>

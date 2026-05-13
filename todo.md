@@ -199,3 +199,9 @@
 - [x] Rename "CERTIFIED PARTNER:" label to "Technology Platforms We Support" (trilingual)
 - [x] Add trilingual description under the platform names
 - [x] Update key metrics: values (15+, 200+, 4, 12) and trilingual labels
+
+## Phase 27: Office Address Updates
+- [x] Update Japan office address (EN/KO/JA) in Contact page and all other locations
+- [x] Update Korea office address (EN/KO/JA) in Contact page and all other locations
+- [x] Update Hong Kong office address (EN/KO/JA) in Contact page and all other locations
+- [x] Simplify Philippines office to "Taguig, Metro Manila, Philippines" in all locations
