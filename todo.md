@@ -275,3 +275,8 @@
 ## Phase 37: i18n Bug Fixes
 - [x] Fix Footer HK address: show "中環, 香港" (JA) and "센트럴, 홍콩" (KO) instead of English "Central, Hong Kong"
 - [x] Fix Related Insights excerpt: use excerptKo/excerptJa when language is KO/JA instead of always showing English excerpt
+
+## Phase 38: Featured Article Full Translations (3 articles)
+- [x] Update "Why CFOs Invest in Finance Transformation" EN/KO/JA body content in InsightDetail.tsx
+- [ ] Update article 2 (TBD) EN/KO/JA body content in InsightDetail.tsx
+- [ ] Update article 3 (TBD) EN/KO/JA body content in InsightDetail.tsx
