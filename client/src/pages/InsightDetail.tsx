@@ -197,7 +197,7 @@ The organizations that have successfully transformed their close process share s
 
 // Generate generic content for articles without specific content
 const articleContentKo: Record<string, string> = {
-  "what-is-advanced-financial-closing-afc": `오늘날 점점 더 복잡해지는 비즈니스 환경에서 재무 조직은 더 빠른 장부 마감, 보고 정확도 향상, 글로벌 운영 전반의 컴플라이언스 강화라는 끊임없는 압박에 직면해 있습니다. 그러나 기존의 재무 결산 프로세스는 여러 시스템과 팀에 걸친 수동 조정, 스프레ッド시ート, 이메일, 그리고 단절된 활동에 크게 의존하는 경우가 많습니다. 이는 비효율성을 초래하고, 운영 리스크를 높이며, 재무 사이클에서 가장 중요한 시기 중 하나인 결산 기간의 투명성을 제한합니다.
+  "what-is-advanced-financial-closing-afc": `오늘날 점점 더 복잡해지는 비즈니스 환경에서 재무 조직은 더 빠른 장부 마감, 보고 정확도 향상, 글로벌 운영 전반의 컴플라이언스 강화라는 끊임없는 압박에 직면해 있습니다. 그러나 기존의 재무 결산 프로세스는 여러 시스템과 팀에 걸친 수동 조정, 스프레드시트, 이메일, 그리고 단절된 활동에 크게 의존하는 경우가 많습니다. 이는 비효율성을 초래하고, 운영 리스크를 높이며, 재무 사이클에서 가장 중요한 시기 중 하나인 결산 기간의 투명성을 제한합니다.
 
 이러한 과제를 해결하기 위해 SAP는 기업 전반의 기말 결산 활동을 자동화, 표준화 및 가속화하도록 설계된 인텔리전트 재무 결산 오케스트레이션 솔루션인 SAP Advanced Financial Closing (AFC)를 출시했습니다.
 
