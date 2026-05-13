@@ -226,3 +226,15 @@
 - [x] Add English article body for why-cfos-invest-in-finance-transformation
 - [x] Add Korean article body for why-cfos-invest-in-finance-transformation
 - [x] Add Japanese article body for why-cfos-invest-in-finance-transformation
+
+## Phase 32: Full Customer Portal Rebuild
+- [x] Extend DB schema: add timezone/language to users, create portalContracts table, create tickets table
+- [x] Run DB migration via webdev_execute_sql
+- [x] Server: tRPC procedures for admin (create user, set contract hours, list all tickets, update ticket status + spent time)
+- [x] Server: tRPC procedures for customer (get own contract, list own tickets, submit ticket with screenshot upload)
+- [x] Admin Portal UI: customer account creation form, contract hours management, unified ticket list with feedback + time deduction
+- [x] Customer Portal UI: dashboard with gauge chart (remaining hours), ticket submission form with drag-and-drop upload
+- [x] Timezone-aware timestamps: display all ticket times in customer's configured timezone
+- [x] Multilingual UI strings for portal (EN/KO/JA) covering all portal labels, statuses, and messages
+- [x] Closed membership: disable public signup, admin-only account creation
+- [x] Vitest tests for portal DB helpers and i18n (9 tests passing)

@@ -7,6 +7,7 @@ import {
   timestamp,
   varchar,
   json,
+  decimal,
 } from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable("users", {
@@ -50,6 +51,64 @@ export const clientContracts = mysqlTable("client_contracts", {
 
 export type ClientContract = typeof clientContracts.$inferSelect;
 export type InsertClientContract = typeof clientContracts.$inferInsert;
+
+// ── Portal: Closed-membership customer accounts ──────────────────────────────
+// These are separate from Manus OAuth users — admin-created portal accounts
+export const portalUsers = mysqlTable("portal_users", {
+  id: int("id").autoincrement().primaryKey(),
+  username: varchar("username", { length: 128 }).notNull().unique(),
+  passwordHash: varchar("passwordHash", { length: 256 }).notNull(),
+  companyName: varchar("companyName", { length: 256 }).notNull(),
+  email: varchar("email", { length: 320 }),
+  language: mysqlEnum("language", ["en", "ko", "ja"]).default("en").notNull(),
+  timezone: varchar("timezone", { length: 64 }).default("UTC").notNull(),
+  isActive: boolean("isActive").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type PortalUser = typeof portalUsers.$inferSelect;
+export type InsertPortalUser = typeof portalUsers.$inferInsert;
+
+// ── Portal: Contracts (hours tracking per customer) ──────────────────────────
+export const portalContracts = mysqlTable("portal_contracts", {
+  id: int("id").autoincrement().primaryKey(),
+  portalUserId: int("portalUserId").notNull(),
+  totalHours: decimal("totalHours", { precision: 8, scale: 2 }).default("0").notNull(),
+  usedHours: decimal("usedHours", { precision: 8, scale: 2 }).default("0").notNull(),
+  // remainingHours is computed: totalHours - usedHours (done in app layer)
+  contractStartDate: timestamp("contractStartDate"),
+  contractEndDate: timestamp("contractEndDate"),
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type PortalContract = typeof portalContracts.$inferSelect;
+export type InsertPortalContract = typeof portalContracts.$inferInsert;
+
+// ── Portal: Support Tickets ───────────────────────────────────────────────────
+export const tickets = mysqlTable("tickets", {
+  id: int("id").autoincrement().primaryKey(),
+  ticketNumber: varchar("ticketNumber", { length: 32 }).notNull().unique(),
+  portalUserId: int("portalUserId").notNull(),
+  title: varchar("title", { length: 512 }).notNull(),
+  description: text("description").notNull(),
+  screenshotUrl: varchar("screenshotUrl", { length: 1024 }),  // S3 key/url
+  screenshotKey: varchar("screenshotKey", { length: 512 }),
+  status: mysqlEnum("status", ["open", "in_progress", "resolved", "closed"])
+    .default("open")
+    .notNull(),
+  adminFeedback: text("adminFeedback"),
+  spentHours: decimal("spentHours", { precision: 6, scale: 2 }),  // set by admin on resolve
+  hoursDeducted: boolean("hoursDeducted").default(false).notNull(),
+  createdAtUtc: timestamp("createdAtUtc").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  resolvedAt: timestamp("resolvedAt"),
+});
+
+export type Ticket = typeof tickets.$inferSelect;
+export type InsertTicket = typeof tickets.$inferInsert;
 
 // Industries
 export const industries = mysqlTable("industries", {

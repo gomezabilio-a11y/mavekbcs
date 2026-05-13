@@ -23,6 +23,13 @@ import Portal from "./pages/Portal";
 import AdminPortal from "./pages/AdminPortal";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import PortalLogin from "./pages/portal/PortalLogin";
+import PortalDashboard from "./pages/portal/PortalDashboard";
+import PortalTickets from "./pages/portal/PortalTickets";
+import PortalNewTicket from "./pages/portal/PortalNewTicket";
+import AdminCustomers from "./pages/portal/AdminCustomers";
+import AdminTickets from "./pages/portal/AdminTickets";
+import { PortalProvider } from "./contexts/PortalContext";
 
 function Router() {
   return (
@@ -41,6 +48,12 @@ function Router() {
       <Route path="/careers" component={Careers} />
       <Route path="/portal" component={Portal} />
       <Route path="/admin" component={AdminPortal} />
+      <Route path="/portal/login" component={PortalLogin} />
+      <Route path="/portal/dashboard" component={PortalDashboard} />
+      <Route path="/portal/tickets/new" component={PortalNewTicket} />
+      <Route path="/portal/tickets" component={PortalTickets} />
+      <Route path="/portal/admin/customers" component={AdminCustomers} />
+      <Route path="/portal/admin/tickets" component={AdminTickets} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
       <Route path="/404" component={NotFound} />
@@ -54,10 +67,12 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <LanguageProvider>
+          <PortalProvider>
           <TooltipProvider>
             <Toaster />
             <Router />
           </TooltipProvider>
+          </PortalProvider>
         </LanguageProvider>
       </ThemeProvider>
     </ErrorBoundary>

@@ -1,0 +1,9 @@
+{
+  "query": "\nINSERT INTO portal_users (username, passwordHash, companyName, email, language, timezone, isActive, createdAt)\nVALUES ('testclient', '$2b$10$F392GtE64mD5xegDM2.pF.ByqPj1cyCYQ/IyJ6EMuZhQ.mgzAOXS.', 'Test Company Ltd.', 'test@example.com', 'ko', 'Asia/Seoul', true, NOW())\nON DUPLICATE KEY UPDATE companyName = VALUES(companyName);\n\nINSERT INTO portal_contracts (portalUserId, totalHours, usedHours, createdAt)\nSELECT id, '100.00', '23.50', NOW() FROM portal_users WHERE username = 'testclient'\nON DUPLICATE KEY UPDATE totalHours = VALUES(totalHours);\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute \nINSERT INTO portal_users (username, passwordHash, companyName, email, language, timezone, isActive, createdAt)\nVALUES ('testclient', '$2b$10$F392GtE64mD5xegDM2.pF.ByqPj1cyCYQ/IyJ6EMuZhQ.mgzAOXS.', 'Test Company Ltd.', 'test@example.com', 'ko', 'Asia/Seoul', true, NOW())\nON DUPLICATE KEY UPDATE companyName = VALUES(companyName);\n\nINSERT INTO portal_contracts (portalUserId, totalHours, usedHours, createdAt)\nSELECT id, '100.00', '23.50', NOW() FROM portal_users WHERE username = 'testclient'\nON DUPLICATE KEY UPDATE totalHours = VALUES(totalHours);\n",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 2271
+}
