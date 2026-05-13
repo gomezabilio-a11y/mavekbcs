@@ -176,3 +176,11 @@
 ## Phase 22: About Page - Korean and Japanese Company Introduction
 - [x] Update Korean company introduction text (3 paragraphs) in About page
 - [x] Update Japanese company introduction text (3 paragraphs) in About page
+
+## Phase 23: CSR Page Full Rewrite (Artistic Excellence Theme)
+- [x] Rewrite CSR hero section with bilingual EN/KO content (Artistic Excellence headline)
+- [x] Add Monthly Engagement section with bilingual EN/KO content
+- [x] Add Four Pillars grid (Classical Music, Artist Development, Cultural Exchange, Community Access) with bilingual EN/KO
+- [x] Add Japanese (JA) translations for all CSR sections
+- [x] Add CTA section inviting partners to join cultural journey
+- [x] Update LanguageContext.tsx csr.title and csr.subtitle for KO and JA
