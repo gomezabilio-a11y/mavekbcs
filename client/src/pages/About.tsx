@@ -127,10 +127,18 @@ export default function About() {
                 {t("about.description")}
               </p>
               <p className="text-gray-600 leading-relaxed mb-5">
-                Founded by finance and technology professionals with decades of combined experience, MAVEK BCS brings together deep functional knowledge and technical expertise to solve the most complex financial transformation challenges.
+                {language === "ko"
+                  ? "재무와 기술 분야에서 수십 년간 축적된 베테랑 전문가들의 통찰력을 바탕으로 설립된 MAVEK BCS는, 심도 있는 기능적 지식과 독보적인 기술 전문성을 결합하여 기업이 직면한 가장 까다로운 재무 혁신 과제들을 명쾌하게 해결합니다."
+                  : language === "ja"
+                  ? "財務とテクノロジーの分野で数十年の経験を積んだスペシャリストたちによって設立されたMAVEK BCSは、深い業務知識（Functional Knowledge）と卓越した技術的専門性（Technical Expertise）を融合させ、企業が直面する極めて困難な財務変革（Financial Transformation）の課題を解決へと導きます。"
+                  : "Founded by finance and technology professionals with decades of combined experience, MAVEK BCS brings together deep functional knowledge and technical expertise to solve the most complex financial transformation challenges."}
               </p>
               <p className="text-gray-600 leading-relaxed mb-8">
-                We specialize exclusively in financial technology — SAP, Oracle, and Blackline — which means our clients benefit from focused expertise rather than generalist consulting. Every member of our team has hands-on implementation experience with the platforms we recommend.
+                {language === "ko"
+                  ? "우리는 일반적인 컨설팅을 지양하고, SAP, Oracle, BlackLine과 같은 재무 기술 분야에만 역량을 집중하는 전략적 특화 모델을 지향합니다. 이를 통해 고객사는 범용 컨설팅으로는 경험할 수 없는 고도로 집중된 전문 지식의 혜택을 누릴 수 있습니다. MAVEK BCS의 모든 팀원은 우리가 제안하는 플랫폼에 대해 직접적인 구축 및 운영 경험을 보유하고 있으며, 실전에서 검증된 최적의 솔루션만을 고객에게 전달합니다."
+                  : language === "ja"
+                  ? "当社は一般的なコンサルティングとは一線を画し、SAP、Oracle、BlackLineといった財務テクノロジー分野に特化した戦略的モデルを追求しています。これにより、お客様は汎用的なコンサルティングでは得られない、高度に特化した専門知識の恩恵を享受することが可能です。MAVEK BCSの全てのチームメンバーは、当社が推奨するプラットフォームにおいて直接的な導入・運用経験を有しており、実戦で検証された最適なソリューションのみを皆様にお届けいたします。"
+                  : "We specialize exclusively in financial technology — SAP, Oracle, and Blackline — which means our clients benefit from focused expertise rather than generalist consulting. Every member of our team has hands-on implementation experience with the platforms we recommend."}
               </p>
               <Link href="/contact" className="btn-outline-navy no-underline">
                 Get in Touch

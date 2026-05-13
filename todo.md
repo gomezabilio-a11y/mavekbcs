@@ -157,18 +157,22 @@
 - [x] Update Japanese "Why MAVEK BCS" section title, heading, body text, and CTA button labels in SolutionDetail.tsx
 
 ## Phase 21: Solution Pages - Korean Content Update (all 15 solutions)
-- [ ] SAP AFC: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] SAP Group Reporting: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] Oracle FCCS: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] Oracle ARCS: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] Blackline: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] SAP DRC: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] SAP TRM: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] SAP Cash Management: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] SAP MBC: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] SAP FSCM: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] SAP BRIM: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] SAP GRC: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] SAP Analytics Cloud: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] Oracle PBCS: update overviewKo and keyFeaturesKo with exact provided content
-- [ ] SAP RE-FX: update overviewKo and keyFeaturesKo with exact provided content
+- [x] SAP AFC: update overviewKo and keyFeaturesKo with exact provided content
+- [x] SAP Group Reporting: update overviewKo and keyFeaturesKo with exact provided content
+- [x] Oracle FCCS: update overviewKo and keyFeaturesKo with exact provided content
+- [x] Oracle ARCS: update overviewKo and keyFeaturesKo with exact provided content
+- [x] Blackline: update overviewKo and keyFeaturesKo with exact provided content
+- [x] SAP DRC: update overviewKo and keyFeaturesKo with exact provided content
+- [x] SAP TRM: update overviewKo and keyFeaturesKo with exact provided content
+- [x] SAP Cash Management: update overviewKo and keyFeaturesKo with exact provided content
+- [x] SAP MBC: update overviewKo and keyFeaturesKo with exact provided content
+- [x] SAP FSCM: update overviewKo and keyFeaturesKo with exact provided content
+- [x] SAP BRIM: update overviewKo and keyFeaturesKo with exact provided content
+- [x] SAP GRC: update overviewKo and keyFeaturesKo with exact provided content
+- [x] SAP Analytics Cloud: update overviewKo and keyFeaturesKo with exact provided content
+- [x] Oracle PBCS: update overviewKo and keyFeaturesKo with exact provided content
+- [x] SAP RE-FX: update overviewKo and keyFeaturesKo with exact provided content
+
+## Phase 22: About Page - Korean and Japanese Company Introduction
+- [x] Update Korean company introduction text (3 paragraphs) in About page
+- [x] Update Japanese company introduction text (3 paragraphs) in About page
