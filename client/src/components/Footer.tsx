@@ -13,10 +13,10 @@ export default function Footer() {
   ];
 
   const offices = [
-    { key: "about.hk", city: "Hong Kong", address: language === "ko" ? "홍콩 센트럴 스탠리 스트리트 28, 3층" : language === "ja" ? "香港 中環 士丹利街 28号 3階" : "3F, 28 Stanley Street, Central, Hong Kong" },
-    { key: "about.japan", city: "Japan", address: language === "ko" ? "일본 오사카부 오사카시 기타구 소네자키신치 1-13-22 미도스지 프론트 타워 1층" : language === "ja" ? "大阪府大阪市北区曽根崎新地 1-13-22 御堂筋フロントタワー 1F" : "1F Midosuji Front Tower, 1-13-22 Sonezakishinchi, Kita-gu, Osaka-shi, Osaka, Japan" },
-    { key: "about.korea", city: "Korea", address: language === "ko" ? "대한민국 인천광역시 연수구 컨벤시아대로 165 동북아트레이드타워(NEATT) 26층" : language === "ja" ? "大韓民国 仁川広域市 延寿区 コンベンシア大路 165 東北アジア貿易タワー(NEATT) 26階" : "26F Northeast Asia Trade Tower, 165 Convensia-daero, Yeonsu-gu, Incheon, Republic of Korea" },
-    { key: "about.philippines", city: "Philippines", address: "Taguig, Metro Manila, Philippines" },
+    { key: "about.hk", city: "Hong Kong", address: "Central, Hong Kong" },
+    { key: "about.japan", city: "Japan", address: language === "ko" ? "오사카" : language === "ja" ? "大阪" : "Osaka" },
+    { key: "about.korea", city: "Korea", address: language === "ko" ? "인천" : language === "ja" ? "仁川" : "Incheon" },
+    { key: "about.philippines", city: "Philippines", address: language === "ko" ? "타기그" : language === "ja" ? "タギッグ" : "Taguig" },
   ];
 
   return (
@@ -38,7 +38,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed mb-6 max-w-xs">
-              {t("footer.tagline")}. Specializing in SAP, Oracle, and Blackline financial technology implementations across Asia-Pacific and beyond.
+              {t("footer.company.desc")}
             </p>
 
             {/* Offices */}

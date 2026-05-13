@@ -264,3 +264,10 @@
 - [x] Update PortalNewTicket UI: multi-file drag-and-drop (up to 5), preview thumbnails, remove individual files
 - [x] Update PortalTickets display: show all screenshot thumbnails as a gallery
 - [x] Update AdminTickets display: show all screenshots (numbered ExternalLink buttons)
+
+## Phase 36: Homepage & Footer Translation Fixes
+- [x] Add home.section.* and footer.company.desc translation keys (EN/KO/JA) to LanguageContext.tsx
+- [x] Update Home.tsx to use t() for value proposition section title, body paragraphs, CTA, and 4 service cards
+- [x] Shorten footer office addresses to city-only (Central Hong Kong, 인천/Incheon, 오사카/Osaka, 타기그/Taguig)
+- [x] Fix untranslated footer company description to use t("footer.company.desc") with KO/JA translations
+- [x] TypeScript 0 errors verified

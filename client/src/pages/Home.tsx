@@ -172,25 +172,25 @@ export default function Home() {
                 className="text-4xl font-bold mb-6 leading-tight"
                 style={{ color: "var(--navy-dark)" }}
               >
-                Specialized Financial Technology for Complex Organizations
+                {t("home.section.title")}
               </h2>
               <p className="text-gray-600 leading-relaxed mb-6">
-                MAVEK BCS partners with global enterprises to implement, optimize, and transform their financial technology ecosystems. Our deep expertise in SAP, Oracle, and Blackline platforms enables us to deliver measurable results across every stage of the financial close, planning, and compliance lifecycle.
+                {t("home.section.p1")}
               </p>
               <p className="text-gray-600 leading-relaxed mb-8">
-                With offices in Hong Kong, Japan, Korea, and the Philippines, we bring both global perspective and local market knowledge to every engagement.
+                {t("home.section.p2")}
               </p>
               <Link href="/about" className="btn-outline-navy no-underline">
-                Learn About MAVEK BCS
+                {t("home.section.cta")}
                 <ArrowRight size={14} />
               </Link>
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { title: "Financial Close", desc: "Accelerate your close cycle with intelligent automation and real-time visibility." },
-                { title: "Planning & Analytics", desc: "Drive better decisions with integrated planning, budgeting, and forecasting." },
-                { title: "Tax & Compliance", desc: "Navigate global tax complexity with automated compliance solutions." },
-                { title: "Treasury Management", desc: "Optimize cash, manage risk, and streamline bank connectivity." },
+                { title: t("home.fc.title"), desc: t("home.fc.desc") },
+                { title: t("home.pa.title"), desc: t("home.pa.desc") },
+                { title: t("home.tc.title"), desc: t("home.tc.desc") },
+                { title: t("home.tm.title"), desc: t("home.tm.desc") },
               ].map((item) => (
                 <div
                   key={item.title}
