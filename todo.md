@@ -186,11 +186,16 @@
 - [x] Update LanguageContext.tsx csr.title and csr.subtitle for KO and JA
 
 ## Phase 24: CSR Page - Korean Translation Update
-- [ ] Update heroBody1Ko and heroBody2Ko with provided single-paragraph Korean text
-- [ ] Update monthlyBody1Ko and monthlyBody2Ko (merge into single paragraph)
-- [ ] Update all 4 pillars: titleKo, visionKo, initiativesKo (4 items each)
+- [x] Update heroBody1Ko and heroBody2Ko with provided single-paragraph Korean text
+- [x] Update monthlyBody1Ko and monthlyBody2Ko (merge into single paragraph)
+- [x] Update all 4 pillars: titleKo, visionKo, initiativesKo (4 items each)
 
 ## Phase 25: CSR Page - Japanese Translation Update
 - [x] Update heroHeadlineJa, heroBody1Ja, heroBody2Ja with provided Japanese text
 - [x] Update monthlyHeadlineJa, monthlyBody1Ja with provided Japanese text
 - [x] Update all 4 pillars: titleJa, visionJa, initiativesJa (4 items each)
+
+## Phase 26: Homepage Updates
+- [x] Rename "CERTIFIED PARTNER:" label to "Technology Platforms We Support" (trilingual)
+- [x] Add trilingual description under the platform names
+- [x] Update key metrics: values (15+, 200+, 4, 12) and trilingual labels

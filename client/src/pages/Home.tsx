@@ -8,10 +8,30 @@ const featuredInsights = INSIGHTS.filter((i) => i.featured).slice(0, 3);
 const featuredIndustries = INDUSTRIES.slice(0, 6);
 
 const stats = [
-  { value: "20+", label: "Years of Experience" },
-  { value: "200+", label: "Implementations Delivered" },
-  { value: "4", label: "Global Offices" },
-  { value: "12", label: "Industries Served" },
+  {
+    value: "15+",
+    labelEn: "Avg. Consultant Experience (Years)",
+    labelKo: "컨설턴트 평균 경력 (Years)",
+    labelJa: "コンサルタント平均経験年数",
+  },
+  {
+    value: "200+",
+    labelEn: "Combined Consultant Project History",
+    labelKo: "컨설턴트 누적 프로젝트 실적",
+    labelJa: "コンサルタント累計プロジェクト実績",
+  },
+  {
+    value: "4",
+    labelEn: "Global Strategic Offices",
+    labelKo: "글로벌 오피스 네트워크",
+    labelJa: "グローバル拠点数",
+  },
+  {
+    value: "12",
+    labelEn: "Core Industries Served",
+    labelKo: "전문 산업 분야",
+    labelJa: "対応業界数",
+  },
 ];
 
 const vendors = ["SAP", "Oracle", "Blackline"];
@@ -78,19 +98,32 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Vendor logos */}
-            <div className="mt-16 flex items-center gap-6">
-              <span className="text-xs text-gray-500 tracking-wider uppercase">
-                Certified Partner:
-              </span>
-              {vendors.map((v) => (
-                <span
-                  key={v}
-                  className="text-sm font-bold text-gray-400 tracking-wide"
-                >
-                  {v}
-                </span>
-              ))}
+            {/* Technology Platforms */}
+            <div className="mt-16">
+              <p className="text-xs text-gray-500 tracking-wider uppercase mb-3">
+                {language === "ko"
+                  ? "지원 기술 플랫폼"
+                  : language === "ja"
+                  ? "対応テクノロジープラットフォーム"
+                  : "Technology Platforms We Support"}
+              </p>
+              <div className="flex items-center gap-6 mb-3">
+                {vendors.map((v) => (
+                  <span
+                    key={v}
+                    className="text-sm font-bold text-gray-400 tracking-wide"
+                  >
+                    {v}
+                  </span>
+                ))}
+              </div>
+              <p className="text-xs text-gray-500 max-w-md leading-relaxed">
+                {language === "ko"
+                  ? "MAVEK BCS의 컨설턴트들은 다음의 글로벌 재무 플랫폼에 대해 직접적인 구축 및 운영 경험을 보유하고 있습니다."
+                  : language === "ja"
+                  ? "MAVEK BCSのコンサルタントは、以下のグローバル財務プラットフォームにおいて直接的な導入・運用経験を有しています。"
+                  : "Our consultants bring hands-on implementation and operational experience across leading global financial platforms."}
+              </p>
             </div>
           </div>
         </div>
@@ -109,7 +142,7 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
             {stats.map((stat) => (
-              <div key={stat.label} className="py-10 px-6 text-center">
+              <div key={stat.labelEn} className="py-10 px-6 text-center">
                 <div
                   className="text-4xl font-bold mb-2"
                   style={{ color: "var(--navy)", fontFamily: "'Playfair Display', serif" }}
@@ -117,7 +150,11 @@ export default function Home() {
                   {stat.value}
                 </div>
                 <div className="text-xs text-gray-500 tracking-wide uppercase font-medium">
-                  {stat.label}
+                  {language === "ko"
+                    ? stat.labelKo
+                    : language === "ja"
+                    ? stat.labelJa
+                    : stat.labelEn}
                 </div>
               </div>
             ))}
