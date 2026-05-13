@@ -280,3 +280,10 @@
 - [x] Update "Why CFOs Invest in Finance Transformation" EN/KO/JA body content in InsightDetail.tsx
 - [ ] Update article 2 (TBD) EN/KO/JA body content in InsightDetail.tsx
 - [ ] Update article 3 (TBD) EN/KO/JA body content in InsightDetail.tsx
+
+## Phase 39: Replace Featured Article + Global E-Invoicing Trends
+- [x] Replace "Why Financial Close is Still Broken" with "Global E-Invoicing Trends" in siteData.ts (featured flag, slug, title, excerpt, tags, etc.)
+- [x] Add Global E-Invoicing Trends EN body content to InsightDetail.tsx
+- [x] Add Global E-Invoicing Trends KO body content to InsightDetail.tsx
+- [x] Add Global E-Invoicing Trends JA body content to InsightDetail.tsx
+- [x] Verify featured articles on homepage and insights page show correct 3 articles
