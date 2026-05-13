@@ -189,6 +189,7 @@ export async function createTicket(data: {
   description: string;
   screenshotUrl?: string;
   screenshotKey?: string;
+  screenshotUrls?: string; // JSON string of [{url, key}]
 }): Promise<Ticket> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
@@ -201,6 +202,7 @@ export async function createTicket(data: {
     description: data.description,
     screenshotUrl: data.screenshotUrl ?? null,
     screenshotKey: data.screenshotKey ?? null,
+    screenshotUrls: data.screenshotUrls ?? null,
     status: "open",
     hoursDeducted: false,
   });
@@ -235,6 +237,7 @@ export async function getAllTickets(): Promise<(Ticket & { companyName: string; 
       description: tickets.description,
       screenshotUrl: tickets.screenshotUrl,
       screenshotKey: tickets.screenshotKey,
+      screenshotUrls: tickets.screenshotUrls,
       status: tickets.status,
       adminFeedback: tickets.adminFeedback,
       spentHours: tickets.spentHours,

@@ -1,0 +1,9 @@
+{
+  "query": "ALTER TABLE `tickets` ADD `screenshotUrls` text;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute ALTER TABLE `tickets` ADD `screenshotUrls` text;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1984
+}

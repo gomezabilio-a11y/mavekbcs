@@ -22,6 +22,7 @@ interface TicketRow {
   title: string;
   description: string;
   screenshotUrl: string | null;
+  screenshotUrls: string | null;
   status: string;
   adminFeedback: string | null;
   spentHours: string | null;
@@ -138,13 +139,20 @@ export default function AdminTickets() {
                         </td>
                         <td className="px-4 py-3 text-right">
                           <div className="flex justify-end gap-2">
-                            {ticket.screenshotUrl && (
-                              <a href={ticket.screenshotUrl} target="_blank" rel="noopener noreferrer">
-                                <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white h-7 px-2">
-                                  <ExternalLink size={13} />
-                                </Button>
-                              </a>
-                            )}
+                            {/* Screenshot links: prefer screenshotUrls (multi), fallback to screenshotUrl */}
+                            {(() => {
+                              const allScreenshots: { url: string }[] = ticket.screenshotUrls
+                                ? (() => { try { return JSON.parse(ticket.screenshotUrls) as { url: string }[]; } catch { return []; } })()
+                                : ticket.screenshotUrl ? [{ url: ticket.screenshotUrl }] : [];
+                              return allScreenshots.map((s, i) => (
+                                <a key={i} href={s.url} target="_blank" rel="noopener noreferrer">
+                                  <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white h-7 px-2">
+                                    <ExternalLink size={13} />
+                                    {allScreenshots.length > 1 && <span className="text-[10px] ml-0.5">{i + 1}</span>}
+                                  </Button>
+                                </a>
+                              ));
+                            })()}
                             <Button
                               size="sm"
                               variant="ghost"

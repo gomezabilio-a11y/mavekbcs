@@ -55,16 +55,26 @@ export default function PortalTickets() {
                             {ticket.adminFeedback}
                           </div>
                         )}
-                        {ticket.screenshotUrl && (
-                          <a
-                            href={ticket.screenshotUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block mt-2 text-xs text-[#c9a84c] hover:underline"
-                          >
-                            📎 {t.screenshot}
-                          </a>
-                        )}
+                        {/* Screenshot gallery: prefer screenshotUrls (multi), fallback to screenshotUrl (legacy) */}
+                        {(() => {
+                          const allScreenshots: { url: string }[] = ticket.screenshotUrls
+                            ? (() => { try { return JSON.parse(ticket.screenshotUrls) as { url: string }[]; } catch { return []; } })()
+                            : ticket.screenshotUrl ? [{ url: ticket.screenshotUrl }] : [];
+                          if (allScreenshots.length === 0) return null;
+                          return (
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {allScreenshots.map((s, i) => (
+                                <a key={i} href={s.url} target="_blank" rel="noopener noreferrer">
+                                  <img
+                                    src={s.url}
+                                    alt={`screenshot ${i + 1}`}
+                                    className="h-16 w-24 object-cover rounded border border-gray-600 hover:border-[#c9a84c] transition-colors"
+                                  />
+                                </a>
+                              ))}
+                            </div>
+                          );
+                        })()}
                       </div>
                       <div className="text-right shrink-0">
                         <div className="text-xs text-gray-500">{t.createdAt}</div>

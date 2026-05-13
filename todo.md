@@ -255,3 +255,12 @@
 - [x] Add deleteCustomer tRPC procedure in portal.ts (cascade delete tickets + contract)
 - [x] Add delete button with confirmation dialog in AdminCustomers.tsx
 - [x] TypeScript 0 errors verified
+
+## Phase 35: Multi-Screenshot Upload for Tickets
+- [x] Add screenshotUrls (JSON array) column to tickets table in schema.ts
+- [x] Run Drizzle migration for screenshotUrls column
+- [x] Update createTicket DB helper to accept screenshotUrls array
+- [x] Update submitTicket tRPC procedure to upload multiple files and store URLs
+- [x] Update PortalNewTicket UI: multi-file drag-and-drop (up to 5), preview thumbnails, remove individual files
+- [x] Update PortalTickets display: show all screenshot thumbnails as a gallery
+- [x] Update AdminTickets display: show all screenshots (numbered ExternalLink buttons)

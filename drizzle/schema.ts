@@ -94,8 +94,9 @@ export const tickets = mysqlTable("tickets", {
   portalUserId: int("portalUserId").notNull(),
   title: varchar("title", { length: 512 }).notNull(),
   description: text("description").notNull(),
-  screenshotUrl: varchar("screenshotUrl", { length: 1024 }),  // S3 key/url
+  screenshotUrl: varchar("screenshotUrl", { length: 1024 }),  // S3 key/url (legacy, first screenshot)
   screenshotKey: varchar("screenshotKey", { length: 512 }),
+  screenshotUrls: text("screenshotUrls"),  // JSON array of {url, key} objects for multiple screenshots
   status: mysqlEnum("status", ["open", "in_progress", "resolved", "closed"])
     .default("open")
     .notNull(),

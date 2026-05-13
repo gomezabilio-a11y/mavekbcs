@@ -132,34 +132,34 @@ export const portalRouter = router({
         portalToken: z.string(),
         title: z.string().min(1).max(512),
         description: z.string().min(1),
-        // Optional base64 screenshot: "data:<mime>;base64,<data>"
-        screenshotBase64: z.string().optional(),
-        screenshotMime: z.string().optional(),
+        // Multiple screenshots as array of {base64, mime} objects (up to 5)
+        screenshots: z.array(z.object({
+          base64: z.string(),
+          mime: z.string(),
+        })).max(5).optional(),
       })
     )
     .mutation(async ({ input }) => {
       const { portalUserId } = await verifyPortalToken(input.portalToken);
-
-      let screenshotUrl: string | undefined;
-      let screenshotKey: string | undefined;
-
-      if (input.screenshotBase64 && input.screenshotMime) {
-        // Strip data URL prefix if present
-        const base64Data = input.screenshotBase64.replace(/^data:[^;]+;base64,/, "");
-        const buffer = Buffer.from(base64Data, "base64");
-        const ext = input.screenshotMime.split("/")[1] ?? "png";
-        const key = `portal-tickets/${portalUserId}/${Date.now()}.${ext}`;
-        const result = await storagePut(key, buffer, input.screenshotMime);
-        screenshotUrl = result.url;
-        screenshotKey = result.key;
+      // Upload all screenshots to S3
+      const uploadedScreenshots: { url: string; key: string }[] = [];
+      if (input.screenshots && input.screenshots.length > 0) {
+        for (const screenshot of input.screenshots) {
+          const base64Data = screenshot.base64.replace(/^data:[^;]+;base64,/, "");
+          const buffer = Buffer.from(base64Data, "base64");
+          const ext = screenshot.mime.split("/")[1] ?? "png";
+          const key = `portal-tickets/${portalUserId}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+          const result = await storagePut(key, buffer, screenshot.mime);
+          uploadedScreenshots.push({ url: result.url, key: result.key });
+        }
       }
-
       const ticket = await createTicket({
         portalUserId,
         title: input.title,
         description: input.description,
-        screenshotUrl,
-        screenshotKey,
+        screenshotUrl: uploadedScreenshots[0]?.url,
+        screenshotKey: uploadedScreenshots[0]?.key,
+        screenshotUrls: uploadedScreenshots.length > 0 ? JSON.stringify(uploadedScreenshots) : undefined,
       });
       return ticket;
     }),

@@ -29,6 +29,13 @@
       "when": 1778662999152,
       "tag": "0003_opposite_revanche",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1778666720693,
+      "tag": "0004_lean_vampiro",
+      "breakpoints": true
     }
   ]
 }
