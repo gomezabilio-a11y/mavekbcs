@@ -338,6 +338,8 @@ export const INSIGHTS: Array<{
   titleKo: string;
   titleJa: string;
   excerpt: string;
+  excerptKo?: string;
+  excerptJa?: string;
   category: string;
   tags: string[];
   relatedIndustries: string[];
@@ -352,6 +354,8 @@ export const INSIGHTS: Array<{
     titleKo: "고급 재무 결산(AFC)이란 무엇인가?",
     titleJa: "アドバンスト財務決算(AFC)とは何か？",
     excerpt: "SAP Advanced Financial Closing (AFC) is an intelligent solution that automates and accelerates the financial close process, reducing manual effort and improving accuracy.",
+    excerptKo: "SAP AFC(고급 재무 결산)는 재무 결산 프로세스를 자동화하고 가속화하는 지능형 솔루션으로, 수작업을 줄이고 정확성을 향상시킵니다.",
+    excerptJa: "SAP AFC（アドバンスト財務決算）は、財務決算プロセスを自動化・加速するインテリジェントなソリューションで、手作業を削減し精度を向上させます。",
     category: "Financial Close",
     tags: ["SAP AFC", "Financial Close", "Automation"],
     relatedIndustries: ["financial-services", "retail", "automotive"],
@@ -685,6 +689,8 @@ export const INSIGHTS: Array<{
     titleKo: "CFO가 재무 혁신에 투자하는 이유",
     titleJa: "CFOが財務変革に投資する理由",
     excerpt: "Finance transformation is no longer optional. CFOs are investing in technology to reduce costs, improve decision-making speed, and position finance as a strategic business partner.",
+    excerptKo: "재무 혁신은 이제 선택이 아닌 필수입니다. CFO들은 비용 절감, 의사결정 속도 향상, 재무 부서의 전략적 파트너로의 전환을 위해 기술에 투자하고 있습니다.",
+    excerptJa: "財務変革はもはや選択肢ではありません。CFOはコスト削減、意思決定スピードの向上、財務部門を戦略的ビジネスパートナーとして位置づけるために技術に投資しています。",
     category: "Finance Transformation",
     tags: ["Finance Transformation", "CFO", "Strategy"],
     relatedIndustries: ["financial-services", "retail", "pharmaceuticals"],

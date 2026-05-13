@@ -376,7 +376,7 @@ export default function SolutionDetail({ params }: SolutionDetailProps) {
                     {language === "ko" ? insight.titleKo : language === "ja" ? insight.titleJa : insight.title}
                   </h4>
                   <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">
-                    {insight.excerpt}
+                    {language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}
                   </p>
                 </Link>
               ))}

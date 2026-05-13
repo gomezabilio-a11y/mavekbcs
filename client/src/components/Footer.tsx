@@ -13,7 +13,7 @@ export default function Footer() {
   ];
 
   const offices = [
-    { key: "about.hk", city: "Hong Kong", address: "Central, Hong Kong" },
+    { key: "about.hk", city: "Hong Kong", address: language === "ko" ? "센트럴, 홍콩" : language === "ja" ? "中環, 香港" : "Central, Hong Kong" },
     { key: "about.japan", city: "Japan", address: language === "ko" ? "오사카" : language === "ja" ? "大阪" : "Osaka" },
     { key: "about.korea", city: "Korea", address: language === "ko" ? "인천" : language === "ja" ? "仁川" : "Incheon" },
     { key: "about.philippines", city: "Philippines", address: language === "ko" ? "타기그" : language === "ja" ? "タギッグ" : "Taguig" },

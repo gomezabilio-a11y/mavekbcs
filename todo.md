@@ -271,3 +271,7 @@
 - [x] Shorten footer office addresses to city-only (Central Hong Kong, 인천/Incheon, 오사카/Osaka, 타기그/Taguig)
 - [x] Fix untranslated footer company description to use t("footer.company.desc") with KO/JA translations
 - [x] TypeScript 0 errors verified
+
+## Phase 37: i18n Bug Fixes
+- [x] Fix Footer HK address: show "中環, 香港" (JA) and "센트럴, 홍콩" (KO) instead of English "Central, Hong Kong"
+- [x] Fix Related Insights excerpt: use excerptKo/excerptJa when language is KO/JA instead of always showing English excerpt

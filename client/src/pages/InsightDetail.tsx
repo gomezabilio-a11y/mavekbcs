@@ -630,7 +630,7 @@ export default function InsightDetail({ params }: InsightDetailProps) {
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
               {title}
             </h1>
-            <p className="text-gray-300 leading-relaxed text-lg">{insight.excerpt}</p>
+            <p className="text-gray-300 leading-relaxed text-lg">{language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}</p>
           </div>
         </div>
       </section>
@@ -744,7 +744,7 @@ export default function InsightDetail({ params }: InsightDetailProps) {
                   <h4 className="text-sm font-bold mb-2 group-hover:text-[var(--navy)] transition-colors" style={{ color: "var(--navy-dark)" }}>
                     {language === "ko" ? rel.titleKo : language === "ja" ? rel.titleJa : rel.title}
                   </h4>
-                  <p className="text-xs text-gray-500 line-clamp-2">{rel.excerpt}</p>
+                  <p className="text-xs text-gray-500 line-clamp-2">{language === "ko" && rel.excerptKo ? rel.excerptKo : language === "ja" && rel.excerptJa ? rel.excerptJa : rel.excerpt}</p>
                 </Link>
               ))}
             </div>

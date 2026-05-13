@@ -70,7 +70,7 @@ export default function Insights() {
                     <h3 className="text-base font-bold mb-3 group-hover:text-[var(--navy)] transition-colors leading-snug" style={{ color: "var(--navy-dark)" }}>
                       {language === "ko" ? insight.titleKo : language === "ja" ? insight.titleJa : insight.title}
                     </h3>
-                    <p className="text-sm text-gray-500 leading-relaxed line-clamp-3">{insight.excerpt}</p>
+                    <p className="text-sm text-gray-500 leading-relaxed line-clamp-3">{language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}</p>
                   </div>
                   <div className="px-6 pb-5 flex items-center gap-2 text-xs font-semibold" style={{ color: "var(--navy)" }}>
                     {language === "ko" ? "읽기" : language === "ja" ? "読む" : "Read Article"}
@@ -141,7 +141,7 @@ export default function Insights() {
                   <h3 className="text-sm font-bold mb-2 group-hover:text-[var(--navy)] transition-colors leading-snug" style={{ color: "var(--navy-dark)" }}>
                     {language === "ko" ? insight.titleKo : language === "ja" ? insight.titleJa : insight.title}
                   </h3>
-                  <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">{insight.excerpt}</p>
+                  <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">{language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}</p>
                 </div>
                 <div className="px-6 pb-5 flex flex-wrap gap-1">
                   {insight.tags.slice(0, 3).map((tag) => (

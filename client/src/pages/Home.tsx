@@ -375,7 +375,7 @@ export default function Home() {
                     {language === "ko" ? insight.titleKo : language === "ja" ? insight.titleJa : insight.title}
                   </h3>
                   <p className="text-sm text-gray-500 leading-relaxed line-clamp-2 mb-4">
-                    {insight.excerpt}
+                    {language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}
                   </p>
                   <div className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--navy)" }}>
                     {t("insights.readMore")}
