@@ -60,17 +60,17 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
           {customerNav.map((item) => {
             const active = location === item.href;
             return (
-              <Link key={item.href} href={item.href}>
-                <a
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
-                    active
-                      ? "bg-[#c9a84c]/15 text-[#c9a84c]"
-                      : "text-gray-400 hover:text-white hover:bg-white/5"
-                  }`}
-                >
-                  <item.icon size={16} />
-                  {item.label}
-                </a>
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+                  active
+                    ? "bg-[#c9a84c]/15 text-[#c9a84c]"
+                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                <item.icon size={16} />
+                {item.label}
               </Link>
             );
           })}
@@ -87,17 +87,17 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
               {adminNav.map((item) => {
                 const active = location === item.href;
                 return (
-                  <Link key={item.href} href={item.href}>
-                    <a
-                      className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
-                        active
-                          ? "bg-[#c9a84c]/15 text-[#c9a84c]"
-                          : "text-gray-400 hover:text-white hover:bg-white/5"
-                      }`}
-                    >
-                      <item.icon size={16} />
-                      {item.label}
-                    </a>
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+                      active
+                        ? "bg-[#c9a84c]/15 text-[#c9a84c]"
+                        : "text-gray-400 hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    <item.icon size={16} />
+                    {item.label}
                   </Link>
                 );
               })}
