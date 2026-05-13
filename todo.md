@@ -215,3 +215,9 @@
 
 ## Phase 29: Contact Page Phone Number Removal
 - [x] Remove all phone number fields and displays from Contact.tsx
+
+## Phase 30: Blog Article Update - SAP AFC
+- [x] Update SAP AFC article English content with new provided text
+- [x] Add Korean translation for SAP AFC article
+- [x] Add Japanese translation for SAP AFC article
+- [x] Add multilingual article body support (articleContentKo, articleContentJa Records) to InsightDetail.tsx
