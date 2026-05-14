@@ -1,0 +1,18 @@
+{
+  "query": "SELECT id, username, displayName, role, isActive, createdAt FROM admin_users ORDER BY createdAt;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, username, displayName, role, isActive, createdAt FROM admin_users ORDER BY createdAt;",
+  "rows": [
+    {
+      "id": "1",
+      "username": "mavek_admin",
+      "displayName": "MAVEK Master Admin",
+      "role": "master",
+      "isActive": "1",
+      "createdAt": "2026-05-13 09:15:30"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tusername\tdisplayName\trole\tisActive\tcreatedAt\n1\tmavek_admin\tMAVEK Master Admin\tmaster\t1\t2026-05-13 09:15:30\n",
+  "stderr": "",
+  "execution_time_ms": 1858
+}

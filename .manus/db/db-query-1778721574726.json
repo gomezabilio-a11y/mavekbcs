@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE admin_users SET passwordHash = '$2b$10$29dl1MJFNxG4vi7T0w7f5.K7pENUhMpet/XFfL5QTM2naQvu6gs0y' WHERE username = 'mavek_admin';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute UPDATE admin_users SET passwordHash = '$2b$10$29dl1MJFNxG4vi7T0w7f5.K7pENUhMpet/XFfL5QTM2naQvu6gs0y' WHERE username = 'mavek_admin';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1834
+}
