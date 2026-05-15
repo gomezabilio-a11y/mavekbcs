@@ -5,7 +5,7 @@ import { usePortalT } from "@/lib/portalI18n";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Ticket, PlusCircle, Users, ListChecks, LogOut, ShieldCheck } from "lucide-react";
+import { LayoutDashboard, Ticket, PlusCircle, Users, ListChecks, LogOut, ShieldCheck, ExternalLink } from "lucide-react";
 
 interface PortalLayoutProps {
   children: React.ReactNode;
@@ -101,6 +101,15 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
                   </Link>
                 );
               })}
+              <a
+                href="/portal/admin/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors text-[#c9a84c]/70 hover:text-[#c9a84c] hover:bg-[#c9a84c]/10"
+              >
+                <ExternalLink size={16} />
+                {t.goToAdminPortal}
+              </a>
             </>
           )}
         </nav>
