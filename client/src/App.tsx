@@ -19,7 +19,7 @@ import Insights from "./pages/Insights";
 import InsightDetail from "./pages/InsightDetail";
 import Contact from "./pages/Contact";
 import Careers from "./pages/Careers";
-import Portal from "./pages/Portal";
+import { Redirect } from "wouter";
 import AdminPortal from "./pages/AdminPortal";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -49,7 +49,7 @@ function Router() {
       <Route path="/insights/:slug" component={InsightDetail} />
       <Route path="/contact" component={Contact} />
       <Route path="/careers" component={Careers} />
-      <Route path="/portal" component={Portal} />
+      <Route path="/portal">{() => <Redirect to="/portal/login" />}</Route>
       <Route path="/admin" component={AdminPortal} />
       <Route path="/portal/login" component={PortalLogin} />
       <Route path="/portal/dashboard" component={PortalDashboard} />
