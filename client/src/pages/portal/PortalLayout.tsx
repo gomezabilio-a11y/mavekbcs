@@ -101,15 +101,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
                   </Link>
                 );
               })}
-              <a
-                href="/portal/admin/login"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors text-[#c9a84c]/70 hover:text-[#c9a84c] hover:bg-[#c9a84c]/10"
-              >
-                <ExternalLink size={16} />
-                {t.goToAdminPortal}
-              </a>
+
             </>
           )}
         </nav>
