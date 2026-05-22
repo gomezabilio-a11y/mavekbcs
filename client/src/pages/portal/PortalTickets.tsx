@@ -75,6 +75,29 @@ export default function PortalTickets() {
                             </div>
                           );
                         })()}
+                        {/* Admin Screenshots */}
+                        {(() => {
+                          const adminScreenshots: { url: string }[] = (ticket as any).adminScreenshotUrls
+                            ? (() => { try { return JSON.parse((ticket as any).adminScreenshotUrls) as { url: string }[]; } catch { return []; } })()
+                            : [];
+                          if (adminScreenshots.length === 0) return null;
+                          return (
+                            <div className="mt-2">
+                              <p className="text-[10px] text-gray-500 mb-1.5 font-medium">Admin Screenshots</p>
+                              <div className="flex flex-wrap gap-2">
+                                {adminScreenshots.map((s, i) => (
+                                  <a key={i} href={s.url} target="_blank" rel="noopener noreferrer">
+                                    <img
+                                      src={s.url}
+                                      alt={`admin screenshot ${i + 1}`}
+                                      className="h-16 w-24 object-cover rounded border border-green-600/50 hover:border-green-500 transition-colors"
+                                    />
+                                  </a>
+                                ))}
+                              </div>
+                            </div>
+                          );
+                        })()}
                       </div>
                       <div className="text-right shrink-0">
                         <div className="text-xs text-gray-500">{t.createdAt}</div>

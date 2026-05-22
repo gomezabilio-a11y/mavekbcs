@@ -284,13 +284,43 @@ export const portalRouter = router({
         status: z.enum(["open", "in_progress", "resolved", "closed"]).optional(),
         adminFeedback: z.string().optional(),
         spentHours: z.number().min(0).optional(),
+        // New screenshots to upload (base64 encoded)
+        newScreenshots: z.array(z.object({
+          base64: z.string(),
+          mime: z.string(),
+        })).max(5).optional(),
+        // Existing screenshot URLs to keep (JSON string of [{url, key}])
+        existingScreenshotUrls: z.string().optional(),
       })
     )
     .mutation(async ({ input }) => {
       const admin = await verifyAdminToken(input.adminToken);
       if (!admin) throw new TRPCError({ code: "UNAUTHORIZED" });
-      const { adminToken: _t, ticketId, ...data } = input;
-      return updateTicketByAdmin(ticketId, data);
+
+      // Upload new screenshots to S3
+      const uploadedScreenshots: { url: string; key: string }[] = [];
+      if (input.newScreenshots && input.newScreenshots.length > 0) {
+        for (const screenshot of input.newScreenshots) {
+          const base64Data = screenshot.base64.replace(/^data:[^;]+;base64,/, "");
+          const buffer = Buffer.from(base64Data, "base64");
+          const ext = screenshot.mime.split("/")[1] ?? "png";
+          const key = `portal-admin-screenshots/${input.ticketId}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+          const result = await storagePut(key, buffer, screenshot.mime);
+          uploadedScreenshots.push({ url: result.url, key: result.key });
+        }
+      }
+
+      // Merge existing + new screenshots
+      const existingUrls: { url: string; key: string }[] = input.existingScreenshotUrls
+        ? JSON.parse(input.existingScreenshotUrls)
+        : [];
+      const allScreenshots = [...existingUrls, ...uploadedScreenshots];
+
+      const { adminToken: _t, ticketId, newScreenshots: _ns, existingScreenshotUrls: _es, ...data } = input;
+      return updateTicketByAdmin(ticketId, {
+        ...data,
+        adminScreenshotUrls: allScreenshots.length > 0 ? JSON.stringify(allScreenshots) : undefined,
+      });
     }),
 
   /** Get single ticket detail (admin only) */

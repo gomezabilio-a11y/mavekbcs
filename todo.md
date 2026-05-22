@@ -287,3 +287,8 @@
 - [x] Add Global E-Invoicing Trends KO body content to InsightDetail.tsx
 - [x] Add Global E-Invoicing Trends JA body content to InsightDetail.tsx
 - [x] Verify featured articles on homepage and insights page show correct 3 articles
+
+## Phase 40: Admin Ticket Edit Fix + Screenshot Upload
+
+- [ ] Fix "Invalid credentials" error when admin updates a ticket (admin token not being sent)
+- [ ] Add screenshot upload to admin ticket edit form (upload to S3, display in edit modal)
