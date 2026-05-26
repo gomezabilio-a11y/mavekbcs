@@ -18,7 +18,6 @@ const strings = {
     tickets: "Tickets",
     newTicket: "New Ticket",
     adminPanel: "Admin Panel",
-    goToAdminPortal: "Go to Admin Portal",
     customers: "Customers",
     allTickets: "All Tickets",
     // Contract
@@ -84,7 +83,6 @@ const strings = {
     tickets: "티켓",
     newTicket: "새 티켓",
     adminPanel: "관리자 패널",
-    goToAdminPortal: "어드민 포털로 이동",
     customers: "고객 관리",
     allTickets: "전체 티켓",
     contractHours: "계약 시간",
@@ -145,7 +143,6 @@ const strings = {
     tickets: "チケット",
     newTicket: "新しいチケット",
     adminPanel: "管理パネル",
-    goToAdminPortal: "管理ポータルへ",
     customers: "顧客管理",
     allTickets: "全チケット",
     contractHours: "契約時間",

@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Edit2, Loader2, ExternalLink, Upload, X } from "lucide-react";
+import { Edit2, Loader2, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
 interface TicketRow {
@@ -23,7 +23,6 @@ interface TicketRow {
   description: string;
   screenshotUrl: string | null;
   screenshotUrls: string | null;
-  adminScreenshotUrls?: string | null;
   userTimezone: string;
   status: string;
   adminFeedback: string | null;
@@ -46,7 +45,6 @@ export default function AdminTickets() {
   const [feedback, setFeedback] = useState("");
   const [spentHours, setSpentHours] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("all");
-  const [newScreenshots, setNewScreenshots] = useState<{ base64: string; mime: string }[]>([]);
 
   const ticketsQuery = trpc.portalV2.adminListTickets.useQuery(
     { adminToken: adminToken ?? "" },
@@ -67,21 +65,6 @@ export default function AdminTickets() {
     setNewStatus(ticket.status);
     setFeedback(ticket.adminFeedback ?? "");
     setSpentHours(ticket.spentHours ?? "");
-    setNewScreenshots([]);
-  };
-
-  const handleScreenshotUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.currentTarget.files;
-    if (!files) return;
-    for (let i = 0; i < files.length && newScreenshots.length + i < 5; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-      reader.onload = (evt) => {
-        const base64 = evt.target?.result as string;
-        setNewScreenshots((prev) => [...prev, { base64, mime: file.type || "image/png" }]);
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   const filtered = (ticketsQuery.data ?? []).filter(
@@ -255,36 +238,6 @@ export default function AdminTickets() {
                   placeholder={t.feedback}
                 />
               </div>
-
-              {/* Admin Screenshots Upload */}
-              <div className="space-y-1.5">
-                <Label className="text-gray-300 text-xs">Admin Screenshots (up to 5)</Label>
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {newScreenshots.map((ss, i) => (
-                    <div key={i} className="relative w-16 h-16 bg-[#1a2235] rounded border border-gray-600 overflow-hidden">
-                      <img src={ss.base64} alt="preview" className="w-full h-full object-cover" />
-                      <button
-                        type="button"
-                        onClick={() => setNewScreenshots((prev) => prev.filter((_, j) => j !== i))}
-                        className="absolute top-0 right-0 bg-red-600 text-white p-0.5 rounded-bl"
-                      >
-                        <X size={12} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-                <label className="flex items-center gap-2 px-3 py-2 bg-[#1a2235] border border-gray-600 rounded cursor-pointer hover:border-gray-500 text-gray-300 text-xs">
-                  <Upload size={14} />
-                  <span>Add Screenshots</span>
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={handleScreenshotUpload}
-                    className="hidden"
-                  />
-                </label>
-              </div>
             </div>
           )}
           <DialogFooter>
@@ -294,17 +247,12 @@ export default function AdminTickets() {
               disabled={updateMutation.isPending}
               onClick={() => {
                 if (!editTicket) return;
-                const existingScreenshots = editTicket.adminScreenshotUrls
-                  ? (() => { try { return JSON.parse(editTicket.adminScreenshotUrls); } catch { return []; } })()
-                  : [];
                 updateMutation.mutate({
                   adminToken: adminToken ?? "",
                   ticketId: editTicket.id,
                   status: newStatus as "open" | "in_progress" | "resolved" | "closed",
                   adminFeedback: feedback || undefined,
                   spentHours: spentHours ? parseFloat(spentHours) : undefined,
-                  newScreenshots: newScreenshots.length > 0 ? newScreenshots : undefined,
-                  existingScreenshotUrls: existingScreenshots.length > 0 ? JSON.stringify(existingScreenshots) : undefined,
                 });
               }}
             >

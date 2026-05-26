@@ -346,7 +346,6 @@ export const INSIGHTS: Array<{
   relatedSolutions: string[];
   readTimeMinutes: number;
   featured: boolean;
-  thumbnailUrl?: string;
 }> = [
   // Financial Close (6)
   {
@@ -363,7 +362,6 @@ export const INSIGHTS: Array<{
     relatedSolutions: ["sap-afc"],
     readTimeMinutes: 7,
     featured: true,
-    thumbnailUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663602673366/9wsYutxKhSEzLK7XGG22CU/thumbnail-afc-6okMg9yLvfg3ZGJTixrXkF.webp",
   },
   {
     slug: "group-reporting-explained",
@@ -499,7 +497,6 @@ export const INSIGHTS: Array<{
   },
   {
     slug: "global-e-invoicing-trends",
-    thumbnailUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663602673366/9wsYutxKhSEzLK7XGG22CU/thumbnail-einvoicing-DSvwHzmdRWqyPAooCbLmQx.webp",
     title: "Global E-Invoicing Trends",
     titleKo: "글로벌 전자 인보이스 트렌드",
     titleJa: "グローバル電子請求書トレンド",
@@ -690,7 +687,6 @@ export const INSIGHTS: Array<{
   // Finance Transformation (10)
   {
     slug: "why-cfos-invest-in-finance-transformation",
-    thumbnailUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310519663602673366/9wsYutxKhSEzLK7XGG22CU/thumbnail-cfo-XbLXGG3P43oh3Mmf6vK45p.webp",
     title: "Why CFOs Invest in Finance Transformation",
     titleKo: "CFO가 재무 혁신에 투자하는 이유",
     titleJa: "CFOが財務変革に投資する理由",

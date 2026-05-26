@@ -1,8 +1,0 @@
-{
-  "query": "SELECT id, username, display_name, role, is_active, created_at FROM admin_users ORDER BY created_at;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, username, display_name, role, is_active, created_at FROM admin_users ORDER BY created_at;",
-  "returncode": 1,
-  "logs": [
-    "ERROR 1054 (42S22) at line 1: Unknown column 'display_name' in 'field list'"
-  ]
-}

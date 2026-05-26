@@ -104,7 +104,7 @@ export const adminRouter = router({
       z.object({
         adminToken: z.string(),
         username: z.string().min(3).max(64),
-        password: z.string().min(4),
+        password: z.string().min(6),
         displayName: z.string().min(1).max(128),
         role: z.enum(["master", "staff"]),
       })
@@ -137,7 +137,7 @@ export const adminRouter = router({
         displayName: z.string().min(1).max(128).optional(),
         role: z.enum(["master", "staff"]).optional(),
         isActive: z.boolean().optional(),
-        password: z.string().min(4).optional(),
+        password: z.string().min(6).optional(),
       })
     )
     .mutation(async ({ input }) => {

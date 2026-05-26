@@ -101,7 +101,6 @@ export const tickets = mysqlTable("tickets", {
     .default("open")
     .notNull(),
   adminFeedback: text("adminFeedback"),
-  adminScreenshotUrls: text("adminScreenshotUrls"),  // JSON array of {url, key} objects uploaded by admin
   spentHours: decimal("spentHours", { precision: 6, scale: 2 }),  // set by admin on resolve
   hoursDeducted: boolean("hoursDeducted").default(false).notNull(),
   createdAtUtc: timestamp("createdAtUtc").defaultNow().notNull(),

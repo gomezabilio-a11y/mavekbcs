@@ -278,8 +278,8 @@
 
 ## Phase 38: Featured Article Full Translations (3 articles)
 - [x] Update "Why CFOs Invest in Finance Transformation" EN/KO/JA body content in InsightDetail.tsx
-- [x] Update article 2 (Global E-Invoicing Trends) EN/KO/JA body content in InsightDetail.tsx - completed in Phase 39
-- [x] Update article 3 - N/A (only 3 featured articles total, all 3 now fully translated)
+- [ ] Update article 2 (TBD) EN/KO/JA body content in InsightDetail.tsx
+- [ ] Update article 3 (TBD) EN/KO/JA body content in InsightDetail.tsx
 
 ## Phase 39: Replace Featured Article + Global E-Invoicing Trends
 - [x] Replace "Why Financial Close is Still Broken" with "Global E-Invoicing Trends" in siteData.ts (featured flag, slug, title, excerpt, tags, etc.)
@@ -287,8 +287,3 @@
 - [x] Add Global E-Invoicing Trends KO body content to InsightDetail.tsx
 - [x] Add Global E-Invoicing Trends JA body content to InsightDetail.tsx
 - [x] Verify featured articles on homepage and insights page show correct 3 articles
-
-## Phase 40: Admin Ticket Edit Fix + Screenshot Upload
-
-- [ ] Fix "Invalid credentials" error when admin updates a ticket (admin token not being sent)
-- [ ] Add screenshot upload to admin ticket edit form (upload to S3, display in edit modal)

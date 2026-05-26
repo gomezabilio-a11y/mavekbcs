@@ -5,7 +5,7 @@ import { usePortalT } from "@/lib/portalI18n";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Ticket, PlusCircle, Users, ListChecks, LogOut, ShieldCheck, ExternalLink } from "lucide-react";
+import { LayoutDashboard, Ticket, PlusCircle, Users, ListChecks, LogOut, ShieldCheck } from "lucide-react";
 
 interface PortalLayoutProps {
   children: React.ReactNode;
@@ -101,7 +101,6 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
                   </Link>
                 );
               })}
-
             </>
           )}
         </nav>

@@ -354,23 +354,14 @@ export default function Home() {
                     backgroundColor: idx === 0 ? "var(--navy)" : idx === 1 ? "var(--navy-mid)" : "var(--navy-light)",
                   }}
                 >
-                  {insight.thumbnailUrl && (
-                    <img
-                      src={insight.thumbnailUrl}
-                      alt={insight.title}
-                      className="absolute inset-0 w-full h-full object-cover opacity-60"
-                    />
-                  )}
-                  {!insight.thumbnailUrl && (
-                    <div
-                      className="absolute top-0 right-0 w-32 h-32 opacity-10"
-                      style={{
-                        background: "radial-gradient(circle, var(--gold) 0%, transparent 70%)",
-                      }}
-                    />
-                  )}
+                  <div
+                    className="absolute top-0 right-0 w-32 h-32 opacity-10"
+                    style={{
+                      background: "radial-gradient(circle, var(--gold) 0%, transparent 70%)",
+                    }}
+                  />
                   <span
-                    className="relative text-xs font-semibold uppercase tracking-wider px-2 py-1 z-10"
+                    className="text-xs font-semibold uppercase tracking-wider px-2 py-1"
                     style={{ backgroundColor: "var(--gold)", color: "var(--navy-dark)" }}
                   >
                     {insight.category}

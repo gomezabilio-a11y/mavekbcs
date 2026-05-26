@@ -238,7 +238,6 @@ export async function getAllTickets(): Promise<(Ticket & { companyName: string; 
       screenshotUrl: tickets.screenshotUrl,
       screenshotKey: tickets.screenshotKey,
       screenshotUrls: tickets.screenshotUrls,
-      adminScreenshotUrls: tickets.adminScreenshotUrls,
       status: tickets.status,
       adminFeedback: tickets.adminFeedback,
       spentHours: tickets.spentHours,
@@ -275,7 +274,6 @@ export async function updateTicketByAdmin(
     status?: "open" | "in_progress" | "resolved" | "closed";
     adminFeedback?: string;
     spentHours?: number;
-    adminScreenshotUrls?: string;
   }
 ) {
   const db = await getDb();
@@ -288,7 +286,6 @@ export async function updateTicketByAdmin(
   if (data.status !== undefined) updateData.status = data.status;
   if (data.adminFeedback !== undefined) updateData.adminFeedback = data.adminFeedback;
   if (data.spentHours !== undefined) updateData.spentHours = String(data.spentHours);
-  if (data.adminScreenshotUrls !== undefined) updateData.adminScreenshotUrls = data.adminScreenshotUrls;
 
   // If resolving and spentHours provided, deduct from contract (once)
   if (
