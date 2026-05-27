@@ -484,10 +484,12 @@ export const INSIGHTS: Array<{
   // Tax & Compliance (3)
   {
     slug: "what-is-drc-sap",
-    title: "What is DRC (SAP)?",
-    titleKo: "SAP DRC란 무엇인가?",
-    titleJa: "SAP DRCとは何か？",
-    excerpt: "SAP Document and Reporting Compliance (DRC) is SAP's solution for managing global e-invoicing mandates and tax reporting requirements across 60+ countries.",
+    title: "Unified Global Compliance: The Strategic Necessity of SAP Document and Reporting Compliance for Multinational Corporations",
+    titleKo: "통합 글로벌 컴플라이언스: 다국적 기업을 위한 SAP 문서 및 보고 컴플라이언스의 전략적 필요성",
+    titleJa: "統一グローバルコンプライアンス：多国籍企業におけるSAP文書および報告コンプライアンスの戦略的重要性",
+    excerpt: "SAP Document and Reporting Compliance (DRC) is a unified global compliance platform that integrates e-invoicing, real-time transaction validation, and statutory reporting across 60+ countries, enabling multinational corporations to manage complex tax and regulatory requirements efficiently.",
+    excerptKo: "SAP 문서 및 보고 컴플라이언스(DRC)는 60개 이상의 국가에서 전자 인보이싱, 실시간 거래 검증 및 법정 보고를 통합하는 통합 글로벌 컴플라이언스 플랫폼으로, 다국적 기업이 복잡한 세금 및 규제 요구사항을 효율적으로 관리할 수 있도록 지원합니다.",
+    excerptJa: "SAP文書および報告コンプライアンス（DRC）は、60か国以上で電子インボイス、リアルタイム取引検証、および法定報告を統合する統一型グローバルコンプライアンスプラットフォームであり、多国籍企業が複雑な税務および規制要件を効率的に管理できるよう支援します。",
     category: "Tax & Compliance",
     tags: ["SAP DRC", "Tax Compliance", "E-Invoicing"],
     relatedIndustries: ["retail", "automotive", "pharmaceuticals"],
