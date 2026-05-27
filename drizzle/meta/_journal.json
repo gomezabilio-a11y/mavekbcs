@@ -36,6 +36,20 @@
       "when": 1778666720693,
       "tag": "0004_lean_vampiro",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1778805217692,
+      "tag": "0005_adorable_punisher",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1779754980995,
+      "tag": "0006_lonely_screwball",
+      "breakpoints": true
     }
   ]
 }
