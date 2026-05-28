@@ -227,17 +227,17 @@ export default function Navbar() {
               <div className="grid grid-cols-4 gap-4">
                 <div className="col-span-1">
                   <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">
-                    Industries
+                    {t("megamenu.industries.title")}
                   </p>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    Deep expertise across 12 major sectors, delivering tailored financial solutions for each industry's unique challenges.
+                    {t("megamenu.industries.desc")}
                   </p>
                   <Link
-                    href="/industries"
+                    href={getLocalizedPath("/industries", language)}
                     className="inline-flex items-center gap-1 mt-4 text-xs font-semibold uppercase tracking-wide no-underline"
                     style={{ color: "var(--navy)" }}
                   >
-                    View All Industries →
+                    {t("megamenu.industries.viewAll")}
                   </Link>
                 </div>
                 <div className="col-span-3 grid grid-cols-3 gap-2">
@@ -268,17 +268,17 @@ export default function Navbar() {
               <div className="grid grid-cols-4 gap-6">
                 <div className="col-span-1">
                   <p className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4">
-                    Solutions
+                    {t("megamenu.solutions.title")}
                   </p>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    Specialized financial technology implementations across SAP, Oracle, and Blackline platforms.
+                    {t("megamenu.solutions.desc")}
                   </p>
                   <Link
-                    href="/solutions"
+                    href={getLocalizedPath("/solutions", language)}
                     className="inline-flex items-center gap-1 mt-4 text-xs font-semibold uppercase tracking-wide no-underline"
                     style={{ color: "var(--navy)" }}
                   >
-                    View All Solutions →
+                    {t("megamenu.solutions.viewAll")}
                   </Link>
                 </div>
                 <div className="col-span-3 grid grid-cols-4 gap-4">

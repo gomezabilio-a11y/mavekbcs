@@ -98,6 +98,13 @@ const translations: Record<Language, Record<string, string>> = {
     "home.tm.desc": "Optimize cash, manage risk, and streamline bank connectivity.",
     "home.bottom.title": "Ready to Transform Your Finance Function?",
     "home.bottom.body": "Speak with our experts to discover how MAVEK BCS can help your organization achieve financial excellence.",
+    // Mega menu
+    "megamenu.industries.title": "Industries",
+    "megamenu.industries.desc": "Deep expertise across 12 major sectors, delivering tailored financial solutions for each industry's unique challenges.",
+    "megamenu.industries.viewAll": "View All Industries →",
+    "megamenu.solutions.title": "Solutions",
+    "megamenu.solutions.desc": "Specialized financial technology implementations across SAP, Oracle, and Blackline platforms.",
+    "megamenu.solutions.viewAll": "View All Solutions →",
     // Footer
     "footer.company.desc": "A global financial consulting firm specializing in SAP, Oracle, and Blackline financial technology implementations across Asia-Pacific and beyond.",
     "footer.tagline": "Global Financial Consulting Firm",
@@ -109,6 +116,13 @@ const translations: Record<Language, Record<string, string>> = {
     "csr.subtitle": "Our commitment to society and the environment",
   },
   ko: {
+    // Mega menu
+    "megamenu.industries.title": "산업 분야",
+    "megamenu.industries.desc": "12개 주요 부문에 걸친 깊은 전문성. 각 산업 고유의 과제에 맞춘 맞춤형 재무 솔루션 제공.",
+    "megamenu.industries.viewAll": "모든 산업 보기 →",
+    "megamenu.solutions.title": "솔루션",
+    "megamenu.solutions.desc": "SAP, Oracle, Blackline 플랫폼 전반에 걸친 전문 금융 기술(FinTech) 구현.",
+    "megamenu.solutions.viewAll": "모든 솔루션 보기 →",
     "nav.about": "회사 소개",
     "nav.industries": "산업",
     "nav.solutions": "솔루션",
@@ -196,6 +210,13 @@ const translations: Record<Language, Record<string, string>> = {
     "csr.subtitle": "사회와 환경에 대한 우리의 약속",
   },
   ja: {
+    // Mega menu
+    "megamenu.industries.title": "業界",
+    "megamenu.industries.desc": "12の主要セクターにわたる深い専門知識。各業界独自の課題に合わせた最適な財務ソリューションを提供。",
+    "megamenu.industries.viewAll": "すべての業界を見る →",
+    "megamenu.solutions.title": "ソリューション",
+    "megamenu.solutions.desc": "SAP、Oracle、Blacklineプラットフォームにおける、金融テクノロジー（フィンテック）の専門的な実装。",
+    "megamenu.solutions.viewAll": "すべてのソリューションを見る →",
     "nav.about": "会社概要",
     "nav.industries": "業界",
     "nav.solutions": "ソリューション",
