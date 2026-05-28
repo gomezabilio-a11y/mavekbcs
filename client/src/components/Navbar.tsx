@@ -107,7 +107,7 @@ export default function Navbar() {
 
               {/* Insights */}
               <Link
-                href="/insights"
+                href={getLocalizedPath("/insights", language)}
                 className={`px-3 py-2 text-sm font-medium transition-colors no-underline ${
                   isActive("/insights")
                     ? "text-[var(--navy)]"
@@ -120,7 +120,7 @@ export default function Navbar() {
 
               {/* About */}
               <Link
-                href="/about"
+                href={getLocalizedPath("/about", language)}
                 className={`px-3 py-2 text-sm font-medium transition-colors no-underline ${
                   isActive("/about")
                     ? "text-[var(--navy)]"
@@ -133,7 +133,7 @@ export default function Navbar() {
 
               {/* Contact */}
               <Link
-                href="/contact"
+                href={getLocalizedPath("/contact", language)}
                 className={`px-3 py-2 text-sm font-medium transition-colors no-underline ${
                   isActive("/contact")
                     ? "text-[var(--navy)]"
@@ -146,7 +146,7 @@ export default function Navbar() {
 
               {/* Careers */}
               <Link
-                href="/careers"
+                href={getLocalizedPath("/careers", language)}
                 className={`px-3 py-2 text-sm font-medium transition-colors no-underline ${
                   isActive("/careers")
                     ? "text-[var(--navy)]"
@@ -198,7 +198,7 @@ export default function Navbar() {
 
               {/* Client portal */}
               <Link
-                href="/portal/login"
+                href={getLocalizedPath("/portal/login", language)}
                 className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white no-underline transition-colors"
                 style={{ backgroundColor: "var(--navy)" }}
               >
@@ -244,7 +244,7 @@ export default function Navbar() {
                   {INDUSTRIES.map((ind) => (
                     <Link
                       key={ind.slug}
-                      href={`/industries/${ind.slug}`}
+                      href={getLocalizedPath(`/industries/${ind.slug}`, language)}
                       className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-[var(--navy)] transition-colors no-underline group"
                     >
                       <span className="text-base">{ind.icon}</span>
@@ -285,7 +285,7 @@ export default function Navbar() {
                   {SOLUTION_CATEGORIES.map((cat) => (
                     <div key={cat.slug}>
                       <Link
-                        href={`/solutions/${cat.slug}`}
+                        href={getLocalizedPath(`/solutions/${cat.slug}`, language)}
                         className="block text-xs font-bold uppercase tracking-wider mb-2 no-underline transition-colors"
                         style={{ color: "var(--navy)" }}
                       >
@@ -294,7 +294,7 @@ export default function Navbar() {
                       {cat.solutions.map((sol) => (
                         <Link
                           key={sol.slug}
-                          href={`/solutions/${cat.slug}/${sol.slug}`}
+                          href={getLocalizedPath(`/solutions/${cat.slug}/${sol.slug}`, language)}
                           className="block text-xs text-gray-600 hover:text-[var(--navy)] py-0.5 no-underline transition-colors"
                         >
                           {language === "ko" ? sol.nameKo : language === "ja" ? sol.nameJa : sol.name}
@@ -313,22 +313,22 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="lg:hidden bg-white border-t border-gray-200 overflow-y-auto max-h-[80vh]">
           <div className="container py-4 space-y-1">
-            <Link href="/industries" className="block px-3 py-2.5 text-sm font-medium text-gray-700 no-underline">
+            <Link href={getLocalizedPath("/industries", language)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 no-underline">
               {t("nav.industries")}
             </Link>
-            <Link href="/solutions" className="block px-3 py-2.5 text-sm font-medium text-gray-700 no-underline">
+            <Link href={getLocalizedPath("/solutions", language)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 no-underline">
               {t("nav.solutions")}
             </Link>
-            <Link href="/insights" className="block px-3 py-2.5 text-sm font-medium text-gray-700 no-underline">
+            <Link href={getLocalizedPath("/insights", language)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 no-underline">
               {t("nav.insights")}
             </Link>
-            <Link href="/about" className="block px-3 py-2.5 text-sm font-medium text-gray-700 no-underline">
+            <Link href={getLocalizedPath("/about", language)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 no-underline">
               {t("nav.about")}
             </Link>
-            <Link href="/contact" className="block px-3 py-2.5 text-sm font-medium text-gray-700 no-underline">
+            <Link href={getLocalizedPath("/contact", language)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 no-underline">
               {t("nav.contact")}
             </Link>
-            <Link href="/careers" className="block px-3 py-2.5 text-sm font-medium text-gray-700 no-underline">
+            <Link href={getLocalizedPath("/careers", language)} className="block px-3 py-2.5 text-sm font-medium text-gray-700 no-underline">
               {t("nav.careers")}
             </Link>
             <div className="pt-3 border-t border-gray-100">

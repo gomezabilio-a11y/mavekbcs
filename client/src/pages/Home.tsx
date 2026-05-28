@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { INDUSTRIES, SOLUTION_CATEGORIES, INSIGHTS } from "@/lib/siteData";
 import { useHreflang, getHreflangLinks } from "@/hooks/useHreflang";
+import { getLocalizedPath } from "@/lib/urlHelpers";
 
 const featuredInsights = INSIGHTS.filter((i) => i.featured).slice(0, 3);
 const featuredIndustries = INDUSTRIES.slice(0, 6);
@@ -91,11 +92,11 @@ export default function Home() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Link href="/solutions" className="btn-gold no-underline">
+              <Link href={getLocalizedPath("/solutions", language)} className="btn-gold no-underline">
                 {t("hero.cta.explore")}
                 <ArrowRight size={15} />
               </Link>
-              <Link href="/contact" className="btn-outline-white no-underline">
+              <Link href={getLocalizedPath("/contact", language)} className="btn-outline-white no-underline">
                 {t("hero.cta.contact")}
               </Link>
             </div>
@@ -182,7 +183,7 @@ export default function Home() {
               <p className="text-gray-600 leading-relaxed mb-8">
                 {t("home.section.p2")}
               </p>
-              <Link href="/about" className="btn-outline-navy no-underline">
+              <Link href={getLocalizedPath("/about", language)} className="btn-outline-navy no-underline">
                 {t("home.section.cta")}
                 <ArrowRight size={14} />
               </Link>
@@ -225,7 +226,7 @@ export default function Home() {
               <p className="text-gray-500 mt-3 text-sm">{t("industries.subtitle")}</p>
             </div>
             <Link
-              href="/industries"
+              href={getLocalizedPath("/industries", language)}
               className="hidden md:flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide no-underline transition-colors"
               style={{ color: "var(--navy)" }}
             >
@@ -287,7 +288,7 @@ export default function Home() {
               <p className="text-gray-400 mt-3 text-sm">{t("solutions.subtitle")}</p>
             </div>
             <Link
-              href="/solutions"
+              href={getLocalizedPath("/solutions", language)}
               className="hidden md:flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide no-underline transition-colors text-gray-400 hover:text-white"
             >
               View All
@@ -334,7 +335,7 @@ export default function Home() {
               <p className="text-gray-500 mt-3 text-sm">{t("insights.subtitle")}</p>
             </div>
             <Link
-              href="/insights"
+              href={getLocalizedPath("/insights", language)}
               className="hidden md:flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide no-underline transition-colors"
               style={{ color: "var(--navy)" }}
             >
@@ -407,11 +408,11 @@ export default function Home() {
             {t("home.bottom.body")}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/contact" className="btn-gold no-underline">
+            <Link href={getLocalizedPath("/contact", language)} className="btn-gold no-underline">
               {t("hero.cta.contact")}
               <ArrowRight size={14} />
             </Link>
-            <Link href="/solutions" className="btn-outline-white no-underline">
+            <Link href={getLocalizedPath("/solutions", language)} className="btn-outline-white no-underline">
               {t("hero.cta.explore")}
             </Link>
           </div>
