@@ -549,7 +549,7 @@ export default function AdminCustomers() {
       </Dialog>
       {/* Customer Ticket History Dialog */}
       <Dialog open={!!historyCustomer} onOpenChange={(o) => !o && setHistoryCustomer(null)}>
-        <DialogContent className="bg-[#111827] border-gray-700 text-white max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="bg-[#111827] border-gray-700 text-white max-w-6xl w-[95vw] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-white flex items-center gap-2">
               <History size={16} className="text-blue-400" />
