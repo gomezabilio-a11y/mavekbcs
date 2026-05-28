@@ -269,6 +269,22 @@ export default function Portal() {
                   <ArrowRight size={12} />
                 </Link>
               </div>
+
+              {/* Admin Portal Link */}
+              <div className="mt-6 p-6 border border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4 bg-gray-50">
+                <div>
+                  <h4 className="font-bold text-sm mb-1" style={{ color: "var(--navy-dark)" }}>
+                    {language === "ko" ? "어드민 포탈" : language === "ja" ? "管理者ポータル" : "Admin Portal"}
+                  </h4>
+                  <p className="text-xs text-gray-500">
+                    {language === "ko" ? "관리자 권한으로 포탈에 접근하세요." : language === "ja" ? "管理者権限でポータルにアクセスしてください。" : "Access the portal with admin privileges."}
+                  </p>
+                </div>
+                <Link href="/admin" className="btn-navy no-underline shrink-0 text-xs">
+                  {language === "ko" ? "어드민 포탈" : language === "ja" ? "管理者ポータル" : "Admin Portal"}
+                  <ArrowRight size={12} />
+                </Link>
+              </div>
             </div>
           )}
         </div>
