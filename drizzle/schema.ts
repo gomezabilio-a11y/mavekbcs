@@ -101,6 +101,7 @@ export const tickets = mysqlTable("tickets", {
     .default("open")
     .notNull(),
   adminFeedback: text("adminFeedback"),
+  internalNote: text("internalNote"),  // admin-only internal note, never exposed to clients
   spentHours: decimal("spentHours", { precision: 6, scale: 2 }),  // set by admin on resolve
   hoursDeducted: boolean("hoursDeducted").default(false).notNull(),
   createdAtUtc: timestamp("createdAtUtc").defaultNow().notNull(),

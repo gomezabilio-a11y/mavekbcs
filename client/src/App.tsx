@@ -32,6 +32,7 @@ import AdminCustomers from "./pages/portal/AdminCustomers";
 import AdminTickets from "./pages/portal/AdminTickets";
 import AdminLogin from "./pages/portal/AdminLogin";
 import AdminStaff from "./pages/portal/AdminStaff";
+import PortalTicketHistory from "./pages/portal/PortalTicketHistory";
 import { PortalProvider } from "./contexts/PortalContext";
 import { AdminProvider } from "./contexts/AdminContext";
 
@@ -78,6 +79,7 @@ function LanguageSyncRouter() {
       <Route path="/portal/dashboard" component={PortalDashboard} />
       <Route path="/portal/tickets/new" component={PortalNewTicket} />
       <Route path="/portal/tickets" component={PortalTickets} />
+      <Route path="/portal/history" component={PortalTicketHistory} />
       <Route path="/portal/admin/login" component={AdminLogin} />
       <Route path="/portal/admin/customers" component={AdminCustomers} />
       <Route path="/portal/admin/tickets" component={AdminTickets} />

@@ -70,6 +70,14 @@ const strings = {
     // Time
     localTime: "Local Time",
     utcTime: "UTC",
+    // Ticket History
+    ticketHistory: "Ticket History",
+    ticketHistoryDesc: "Resolved and closed tickets with hours deducted",
+    noHistory: "No resolved tickets yet",
+    hoursDeducted: "Hours Deducted",
+    yes: "Yes",
+    no: "No",
+    internalNote: "Internal Note (Admin Only)",
   },
   ko: {
     loginTitle: "고객 포털",
@@ -130,6 +138,13 @@ const strings = {
     viewTickets: "티켓 보기",
     localTime: "현지 시간",
     utcTime: "UTC",
+    ticketHistory: "티켓 이용 내역",
+    ticketHistoryDesc: "완료 및 종료된 티켓과 차감된 시간 내역",
+    noHistory: "완료된 티켓이 없습니다",
+    hoursDeducted: "시간 차감 여부",
+    yes: "예",
+    no: "아니오",
+    internalNote: "내부 메모 (관리자 전용)",
   },
   ja: {
     loginTitle: "カスタマーポータル",
@@ -190,6 +205,13 @@ const strings = {
     viewTickets: "チケットを見る",
     localTime: "現地時間",
     utcTime: "UTC",
+    ticketHistory: "チケット利用履歴",
+    ticketHistoryDesc: "完了およびクローズ済みチケットと差し引き時間の履歴",
+    noHistory: "完了したチケットはありません",
+    hoursDeducted: "時間差し引き済み",
+    yes: "はい",
+    no: "いいえ",
+    internalNote: "内部メモ（管理者専用）",
   },
 } as const;
 

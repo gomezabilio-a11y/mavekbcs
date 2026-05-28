@@ -125,6 +125,27 @@ export const portalRouter = router({
       return getTicketsByPortalUser(portalUserId);
     }),
 
+  /** Get own resolved/closed ticket history (client portal) */
+  myTicketHistory: publicProcedure
+    .input(portalSessionSchema)
+    .query(async ({ input }) => {
+      const { portalUserId } = await verifyPortalToken(input.portalToken);
+      const allTickets = await getTicketsByPortalUser(portalUserId);
+      // Only return resolved/closed tickets, strip sensitive fields
+      return allTickets
+        .filter((t) => t.status === "resolved" || t.status === "closed")
+        .map((t) => ({
+          ticketNumber: t.ticketNumber,
+          title: t.title,
+          status: t.status,
+          adminFeedback: t.adminFeedback,
+          spentHours: t.spentHours ? parseFloat(String(t.spentHours)) : null,
+          hoursDeducted: t.hoursDeducted,
+          createdAtUtc: t.createdAtUtc,
+          resolvedAt: t.resolvedAt,
+        }));
+    }),
+
   /** Submit a new ticket */
   submitTicket: publicProcedure
     .input(
@@ -275,7 +296,7 @@ export const portalRouter = router({
       return getAllTickets();
     }),
 
-  /** Update ticket status + feedback + spent hours (admin only) */
+  /** Update ticket status + feedback + spent hours + internalNote (admin only) */
   adminUpdateTicket: publicProcedure
     .input(
       z.object({
@@ -283,6 +304,7 @@ export const portalRouter = router({
         ticketId: z.number(),
         status: z.enum(["open", "in_progress", "resolved", "closed"]).optional(),
         adminFeedback: z.string().optional(),
+        internalNote: z.string().optional(),
         spentHours: z.number().min(0).optional(),
       })
     )

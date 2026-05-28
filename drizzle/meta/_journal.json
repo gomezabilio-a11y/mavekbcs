@@ -50,6 +50,13 @@
       "when": 1779754980995,
       "tag": "0006_lonely_screwball",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1780010894824,
+      "tag": "0007_fixed_shatterstar",
+      "breakpoints": true
     }
   ]
 }

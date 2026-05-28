@@ -240,6 +240,7 @@ export async function getAllTickets(): Promise<(Ticket & { companyName: string; 
       screenshotUrls: tickets.screenshotUrls,
       status: tickets.status,
       adminFeedback: tickets.adminFeedback,
+      internalNote: tickets.internalNote,
       spentHours: tickets.spentHours,
       hoursDeducted: tickets.hoursDeducted,
       createdAtUtc: tickets.createdAtUtc,

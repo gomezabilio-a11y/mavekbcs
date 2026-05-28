@@ -44,6 +44,7 @@ export default function AdminTickets() {
   const [newStatus, setNewStatus] = useState<string>("");
   const [feedback, setFeedback] = useState("");
   const [spentHours, setSpentHours] = useState("");
+  const [internalNote, setInternalNote] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("all");
 
   const ticketsQuery = trpc.portalV2.adminListTickets.useQuery(
@@ -65,6 +66,7 @@ export default function AdminTickets() {
     setNewStatus(ticket.status);
     setFeedback(ticket.adminFeedback ?? "");
     setSpentHours(ticket.spentHours ?? "");
+    setInternalNote((ticket as TicketRow & { internalNote?: string }).internalNote ?? "");
   };
 
   const filtered = (ticketsQuery.data ?? []).filter(
@@ -238,6 +240,20 @@ export default function AdminTickets() {
                   placeholder={t.feedback}
                 />
               </div>
+
+              <div className="space-y-1.5">
+                <Label className="text-gray-300 text-xs flex items-center gap-1.5">
+                  <span className="bg-red-900/40 text-red-400 text-[10px] px-1.5 py-0.5 rounded">ADMIN ONLY</span>
+                  {t.internalNote}
+                </Label>
+                <Textarea
+                  value={internalNote}
+                  onChange={(e) => setInternalNote(e.target.value)}
+                  rows={2}
+                  className="bg-[#1a2235] border-red-900/40 text-white text-sm resize-none"
+                  placeholder="Internal notes (not visible to client)"
+                />
+              </div>
             </div>
           )}
           <DialogFooter>
@@ -252,6 +268,7 @@ export default function AdminTickets() {
                   ticketId: editTicket.id,
                   status: newStatus as "open" | "in_progress" | "resolved" | "closed",
                   adminFeedback: feedback || undefined,
+                  internalNote: internalNote || undefined,
                   spentHours: spentHours ? parseFloat(spentHours) : undefined,
                 });
               }}
