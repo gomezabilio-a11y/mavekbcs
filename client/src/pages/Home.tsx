@@ -3,6 +3,7 @@ import { ArrowRight, ChevronRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { INDUSTRIES, SOLUTION_CATEGORIES, INSIGHTS } from "@/lib/siteData";
+import { useHreflang, getHreflangLinks } from "@/hooks/useHreflang";
 
 const featuredInsights = INSIGHTS.filter((i) => i.featured).slice(0, 3);
 const featuredIndustries = INDUSTRIES.slice(0, 6);
@@ -38,6 +39,7 @@ const vendors = ["SAP", "Oracle", "Blackline"];
 
 export default function Home() {
   const { t, language } = useLanguage();
+  useHreflang(getHreflangLinks(""));
 
   return (
     <Layout>

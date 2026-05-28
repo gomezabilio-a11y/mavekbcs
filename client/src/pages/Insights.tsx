@@ -4,9 +4,11 @@ import { ArrowRight, Clock, Search } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { INSIGHTS, INSIGHT_CATEGORIES } from "@/lib/siteData";
+import { useHreflang, getHreflangLinks } from "@/hooks/useHreflang";
 
 export default function Insights() {
   const { language } = useLanguage();
+  useHreflang(getHreflangLinks("/insights"));
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
 

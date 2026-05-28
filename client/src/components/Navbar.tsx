@@ -6,6 +6,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { INDUSTRIES, SOLUTION_CATEGORIES } from "@/lib/siteData";
 import { trpc } from "@/lib/trpc";
+import { getLocalizedPath, removeLanguagePrefix } from "@/lib/urlHelpers";
 
 export default function Navbar() {
   const { t, language, setLanguage } = useLanguage();
@@ -182,6 +183,10 @@ export default function Navbar() {
                         onClick={() => {
                           setLanguage(lang.code);
                           setLangOpen(false);
+                          // Navigate to the same page in the selected language
+                          const cleanPath = removeLanguagePrefix(location);
+                          const newPath = getLocalizedPath(cleanPath, lang.code);
+                          window.location.href = newPath;
                         }}
                       >
                         {lang.label}

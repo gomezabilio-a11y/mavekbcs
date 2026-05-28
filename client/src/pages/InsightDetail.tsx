@@ -3,6 +3,8 @@ import { ArrowRight, ChevronRight, Clock, Tag } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { INSIGHTS, SOLUTION_CATEGORIES, INDUSTRIES } from "@/lib/siteData";
+import { useHreflang, getHreflangLinks } from "@/hooks/useHreflang";
+import { useLocation } from "wouter";
 
 interface InsightDetailProps {
   params: { slug: string };
@@ -807,7 +809,12 @@ If you would like to discuss how these concepts apply to your organization, plea
 
 export default function InsightDetail({ params }: InsightDetailProps) {
   const { language } = useLanguage();
+  const [location] = useLocation();
   const { slug } = params;
+  
+  // Set hreflang tags for this blog post
+  const basePath = `/insights/${slug}`;
+  useHreflang(getHreflangLinks(basePath));
 
   const insight = INSIGHTS.find((i) => i.slug === slug);
 
