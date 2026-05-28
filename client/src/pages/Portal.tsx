@@ -270,21 +270,7 @@ export default function Portal() {
                 </Link>
               </div>
 
-              {/* Admin Portal Link */}
-              <div className="mt-6 p-6 border border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4 bg-gray-50">
-                <div>
-                  <h4 className="font-bold text-sm mb-1" style={{ color: "var(--navy-dark)" }}>
-                    Admin Portal
-                  </h4>
-                  <p className="text-xs text-gray-500">
-                    MAVEK BCS staff access only.
-                  </p>
-                </div>
-                <Link href="/portal/admin/login" className="btn-navy no-underline shrink-0 text-xs">
-                  Admin Portal
-                  <ArrowRight size={12} />
-                </Link>
-              </div>
+
             </div>
           )}
         </div>
