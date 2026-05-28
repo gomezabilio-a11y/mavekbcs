@@ -274,6 +274,7 @@ export async function updateTicketByAdmin(
   data: {
     status?: "open" | "in_progress" | "resolved" | "closed";
     adminFeedback?: string;
+    internalNote?: string;
     spentHours?: number;
   }
 ) {
@@ -286,6 +287,7 @@ export async function updateTicketByAdmin(
   const updateData: Record<string, unknown> = {};
   if (data.status !== undefined) updateData.status = data.status;
   if (data.adminFeedback !== undefined) updateData.adminFeedback = data.adminFeedback;
+  if (data.internalNote !== undefined) updateData.internalNote = data.internalNote;
   if (data.spentHours !== undefined) updateData.spentHours = String(data.spentHours);
 
   // If resolving and spentHours provided, deduct from contract (once)

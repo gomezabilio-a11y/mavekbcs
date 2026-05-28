@@ -12,7 +12,8 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { PlusCircle, Edit2, Clock, Loader2, Trash2 } from "lucide-react";
+import { PlusCircle, Edit2, Clock, Loader2, Trash2, History, Eye, EyeOff } from "lucide-react";
+import { formatInTimezone, getStatusColor } from "@/lib/portalI18n";
 import { toast } from "sonner";
 
 interface CustomerRow {
@@ -28,9 +29,99 @@ interface CustomerRow {
   remainingHours: number;
 }
 
+// ── Customer Ticket History sub-component ────────────────────────────────────
+function CustomerTicketHistory({ adminToken, customer, lang }: { adminToken: string; customer: CustomerRow; lang: string }) {
+  const ticketsQuery = trpc.portalV2.adminListTickets.useQuery(
+    { adminToken },
+    { enabled: !!adminToken }
+  );
+
+  const customerTickets = (ticketsQuery.data ?? []).filter((tk) => tk.portalUserId === customer.id);
+
+  if (ticketsQuery.isLoading) {
+    return <div className="py-8 text-center text-gray-400">Loading...</div>;
+  }
+
+  if (customerTickets.length === 0) {
+    return <div className="py-8 text-center text-gray-400">No tickets found for this customer.</div>;
+  }
+
+  const totalSpent = customerTickets.reduce((sum, tk) => sum + parseFloat(String(tk.spentHours ?? 0)), 0);
+  const deducted = customerTickets.filter((tk) => tk.hoursDeducted).length;
+
+  return (
+    <div className="space-y-4">
+      {/* Summary */}
+      <div className="grid grid-cols-3 gap-3">
+        <div className="bg-[#1a2235] rounded-lg p-3 text-center">
+          <div className="text-2xl font-bold text-white">{customerTickets.length}</div>
+          <div className="text-xs text-gray-400 mt-0.5">Total Tickets</div>
+        </div>
+        <div className="bg-[#1a2235] rounded-lg p-3 text-center">
+          <div className="text-2xl font-bold text-[#c9a84c]">{totalSpent.toFixed(1)}h</div>
+          <div className="text-xs text-gray-400 mt-0.5">Hours Used</div>
+        </div>
+        <div className="bg-[#1a2235] rounded-lg p-3 text-center">
+          <div className="text-2xl font-bold text-green-400">{deducted}</div>
+          <div className="text-xs text-gray-400 mt-0.5">Deducted</div>
+        </div>
+      </div>
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-gray-700">
+              <th className="px-3 py-2 text-left text-xs text-gray-400 font-medium">Ticket #</th>
+              <th className="px-3 py-2 text-left text-xs text-gray-400 font-medium">Subject</th>
+              <th className="px-3 py-2 text-left text-xs text-gray-400 font-medium">Status</th>
+              <th className="px-3 py-2 text-right text-xs text-gray-400 font-medium">Hours</th>
+              <th className="px-3 py-2 text-center text-xs text-gray-400 font-medium">Deducted</th>
+              <th className="px-3 py-2 text-left text-xs text-gray-400 font-medium">Created</th>
+              <th className="px-3 py-2 text-left text-xs text-gray-400 font-medium">Internal Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            {customerTickets.map((tk) => (
+              <tr key={tk.id} className="border-b border-gray-800 hover:bg-[#1a2235]">
+                <td className="px-3 py-2 text-gray-300 text-xs font-mono">{tk.ticketNumber}</td>
+                <td className="px-3 py-2 text-white text-xs max-w-[180px]">
+                  <div className="truncate">{tk.title}</div>
+                  {tk.adminFeedback && (
+                    <div className="text-gray-400 text-[10px] truncate mt-0.5">{tk.adminFeedback}</div>
+                  )}
+                </td>
+                <td className="px-3 py-2">
+                  <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium ${getStatusColor(tk.status)}`}>
+                    {tk.status.replace("_", " ")}
+                  </span>
+                </td>
+                <td className="px-3 py-2 text-right text-gray-300 text-xs">
+                  {tk.spentHours ? `${parseFloat(String(tk.spentHours)).toFixed(1)}h` : "-"}
+                </td>
+                <td className="px-3 py-2 text-center">
+                  {tk.hoursDeducted
+                    ? <span className="text-green-400 text-xs">✓</span>
+                    : <span className="text-gray-600 text-xs">-</span>}
+                </td>
+                <td className="px-3 py-2 text-gray-400 text-xs">
+                  {formatInTimezone(tk.createdAtUtc, customer.timezone, lang)}
+                </td>
+                <td className="px-3 py-2 text-gray-400 text-xs max-w-[150px]">
+                  <div className="truncate">{tk.internalNote ?? "-"}</div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminCustomers() {
   const { language } = useLanguage();
-  const t = usePortalT(language as "en" | "ko" | "ja");
+  const lang = language as "en" | "ko" | "ja";
+  const t = usePortalT(lang);
   const utils = trpc.useUtils();
   const { adminToken } = useAdminSession();
 
@@ -54,6 +145,9 @@ export default function AdminCustomers() {
   const [contractNotes, setContractNotes] = useState("");
 
   const [deleteCustomer, setDeleteCustomer] = useState<CustomerRow | null>(null);
+  const [historyCustomer, setHistoryCustomer] = useState<CustomerRow | null>(null);
+  const [editPassword, setEditPassword] = useState("");
+  const [showEditPassword, setShowEditPassword] = useState(false);
 
   const customersQuery = trpc.portalV2.adminListUsers.useQuery(
     { adminToken: adminToken ?? "" },
@@ -96,6 +190,12 @@ export default function AdminCustomers() {
     },
     onError: (e) => toast.error(e.message),
   });
+
+  const openEdit = (c: CustomerRow) => {
+    setEditCustomer(c);
+    setEditPassword("");
+    setShowEditPassword(false);
+  };
 
   const openContract = (c: CustomerRow) => {
     setContractCustomer(c);
@@ -170,8 +270,17 @@ export default function AdminCustomers() {
                             <Button
                               size="sm"
                               variant="ghost"
+                              className="text-blue-400 hover:text-blue-300 h-7 px-2 gap-1"
+                              onClick={() => setHistoryCustomer(c)}
+                            >
+                              <History size={13} />
+                              Tickets
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
                               className="text-gray-400 hover:text-white h-7 px-2 gap-1"
-                              onClick={() => setEditCustomer(c)}
+                              onClick={() => openEdit(c)}
                             >
                               <Edit2 size={13} />
                               {t.edit}
@@ -296,6 +405,28 @@ export default function AdminCustomers() {
                   className="bg-[#1a2235] border-gray-600 text-white h-8 text-sm"
                 />
               </div>
+              <div className="space-y-1.5">
+                <Label className="text-gray-300 text-xs flex items-center gap-1.5">
+                  New Password
+                  <span className="text-gray-500 text-[10px]">(leave blank to keep current)</span>
+                </Label>
+                <div className="relative">
+                  <Input
+                    type={showEditPassword ? "text" : "password"}
+                    value={editPassword}
+                    onChange={(e) => setEditPassword(e.target.value)}
+                    placeholder="Enter new password..."
+                    className="bg-[#1a2235] border-gray-600 text-white h-8 text-sm pr-8"
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                    onClick={() => setShowEditPassword(!showEditPassword)}
+                  >
+                    {showEditPassword ? <EyeOff size={13} /> : <Eye size={13} />}
+                  </button>
+                </div>
+              </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
                   <Label className="text-gray-300 text-xs">{t.language}</Label>
@@ -346,6 +477,7 @@ export default function AdminCustomers() {
                   email: email || undefined,
                   language: editCustomer.language as "en" | "ko" | "ja",
                   timezone: editCustomer.timezone,
+                  password: editPassword || undefined,
                 });
               }}
             >
@@ -415,6 +547,28 @@ export default function AdminCustomers() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      {/* Customer Ticket History Dialog */}
+      <Dialog open={!!historyCustomer} onOpenChange={(o) => !o && setHistoryCustomer(null)}>
+        <DialogContent className="bg-[#111827] border-gray-700 text-white max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-white flex items-center gap-2">
+              <History size={16} className="text-blue-400" />
+              Ticket History — {historyCustomer?.companyName}
+            </DialogTitle>
+          </DialogHeader>
+          {historyCustomer && (
+            <CustomerTicketHistory
+              adminToken={adminToken ?? ""}
+              customer={historyCustomer}
+              lang={lang}
+            />
+          )}
+          <DialogFooter>
+            <Button variant="ghost" className="text-gray-400" onClick={() => setHistoryCustomer(null)}>Close</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Delete Confirmation Dialog */}
       <Dialog open={!!deleteCustomer} onOpenChange={(o) => !o && setDeleteCustomer(null)}>
         <DialogContent className="bg-[#111827] border-gray-700 text-white max-w-sm">
