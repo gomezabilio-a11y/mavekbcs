@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import RichTextEditor from "@/components/RichTextEditor";
-import { Plus, Pencil, Trash2, Star, StarOff, Image as ImageIcon, X, Search } from "lucide-react";
+import { Plus, Pencil, Trash2, Star, Image as ImageIcon, X, Search, Settings2 } from "lucide-react";
 import { toast } from "sonner";
 
 const CATEGORIES = [
@@ -58,11 +58,28 @@ export default function AdminBlog() {
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [form, setForm] = useState<ArticleForm>(emptyForm());
   const [isEditing, setIsEditing] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settingsForm, setSettingsForm] = useState({
+    bannerSlug: "",
+    featured1Slug: "",
+    featured2Slug: "",
+    featured3Slug: "",
+  });
   const fileRef = useRef<HTMLInputElement>(null);
-  const isSaving = false;
 
   const utils = trpc.useUtils();
   const { data: articles = [], isLoading } = trpc.blog.listInsights.useQuery();
+
+  const { data: insightsSettings } = trpc.blog.getInsightsSettings.useQuery();
+
+  const updateSettingsMutation = trpc.blog.updateInsightsSettings.useMutation({
+    onSuccess: () => {
+      utils.blog.getInsightsSettings.invalidate();
+      setSettingsOpen(false);
+      toast.success("Page settings saved!");
+    },
+    onError: (e: { message: string }) => toast.error(e.message),
+  });
 
   const createMutation = trpc.blog.createInsight.useMutation({
     onSuccess: () => { utils.blog.listInsights.invalidate(); setDialogOpen(false); toast.success("Article created!"); },
@@ -113,6 +130,18 @@ export default function AdminBlog() {
     setDialogOpen(true);
   }
 
+  function openSettings() {
+    if (insightsSettings) {
+      setSettingsForm({
+        bannerSlug: insightsSettings.bannerSlug ?? "",
+        featured1Slug: insightsSettings.featured1Slug ?? "",
+        featured2Slug: insightsSettings.featured2Slug ?? "",
+        featured3Slug: insightsSettings.featured3Slug ?? "",
+      });
+    }
+    setSettingsOpen(true);
+  }
+
   function handleThumbnail(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -157,7 +186,19 @@ export default function AdminBlog() {
     }
   }
 
+  function handleSettingsSave() {
+    updateSettingsMutation.mutate({
+      bannerSlug: settingsForm.bannerSlug || undefined,
+      featured1Slug: settingsForm.featured1Slug || undefined,
+      featured2Slug: settingsForm.featured2Slug || undefined,
+      featured3Slug: settingsForm.featured3Slug || undefined,
+    });
+  }
+
   const saving = createMutation.isPending || updateMutation.isPending;
+
+  // Article slug options for settings selects
+  const slugOptions = articles.map((a) => ({ value: a.slug, label: `${a.slug} — ${a.title}` }));
 
   return (
     <AdminLayout>
@@ -168,9 +209,19 @@ export default function AdminBlog() {
             <h1 className="text-2xl font-bold" style={{ color: "#f0e6d3" }}>Blog / Insights</h1>
             <p className="text-sm mt-1" style={{ color: "#8a9bb0" }}>Manage articles in EN / KO / JA</p>
           </div>
-          <Button onClick={openCreate} style={{ backgroundColor: "#b48f4b", color: "#0a0f1e" }} className="font-semibold gap-2">
-            <Plus size={16} /> New Article
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={openSettings}
+              style={{ borderColor: "rgba(255,255,255,0.15)", color: "#8a9bb0" }}
+              className="gap-2"
+            >
+              <Settings2 size={15} /> Page Settings
+            </Button>
+            <Button onClick={openCreate} style={{ backgroundColor: "#b48f4b", color: "#0a0f1e" }} className="font-semibold gap-2">
+              <Plus size={16} /> New Article
+            </Button>
+          </div>
         </div>
 
         {/* Search */}
@@ -202,7 +253,11 @@ export default function AdminBlog() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
                     <Badge variant="outline" className="text-xs" style={{ borderColor: "#b48f4b", color: "#b48f4b" }}>{a.category}</Badge>
-                    {a.featured && <Badge className="text-xs" style={{ backgroundColor: "#b48f4b", color: "#0a0f1e" }}>Featured</Badge>}
+                    {a.featured && (
+                      <Badge className="text-xs" style={{ backgroundColor: "#b48f4b", color: "#0a0f1e" }}>
+                        <Star size={10} className="mr-1" />Featured
+                      </Badge>
+                    )}
                     <span className="text-xs font-mono" style={{ color: "#8a9bb0" }}>{a.slug}</span>
                   </div>
                   <p className="text-sm font-semibold truncate" style={{ color: "#f0e6d3" }}>{a.title}</p>
@@ -217,8 +272,22 @@ export default function AdminBlog() {
                   </p>
                 </div>
                 <div className="flex gap-2 flex-shrink-0">
-                  <Button size="sm" variant="outline" onClick={() => openEdit(a)} style={{ borderColor: "rgba(255,255,255,0.15)", color: "#8a9bb0" }}>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => openEdit(a)}
+                    style={{ borderColor: "rgba(255,255,255,0.15)", color: "#8a9bb0" }}
+                    title="Edit"
+                  >
                     <Pencil size={14} />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setDeleteId(a.id)}
+                    style={{ borderColor: "rgba(239,68,68,0.3)", color: "#ef4444" }}
+                    title="Delete"
+                  >
                     <Trash2 size={14} />
                   </Button>
                 </div>
@@ -226,6 +295,68 @@ export default function AdminBlog() {
             ))}
           </div>
         )}
+
+        {/* Page Settings Dialog */}
+        <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
+          <DialogContent className="max-w-lg" style={{ backgroundColor: "#0d1526", borderColor: "rgba(255,255,255,0.1)", color: "#f0e6d3" }}>
+            <DialogHeader>
+              <DialogTitle style={{ color: "#f0e6d3" }}>
+                <span className="flex items-center gap-2"><Settings2 size={18} /> Insights Page Settings</span>
+              </DialogTitle>
+            </DialogHeader>
+            <p className="text-xs mb-4" style={{ color: "#8a9bb0" }}>
+              Select which articles appear in the hero banner and featured section on the public Insights page.
+            </p>
+
+            <div className="space-y-4">
+              {/* Banner */}
+              <div className="space-y-1.5">
+                <Label style={{ color: "#c9a84c" }}>Hero Banner Article</Label>
+                <p className="text-xs" style={{ color: "#8a9bb0" }}>Displayed as a full-width hero at the top of the Insights page with thumbnail background.</p>
+                <Select value={settingsForm.bannerSlug || "__none__"} onValueChange={(v) => setSettingsForm((f) => ({ ...f, bannerSlug: v === "__none__" ? "" : v }))}>
+                  <SelectTrigger style={fieldStyle}><SelectValue placeholder="Select article..." /></SelectTrigger>
+                  <SelectContent style={{ backgroundColor: "#0d1526", borderColor: "rgba(255,255,255,0.1)" }}>
+                    <SelectItem value="__none__" style={{ color: "#8a9bb0" }}>— None —</SelectItem>
+                    {slugOptions.map((o) => (
+                      <SelectItem key={o.value} value={o.value} style={{ color: "#f0e6d3" }}>{o.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Featured 1-3 */}
+              {([1, 2, 3] as const).map((n) => {
+                const key = `featured${n}Slug` as "featured1Slug" | "featured2Slug" | "featured3Slug";
+                return (
+                  <div key={n} className="space-y-1.5">
+                    <Label style={{ color: "#8a9bb0" }}>Featured Article {n}</Label>
+                    <Select value={settingsForm[key] || "__none__"} onValueChange={(v) => setSettingsForm((f) => ({ ...f, [key]: v === "__none__" ? "" : v }))}>
+                      <SelectTrigger style={fieldStyle}><SelectValue placeholder="Select article..." /></SelectTrigger>
+                      <SelectContent style={{ backgroundColor: "#0d1526", borderColor: "rgba(255,255,255,0.1)" }}>
+                        <SelectItem value="__none__" style={{ color: "#8a9bb0" }}>— None —</SelectItem>
+                        {slugOptions.map((o) => (
+                          <SelectItem key={o.value} value={o.value} style={{ color: "#f0e6d3" }}>{o.label}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="flex justify-end gap-3 pt-4 border-t mt-4" style={{ borderColor: "rgba(255,255,255,0.07)" }}>
+              <Button variant="outline" onClick={() => setSettingsOpen(false)} style={{ borderColor: "rgba(255,255,255,0.15)", color: "#8a9bb0" }}>Cancel</Button>
+              <Button
+                onClick={handleSettingsSave}
+                disabled={updateSettingsMutation.isPending}
+                style={{ backgroundColor: "#b48f4b", color: "#0a0f1e" }}
+                className="font-semibold min-w-[100px]"
+              >
+                {updateSettingsMutation.isPending ? "Saving..." : "Save Settings"}
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Create/Edit Dialog */}
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -235,7 +366,7 @@ export default function AdminBlog() {
             </DialogHeader>
 
             <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Slug + Category + Meta */}
+              {/* Slug + Category */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <Label style={{ color: "#8a9bb0" }}>Slug <span className="text-red-400">*</span></Label>
@@ -250,8 +381,10 @@ export default function AdminBlog() {
                   <Label style={{ color: "#8a9bb0" }}>Category</Label>
                   <Select value={form.category} onValueChange={(v) => setForm((f) => ({ ...f, category: v }))}>
                     <SelectTrigger style={fieldStyle}><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      {CATEGORIES.map((c) => <SelectItem key={c} value={c} style={{ color: "#f0e6d3" }}>{c}</SelectItem>)}
+                    <SelectContent style={{ backgroundColor: "#0d1526", borderColor: "rgba(255,255,255,0.1)" }}>
+                      {CATEGORIES.map((c) => (
+                        <SelectItem key={c} value={c} style={{ color: "#f0e6d3" }}>{c}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -292,7 +425,7 @@ export default function AdminBlog() {
                   checked={form.featured}
                   onCheckedChange={(v) => setForm((f) => ({ ...f, featured: v }))}
                 />
-                <Label style={{ color: "#8a9bb0" }}>Featured article</Label>
+                <Label style={{ color: "#8a9bb0" }}>Mark as featured (fallback when Page Settings not configured)</Label>
               </div>
 
               {/* Thumbnail */}
