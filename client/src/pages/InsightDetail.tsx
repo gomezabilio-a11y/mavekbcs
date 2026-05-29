@@ -76,7 +76,7 @@ export default function InsightDetail({ params }: InsightDetailProps) {
     if (text.trim().startsWith("<")) {
       return (
         <div
-          className="prose prose-lg max-w-none prose-headings:text-navy-dark prose-a:text-[var(--navy)] prose-strong:text-gray-800"
+          className="article-content"
           dangerouslySetInnerHTML={{ __html: text }}
         />
       );
