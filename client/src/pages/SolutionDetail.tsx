@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SOLUTION_CATEGORIES } from "@/lib/siteData";
 import { trpc } from "@/lib/trpc";
+import { getLocalizedPath } from "@/lib/urlHelpers";
 
 interface SolutionDetailProps {
   params: { category: string; slug: string };
@@ -372,7 +373,7 @@ export default function SolutionDetail({ params }: SolutionDetailProps) {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {relatedInsights.map((insight) => (
-                <Link key={insight.slug} href={`/insights/${insight.slug}`} className="flex flex-col bg-white border border-gray-100 card-hover no-underline group overflow-hidden">
+                <Link key={insight.slug} href={getLocalizedPath(`/insights/${insight.slug}`, language)} className="flex flex-col bg-white border border-gray-100 card-hover no-underline group overflow-hidden">
                   {insight.imageUrl && (
                     <div className="w-full h-36 overflow-hidden">
                       <img

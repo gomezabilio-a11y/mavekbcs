@@ -348,7 +348,7 @@ export default function Home() {
             {featuredInsights.map((insight, idx) => (
               <Link
                 key={insight.slug}
-                href={`/insights/${insight.slug}`}
+                href={getLocalizedPath(`/insights/${insight.slug}`, language)}
                 className="group no-underline card-hover"
               >
                 <div

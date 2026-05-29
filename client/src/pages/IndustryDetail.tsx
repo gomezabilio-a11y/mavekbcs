@@ -3,6 +3,7 @@ import { ArrowRight, ChevronRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { INDUSTRIES, SOLUTION_CATEGORIES, INSIGHTS } from "@/lib/siteData";
+import { getLocalizedPath } from "@/lib/urlHelpers";
 
 interface IndustryDetailProps {
   params: { slug: string };
@@ -425,7 +426,7 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
               {relatedInsights.map((insight) => (
                 <Link
                   key={insight.slug}
-                  href={`/insights/${insight.slug}`}
+                  href={getLocalizedPath(`/insights/${insight.slug}`, language)}
                   className="p-5 no-underline group card-hover"
                   style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
                 >

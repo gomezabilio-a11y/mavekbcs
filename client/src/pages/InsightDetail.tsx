@@ -5,6 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { SOLUTION_CATEGORIES, INDUSTRIES } from "@/lib/siteData";
 import { useHreflang, getHreflangLinks } from "@/hooks/useHreflang";
 import { trpc } from "@/lib/trpc";
+import { getLocalizedPath } from "@/lib/urlHelpers";
 
 interface InsightDetailProps {
   params: { slug: string };
@@ -239,7 +240,7 @@ export default function InsightDetail({ params }: InsightDetailProps) {
                   : language === "ja" && rel.excerptJa ? rel.excerptJa
                   : rel.excerpt ?? "";
                 return (
-                  <Link key={rel.slug} href={`/insights/${rel.slug}`} className="bg-white border border-gray-100 card-hover no-underline group overflow-hidden">
+                  <Link key={rel.slug} href={getLocalizedPath(`/insights/${rel.slug}`, language)} className="bg-white border border-gray-100 card-hover no-underline group overflow-hidden">
                     {rel.imageUrl && (
                       <img src={rel.imageUrl} alt={relTitle} className="w-full h-36 object-cover" />
                     )}

@@ -6,6 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { INSIGHT_CATEGORIES } from "@/lib/siteData";
 import { useHreflang, getHreflangLinks } from "@/hooks/useHreflang";
 import { trpc } from "@/lib/trpc";
+import { getLocalizedPath } from "@/lib/urlHelpers";
 
 export default function Insights() {
   const { language } = useLanguage();
@@ -88,7 +89,7 @@ export default function Insights() {
                 {getExcerpt(bannerArticle)}
               </p>
               <Link
-                href={`/insights/${bannerArticle.slug}`}
+                href={getLocalizedPath(`/insights/${bannerArticle.slug}`, language)}
                 className="inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm no-underline transition-all"
                 style={{ backgroundColor: "var(--gold)", color: "var(--navy-dark)" }}
               >
@@ -132,7 +133,7 @@ export default function Insights() {
               {showFeatured.map((insight) => (
                 <Link
                   key={insight.slug}
-                  href={`/insights/${insight.slug}`}
+                  href={getLocalizedPath(`/insights/${insight.slug}`, language)}
                   className="flex flex-col bg-white border border-gray-100 card-hover no-underline group overflow-hidden"
                 >
                   {insight.imageUrl ? (
@@ -237,7 +238,7 @@ export default function Insights() {
               {filtered.map((insight) => (
                 <Link
                   key={insight.slug}
-                  href={`/insights/${insight.slug}`}
+                  href={getLocalizedPath(`/insights/${insight.slug}`, language)}
                   className="flex flex-col border border-gray-100 card-hover no-underline group overflow-hidden"
                 >
                   {insight.imageUrl && (
