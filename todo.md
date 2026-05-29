@@ -299,3 +299,15 @@
 - [x] Add RESEND_API_KEY environment variable
 - [x] Write vitest tests for email helpers (4 tests passing)
 - [x] TypeScript 0 errors verified
+
+## Phase 42: Blog CMS Admin
+
+- [x] blog.ts tRPC router with listInsights, getInsight, createInsight, updateInsight, deleteInsight
+- [x] AdminBlog.tsx - article list table with thumbnail, title, category, published date, featured star
+- [x] Create/Edit dialog with 3-language tabs (EN / KO / JA)
+- [x] TipTap rich text editor (StarterKit) with toolbar: bold, italic, strike, code, h2, h3, lists, blockquote, hr, undo/redo
+- [x] Thumbnail upload (file upload → base64 → S3) or external URL input
+- [x] Slug auto-generation from EN title
+- [x] Featured toggle, category select, tags, read time, published date
+- [x] Blog nav item added to AdminLayout (EN/KO/JA labels)
+- [x] Routes added to App.tsx for all language prefixes
