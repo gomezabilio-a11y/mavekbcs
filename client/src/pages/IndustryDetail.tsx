@@ -2,7 +2,8 @@ import { Link } from "wouter";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { INDUSTRIES, SOLUTION_CATEGORIES, INSIGHTS } from "@/lib/siteData";
+import { INDUSTRIES, SOLUTION_CATEGORIES } from "@/lib/siteData";
+import { trpc } from "@/lib/trpc";
 
 interface IndustryDetailProps {
   params: { slug: string };
@@ -240,8 +241,11 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
     cat.solutions.filter((s) => relatedSolutionSlugs.includes(s.slug)).map((s) => ({ ...s, categorySlug: cat.slug }))
   );
 
-  // Find related insights
-  const relatedInsights = INSIGHTS.filter((i) => i.relatedIndustries.includes(slug)).slice(0, 4);
+  // Find related insights from DB (with thumbnails)
+  const { data: allInsights = [] } = trpc.blog.listInsights.useQuery();
+  const relatedInsights = allInsights
+    .filter((i) => Array.isArray(i.relatedIndustries) && (i.relatedIndustries as string[]).includes(slug))
+    .slice(0, 4);
 
   return (
     <Layout>
@@ -426,18 +430,29 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
                 <Link
                   key={insight.slug}
                   href={`/insights/${insight.slug}`}
-                  className="p-5 no-underline group card-hover"
+                  className="flex flex-col no-underline group card-hover overflow-hidden"
                   style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
                 >
-                  <span
-                    className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 mb-3 inline-block"
-                    style={{ backgroundColor: "var(--gold)", color: "var(--navy-dark)" }}
-                  >
-                    {insight.category}
-                  </span>
-                  <h4 className="text-sm font-bold text-white leading-snug group-hover:text-gray-200 transition-colors">
-                    {language === "ko" ? insight.titleKo : language === "ja" ? insight.titleJa : insight.title}
-                  </h4>
+                  {insight.imageUrl && (
+                    <div className="w-full h-32 overflow-hidden">
+                      <img
+                        src={insight.imageUrl}
+                        alt={insight.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-90"
+                      />
+                    </div>
+                  )}
+                  <div className="p-5 flex-1">
+                    <span
+                      className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 mb-3 inline-block"
+                      style={{ backgroundColor: "var(--gold)", color: "var(--navy-dark)" }}
+                    >
+                      {insight.category}
+                    </span>
+                    <h4 className="text-sm font-bold text-white leading-snug group-hover:text-gray-200 transition-colors">
+                      {language === "ko" ? (insight.titleKo ?? insight.title) : language === "ja" ? (insight.titleJa ?? insight.title) : insight.title}
+                    </h4>
+                  </div>
                 </Link>
               ))}
             </div>
