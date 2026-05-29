@@ -48,12 +48,24 @@ export async function listAdminUsers() {
       id: adminUsers.id,
       username: adminUsers.username,
       displayName: adminUsers.displayName,
+      email: adminUsers.email,
       role: adminUsers.role,
       isActive: adminUsers.isActive,
       createdAt: adminUsers.createdAt,
     })
     .from(adminUsers)
     .orderBy(adminUsers.createdAt);
+}
+
+/** Returns only active admin emails (for notification purposes) */
+export async function listAdminEmails(): Promise<string[]> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const rows = await db
+    .select({ email: adminUsers.email })
+    .from(adminUsers)
+    .where(eq(adminUsers.isActive, true));
+  return rows.map((r) => r.email).filter((e): e is string => !!e);
 }
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
@@ -80,6 +92,7 @@ export async function createAdminUser(data: {
   username: string;
   password: string;
   displayName: string;
+  email?: string;
   role: AdminRole;
 }) {
   const db = await getDb();
@@ -89,6 +102,7 @@ export async function createAdminUser(data: {
     username: data.username,
     passwordHash,
     displayName: data.displayName,
+    email: data.email ?? null,
     role: data.role,
     isActive: true,
   });
@@ -98,6 +112,7 @@ export async function updateAdminUser(
   id: number,
   data: {
     displayName?: string;
+    email?: string | null;
     role?: AdminRole;
     isActive?: boolean;
     password?: string;
@@ -107,6 +122,7 @@ export async function updateAdminUser(
   if (!db) throw new Error("Database not available");
   const updateData: Partial<typeof adminUsers.$inferInsert> = {};
   if (data.displayName !== undefined) updateData.displayName = data.displayName;
+  if (data.email !== undefined) updateData.email = data.email;
   if (data.role !== undefined) updateData.role = data.role;
   if (data.isActive !== undefined) updateData.isActive = data.isActive;
   if (data.password) updateData.passwordHash = await bcrypt.hash(data.password, 10);

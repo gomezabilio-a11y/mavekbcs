@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE `portal_notifications` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`portalUserId` int NOT NULL,\n\t`ticketId` int,\n\t`ticketNumber` varchar(32),\n\t`type` varchar(64) NOT NULL DEFAULT 'ticket_status_changed',\n\t`message` text NOT NULL,\n\t`isRead` boolean NOT NULL DEFAULT false,\n\t`createdAtUtc` timestamp NOT NULL DEFAULT (now()),\n\tCONSTRAINT `portal_notifications_id` PRIMARY KEY(`id`)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute CREATE TABLE `portal_notifications` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`portalUserId` int NOT NULL,\n\t`ticketId` int,\n\t`ticketNumber` varchar(32),\n\t`type` varchar(64) NOT NULL DEFAULT 'ticket_status_changed',\n\t`message` text NOT NULL,\n\t`isRead` boolean NOT NULL DEFAULT false,\n\t`createdAtUtc` timestamp NOT NULL DEFAULT (now()),\n\tCONSTRAINT `portal_notifications_id` PRIMARY KEY(`id`)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1876
+}

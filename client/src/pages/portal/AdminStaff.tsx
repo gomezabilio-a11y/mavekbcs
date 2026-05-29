@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Pencil, ShieldCheck, User, ToggleLeft, ToggleRight } from "lucide-react";
+import { Plus, Pencil, ShieldCheck, User, ToggleLeft, ToggleRight, Mail } from "lucide-react";
 import { toast } from "sonner";
 
 const labels = {
@@ -19,6 +19,7 @@ const labels = {
     addStaff: "Add Staff",
     username: "Username",
     displayName: "Display Name",
+    email: "Email (for notifications)",
     password: "Password",
     role: "Role",
     master: "Master",
@@ -34,7 +35,7 @@ const labels = {
     creating: "Creating...",
     saving: "Saving...",
     newPassword: "New Password (leave blank to keep)",
-    masterNote: "Master can manage all staff and customers. Staff can manage customers and tickets.",
+    masterNote: "Master can manage all staff and customers. Staff can manage customers and tickets. Email is used for new ticket notifications.",
     noStaff: "No staff accounts yet.",
     successCreate: "Staff account created",
     successUpdate: "Staff account updated",
@@ -47,6 +48,7 @@ const labels = {
     addStaff: "직원 추가",
     username: "아이디",
     displayName: "이름",
+    email: "이메일 (알림 수신용)",
     password: "비밀번호",
     role: "권한",
     master: "마스터",
@@ -62,7 +64,7 @@ const labels = {
     creating: "생성 중...",
     saving: "저장 중...",
     newPassword: "새 비밀번호 (변경 없으면 빈칸)",
-    masterNote: "마스터는 모든 직원 및 고객을 관리할 수 있습니다. 스태프는 고객 및 티켓을 관리할 수 있습니다.",
+    masterNote: "마스터는 모든 직원 및 고객을 관리할 수 있습니다. 스태프는 고객 및 티켓을 관리할 수 있습니다. 이메일은 신규 티켓 알림에 사용됩니다.",
     noStaff: "등록된 직원 계정이 없습니다.",
     successCreate: "직원 계정이 생성되었습니다",
     successUpdate: "직원 계정이 수정되었습니다",
@@ -75,6 +77,7 @@ const labels = {
     addStaff: "スタッフ追加",
     username: "ユーザー名",
     displayName: "表示名",
+    email: "メール（通知受信用）",
     password: "パスワード",
     role: "権限",
     master: "マスター",
@@ -90,7 +93,7 @@ const labels = {
     creating: "作成中...",
     saving: "保存中...",
     newPassword: "新しいパスワード（変更なしは空欄）",
-    masterNote: "マスターはすべてのスタッフと顧客を管理できます。スタッフは顧客とチケットを管理できます。",
+    masterNote: "マスターはすべてのスタッフと顧客を管理できます。スタッフは顧客とチケットを管理できます。メールは新規チケット通知に使用されます。",
     noStaff: "スタッフアカウントがありません。",
     successCreate: "スタッフアカウントを作成しました",
     successUpdate: "スタッフアカウントを更新しました",
@@ -103,6 +106,7 @@ interface StaffRow {
   id: number;
   username: string;
   displayName: string;
+  email?: string | null;
   role: "master" | "staff";
   isActive: boolean;
   createdAt: Date;
@@ -119,10 +123,8 @@ export default function AdminStaff() {
   const [editStaff, setEditStaff] = useState<StaffRow | null>(null);
 
   // Form state
-  const [form, setForm] = useState({ username: "", displayName: "", password: "", role: "staff" as "master" | "staff" });
-  const [editForm, setEditForm] = useState({ displayName: "", role: "staff" as "master" | "staff", password: "", isActive: true });
-
-  const headers = adminToken ? { "x-admin-token": adminToken } : {};
+  const [form, setForm] = useState({ username: "", displayName: "", email: "", password: "", role: "staff" as "master" | "staff" });
+  const [editForm, setEditForm] = useState({ displayName: "", email: "", role: "staff" as "master" | "staff", password: "", isActive: true });
 
   const staffQuery = trpc.adminPortal.listStaff.useQuery(
     { adminToken: adminToken ?? "" },
@@ -133,7 +135,7 @@ export default function AdminStaff() {
     onSuccess: () => {
       toast.success(t.successCreate);
       setShowCreate(false);
-      setForm({ username: "", displayName: "", password: "", role: "staff" });
+      setForm({ username: "", displayName: "", email: "", password: "", role: "staff" });
       utils.adminPortal.listStaff.invalidate();
     },
     onError: (err) => {
@@ -153,12 +155,19 @@ export default function AdminStaff() {
 
   const openEdit = (s: StaffRow) => {
     setEditStaff(s);
-    setEditForm({ displayName: s.displayName, role: s.role, password: "", isActive: s.isActive });
+    setEditForm({ displayName: s.displayName, email: s.email ?? "", role: s.role, password: "", isActive: s.isActive });
   };
 
   const handleCreate = (e: React.FormEvent) => {
     e.preventDefault();
-    createMutation.mutate({ ...form, adminToken: adminToken ?? "" });
+    createMutation.mutate({
+      adminToken: adminToken ?? "",
+      username: form.username,
+      displayName: form.displayName,
+      email: form.email || undefined,
+      password: form.password,
+      role: form.role,
+    });
   };
 
   const handleUpdate = (e: React.FormEvent) => {
@@ -168,6 +177,7 @@ export default function AdminStaff() {
       adminToken: adminToken ?? "",
       id: editStaff.id,
       displayName: editForm.displayName,
+      email: editForm.email || null,
       role: editForm.role,
       isActive: editForm.isActive,
       password: editForm.password || undefined,
@@ -215,8 +225,8 @@ export default function AdminStaff() {
               <table className="w-full text-sm">
                 <thead>
                   <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-                    {[t.displayName, t.username, t.role, t.status, t.actions].map((h) => (
-                      <th key={h} className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider" style={{ color: "#4a5568" }}>
+                    {[t.displayName, t.username, t.email, t.role, t.status, t.actions].map((h) => (
+                      <th key={h} className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wider" style={{ color: "#4a5568" }}>
                         {h}
                       </th>
                     ))}
@@ -225,7 +235,7 @@ export default function AdminStaff() {
                 <tbody>
                   {staffList.map((s) => (
                     <tr key={s.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-                      <td className="px-5 py-3.5 font-medium" style={{ color: "#f0e6d3" }}>
+                      <td className="px-4 py-3.5 font-medium" style={{ color: "#f0e6d3" }}>
                         <div className="flex items-center gap-2">
                           {s.role === "master" ? <ShieldCheck size={14} style={{ color: "#b48f4b" }} /> : <User size={14} style={{ color: "#8a9bb0" }} />}
                           {s.displayName}
@@ -234,8 +244,18 @@ export default function AdminStaff() {
                           )}
                         </div>
                       </td>
-                      <td className="px-5 py-3.5 font-mono text-xs" style={{ color: "#8a9bb0" }}>{s.username}</td>
-                      <td className="px-5 py-3.5">
+                      <td className="px-4 py-3.5 font-mono text-xs" style={{ color: "#8a9bb0" }}>{s.username}</td>
+                      <td className="px-4 py-3.5 text-xs" style={{ color: "#8a9bb0" }}>
+                        {s.email ? (
+                          <div className="flex items-center gap-1">
+                            <Mail size={11} style={{ color: "#22c55e" }} />
+                            <span>{s.email}</span>
+                          </div>
+                        ) : (
+                          <span style={{ color: "#4a5568" }}>—</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3.5">
                         <span
                           className="text-xs px-2 py-0.5 rounded font-medium"
                           style={{
@@ -246,7 +266,7 @@ export default function AdminStaff() {
                           {s.role === "master" ? t.master : t.staff}
                         </span>
                       </td>
-                      <td className="px-5 py-3.5">
+                      <td className="px-4 py-3.5">
                         <div className="flex items-center gap-1.5">
                           {s.isActive ? <ToggleRight size={16} style={{ color: "#22c55e" }} /> : <ToggleLeft size={16} style={{ color: "#4a5568" }} />}
                           <span className="text-xs" style={{ color: s.isActive ? "#22c55e" : "#4a5568" }}>
@@ -254,7 +274,7 @@ export default function AdminStaff() {
                           </span>
                         </div>
                       </td>
-                      <td className="px-5 py-3.5">
+                      <td className="px-4 py-3.5">
                         <Button
                           variant="ghost"
                           size="sm"
@@ -288,6 +308,10 @@ export default function AdminStaff() {
             <div className="space-y-1.5">
               <Label className="text-xs" style={{ color: "#8a9bb0" }}>{t.displayName}</Label>
               <Input value={form.displayName} onChange={(e) => setForm({ ...form, displayName: e.target.value })} className="bg-transparent border-white/10 text-white" required />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs" style={{ color: "#8a9bb0" }}>{t.email}</Label>
+              <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="bg-transparent border-white/10 text-white" placeholder="admin@example.com" />
             </div>
             <div className="space-y-1.5">
               <Label className="text-xs" style={{ color: "#8a9bb0" }}>{t.password}</Label>
@@ -325,6 +349,10 @@ export default function AdminStaff() {
             <div className="space-y-1.5">
               <Label className="text-xs" style={{ color: "#8a9bb0" }}>{t.displayName}</Label>
               <Input value={editForm.displayName} onChange={(e) => setEditForm({ ...editForm, displayName: e.target.value })} className="bg-transparent border-white/10 text-white" required />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-xs" style={{ color: "#8a9bb0" }}>{t.email}</Label>
+              <Input type="email" value={editForm.email} onChange={(e) => setEditForm({ ...editForm, email: e.target.value })} className="bg-transparent border-white/10 text-white" placeholder="admin@example.com" />
             </div>
             <div className="space-y-1.5">
               <Label className="text-xs" style={{ color: "#8a9bb0" }}>{t.newPassword}</Label>

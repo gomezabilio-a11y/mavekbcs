@@ -287,3 +287,15 @@
 - [x] Add Global E-Invoicing Trends KO body content to InsightDetail.tsx
 - [x] Add Global E-Invoicing Trends JA body content to InsightDetail.tsx
 - [x] Verify featured articles on homepage and insights page show correct 3 articles
+
+## Phase 40: Email Notification System (Resend)
+- [x] Add email column to admin_users table in schema.ts
+- [x] Generate and apply DB migration (0009_bitter_kingpin.sql) — ALTER TABLE admin_users ADD email varchar(320)
+- [x] Update adminDb.ts: add email to listAdminUsers(), add listAdminEmails() helper, update createAdminUser/updateAdminUser to accept email
+- [x] Update admin.ts router: add email field to createStaff and updateStaff procedures
+- [x] Update AdminStaff.tsx UI: add email input field to create/edit dialogs, show email column in staff table
+- [x] Wire sendNewTicketAdminEmail() into submitTicket procedure (fire-and-forget, non-blocking)
+- [x] Wire sendTicketStatusEmail() into adminUpdateTicket procedure (only when status changes)
+- [x] Add RESEND_API_KEY environment variable
+- [x] Write vitest tests for email helpers (4 tests passing)
+- [x] TypeScript 0 errors verified

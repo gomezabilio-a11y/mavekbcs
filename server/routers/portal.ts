@@ -20,6 +20,8 @@ import {
   updateTicketByAdmin,
   deletePortalUser,
 } from "../portalDb";
+import { listAdminEmails } from "../adminDb";
+import { sendTicketStatusEmail, sendNewTicketAdminEmail } from "../email";
 import { storagePut } from "../storage";
 import { SignJWT, jwtVerify } from "jose";
 import { ENV } from "../_core/env";
@@ -182,6 +184,24 @@ export const portalRouter = router({
         screenshotKey: uploadedScreenshots[0]?.key,
         screenshotUrls: uploadedScreenshots.length > 0 ? JSON.stringify(uploadedScreenshots) : undefined,
       });
+
+      // Send email notification to all admins (fire-and-forget, non-blocking)
+      try {
+        const customer = await getPortalUserById(portalUserId);
+        const adminEmails = await listAdminEmails();
+        if (adminEmails.length > 0 && customer) {
+          sendNewTicketAdminEmail({
+            adminEmails,
+            ticketNumber: ticket.ticketNumber,
+            ticketTitle: ticket.title,
+            customerName: customer.companyName,
+            description: input.description,
+          }).catch((err) => console.error("[Email] Failed to send new ticket admin email:", err));
+        }
+      } catch (err) {
+        console.error("[Email] Error preparing admin notification:", err);
+      }
+
       return ticket;
     }),
 
@@ -312,7 +332,32 @@ export const portalRouter = router({
       const admin = await verifyAdminToken(input.adminToken);
       if (!admin) throw new TRPCError({ code: "UNAUTHORIZED" });
       const { adminToken: _t, ticketId, ...data } = input;
-      return updateTicketByAdmin(ticketId, data);
+      const updatedTicket = await updateTicketByAdmin(ticketId, data);
+
+      // Send email to customer if status changed (fire-and-forget, non-blocking)
+      if (input.status) {
+        try {
+          const ticket = await getTicketById(ticketId);
+          if (ticket) {
+            const customer = await getPortalUserById(ticket.portalUserId);
+            if (customer?.email) {
+              sendTicketStatusEmail({
+                toEmail: customer.email,
+                toName: customer.companyName,
+                ticketNumber: ticket.ticketNumber,
+                ticketTitle: ticket.title,
+                newStatus: input.status,
+                adminFeedback: input.adminFeedback,
+                spentHours: input.spentHours,
+              }).catch((err) => console.error("[Email] Failed to send ticket status email:", err));
+            }
+          }
+        } catch (err) {
+          console.error("[Email] Error preparing customer notification:", err);
+        }
+      }
+
+      return updatedTicket;
     }),
 
   /** Get single ticket detail (admin only) */

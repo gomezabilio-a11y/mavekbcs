@@ -9,9 +9,11 @@ import {
   portalUsers,
   portalContracts,
   tickets,
+  portalNotifications,
   type PortalUser,
   type PortalContract,
   type Ticket,
+  type PortalNotification,
 } from "../drizzle/schema";
 
 // ── Ticket number generator ───────────────────────────────────────────────────
@@ -307,6 +309,64 @@ export async function updateTicketByAdmin(
   }
 
   return getTicketById(ticketId);
+}
+
+// ── Notification helpers ─────────────────────────────────────────────────────
+
+export async function createNotification(data: {
+  portalUserId: number;
+  ticketId?: number;
+  ticketNumber?: string;
+  type?: string;
+  message: string;
+}): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  await db.insert(portalNotifications).values({
+    portalUserId: data.portalUserId,
+    ticketId: data.ticketId ?? null,
+    ticketNumber: data.ticketNumber ?? null,
+    type: data.type ?? "ticket_status_changed",
+    message: data.message,
+    isRead: false,
+  });
+}
+
+export async function getNotificationsForUser(portalUserId: number): Promise<PortalNotification[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db
+    .select()
+    .from(portalNotifications)
+    .where(eq(portalNotifications.portalUserId, portalUserId))
+    .orderBy(desc(portalNotifications.createdAtUtc))
+    .limit(50);
+}
+
+export async function markNotificationsRead(portalUserId: number, ids?: number[]): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  if (ids && ids.length > 0) {
+    await db
+      .update(portalNotifications)
+      .set({ isRead: true })
+      .where(and(eq(portalNotifications.portalUserId, portalUserId)));
+  } else {
+    await db
+      .update(portalNotifications)
+      .set({ isRead: true })
+      .where(eq(portalNotifications.portalUserId, portalUserId));
+  }
+}
+
+export async function getUnreadNotificationCount(portalUserId: number): Promise<number> {
+  const db = await getDb();
+  if (!db) return 0;
+  const rows = await db
+    .select()
+    .from(portalNotifications)
+    .where(and(eq(portalNotifications.portalUserId, portalUserId), eq(portalNotifications.isRead, false)));
+  return rows.length;
 }
 
 /** Delete a portal user and cascade-delete their tickets and contract */

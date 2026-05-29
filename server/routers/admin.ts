@@ -106,6 +106,7 @@ export const adminRouter = router({
         username: z.string().min(3).max(64),
         password: z.string().min(6),
         displayName: z.string().min(1).max(128),
+        email: z.string().email().optional(),
         role: z.enum(["master", "staff"]),
       })
     )
@@ -116,6 +117,7 @@ export const adminRouter = router({
           username: input.username,
           password: input.password,
           displayName: input.displayName,
+          email: input.email,
           role: input.role,
         });
         return { success: true };
@@ -135,6 +137,7 @@ export const adminRouter = router({
         adminToken: z.string(),
         id: z.number(),
         displayName: z.string().min(1).max(128).optional(),
+        email: z.string().email().optional().nullable(),
         role: z.enum(["master", "staff"]).optional(),
         isActive: z.boolean().optional(),
         password: z.string().min(6).optional(),

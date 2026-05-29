@@ -70,6 +70,21 @@ export const portalUsers = mysqlTable("portal_users", {
 export type PortalUser = typeof portalUsers.$inferSelect;
 export type InsertPortalUser = typeof portalUsers.$inferInsert;
 
+// ── Portal: In-app notifications for customers ───────────────────────────
+export const portalNotifications = mysqlTable("portal_notifications", {
+  id: int("id").autoincrement().primaryKey(),
+  portalUserId: int("portalUserId").notNull(),
+  ticketId: int("ticketId"),
+  ticketNumber: varchar("ticketNumber", { length: 32 }),
+  type: varchar("type", { length: 64 }).notNull().default("ticket_status_changed"),
+  message: text("message").notNull(),
+  isRead: boolean("isRead").default(false).notNull(),
+  createdAtUtc: timestamp("createdAtUtc").defaultNow().notNull(),
+});
+
+export type PortalNotification = typeof portalNotifications.$inferSelect;
+export type InsertPortalNotification = typeof portalNotifications.$inferInsert;
+
 // ── Portal: Contracts (hours tracking per customer) ──────────────────────────
 export const portalContracts = mysqlTable("portal_contracts", {
   id: int("id").autoincrement().primaryKey(),
@@ -118,6 +133,7 @@ export const adminUsers = mysqlTable("admin_users", {
   username: varchar("username", { length: 128 }).notNull().unique(),
   passwordHash: varchar("passwordHash", { length: 256 }).notNull(),
   displayName: varchar("displayName", { length: 256 }).notNull(),
+  email: varchar("email", { length: 320 }),
   role: mysqlEnum("role", ["master", "staff"]).default("staff").notNull(),
   isActive: boolean("isActive").default(true).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
