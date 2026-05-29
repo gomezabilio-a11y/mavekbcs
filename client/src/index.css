@@ -277,6 +277,16 @@
   .article-content p {
     margin-bottom: 1.25rem;
     line-height: 1.8;
+    min-height: 1em;
+  }
+  .article-content p:empty {
+    margin-bottom: 0.75rem;
+    min-height: 0.75rem;
+  }
+  .article-content br {
+    display: block;
+    content: "";
+    margin-top: 0.75rem;
   }
   .article-content h1,
   .article-content h2,

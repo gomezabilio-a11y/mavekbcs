@@ -1,0 +1,14 @@
+{
+  "query": "SELECT slug, LEFT(content, 500) as content_preview FROM insights WHERE slug = 'why-cfos-invest-in-finance-transformation';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT slug, LEFT(content, 500) as content_preview FROM insights WHERE slug = 'why-cfos-invest-in-finance-transformation';",
+  "rows": [
+    {
+      "slug": "why-cfos-invest-in-finance-transformation",
+      "content_preview": "<p>In today’s volatile and highly competitive business environment, finance organizations are facing increasing pressure to deliver more than traditional accounting and reporting functions. Modern CFOs are now expected to provide strategic insight, support business agility, improve operational efficiency, and enable faster decision-making across the enterprise.</p><p>As a result, finance transformation has become a strategic priority for organizations worldwide.</p><p>Finance transformation is n"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\tcontent_preview\nwhy-cfos-invest-in-finance-transformation\t<p>In today’s volatile and highly competitive business environment, finance organizations are facing increasing pressure to deliver more than traditional accounting and reporting functions. Modern CFOs are now expected to provide strategic insight, support business agility, improve operational efficiency, and enable faster decision-making across the enterprise.</p><p>As a result, finance transformation has become a strategic priority for organizations worldwide.</p><p>Finance transformation is n\n",
+  "stderr": "",
+  "execution_time_ms": 1864
+}

@@ -1,0 +1,13 @@
+{
+  "query": "SELECT SUBSTRING(content, 600, 400) as section FROM insights WHERE slug = 'why-cfos-invest-in-finance-transformation';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT SUBSTRING(content, 600, 400) as section FROM insights WHERE slug = 'why-cfos-invest-in-finance-transformation';",
+  "rows": [
+    {
+      "section": "der shift toward building a more agile, data-driven, and intelligent finance function capable of supporting long-term business growth.</p><p>At MAVEK BCS, we have seen this shift accelerate across industries and geographies as organizations seek to modernize finance operations and position finance as a true strategic business partner.</p><p></p><p><strong>The Evolving Role of the CFO</strong></p><"
+    }
+  ],
+  "messages": [],
+  "stdout": "section\nder shift toward building a more agile, data-driven, and intelligent finance function capable of supporting long-term business growth.</p><p>At MAVEK BCS, we have seen this shift accelerate across industries and geographies as organizations seek to modernize finance operations and position finance as a true strategic business partner.</p><p></p><p><strong>The Evolving Role of the CFO</strong></p><\n",
+  "stderr": "",
+  "execution_time_ms": 1702
+}

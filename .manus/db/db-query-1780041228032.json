@@ -1,0 +1,13 @@
+{
+  "query": "SELECT SUBSTRING(content, 1000, 800) as content_section FROM insights WHERE slug = 'why-cfos-invest-in-finance-transformation';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT SUBSTRING(content, 1000, 800) as content_section FROM insights WHERE slug = 'why-cfos-invest-in-finance-transformation';",
+  "rows": [
+    {
+      "content_section": "p>Traditionally, finance teams focused heavily on transaction processing, financial controls, compliance, and historical reporting. While these responsibilities remain critical, today’s CFOs are also expected to:</p><ul><li><p>Deliver real-time business insights</p></li><li><p>Support strategic planning and investment decisions</p></li><li><p>Improve forecasting accuracy</p></li><li><p>Enhance operational resilience</p></li><li><p>Drive digital transformation initiatives</p></li><li><p>Manage risk in increasingly complex global environments</p></li></ul><p>This evolution has fundamentally changed the role of the finance function.</p><p>Rather than operating solely as a back-office support organization, finance is increasingly expected to become a forward-looking business advisor that helps"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_section\np>Traditionally, finance teams focused heavily on transaction processing, financial controls, compliance, and historical reporting. While these responsibilities remain critical, today’s CFOs are also expected to:</p><ul><li><p>Deliver real-time business insights</p></li><li><p>Support strategic planning and investment decisions</p></li><li><p>Improve forecasting accuracy</p></li><li><p>Enhance operational resilience</p></li><li><p>Drive digital transformation initiatives</p></li><li><p>Manage risk in increasingly complex global environments</p></li></ul><p>This evolution has fundamentally changed the role of the finance function.</p><p>Rather than operating solely as a back-office support organization, finance is increasingly expected to become a forward-looking business advisor that helps\n",
+  "stderr": "",
+  "execution_time_ms": 1943
+}
