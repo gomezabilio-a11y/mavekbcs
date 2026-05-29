@@ -32,6 +32,7 @@ import AdminCustomers from "./pages/portal/AdminCustomers";
 import AdminTickets from "./pages/portal/AdminTickets";
 import AdminLogin from "./pages/portal/AdminLogin";
 import AdminStaff from "./pages/portal/AdminStaff";
+import AdminBlog from "./pages/portal/AdminBlog";
 
 import { PortalProvider } from "./contexts/PortalContext";
 import { AdminProvider } from "./contexts/AdminContext";
@@ -84,6 +85,7 @@ function LanguageSyncRouter() {
       <Route path="/portal/admin/customers" component={AdminCustomers} />
       <Route path="/portal/admin/tickets" component={AdminTickets} />
       <Route path="/portal/admin/staff" component={AdminStaff} />
+      <Route path="/portal/admin/blog" component={AdminBlog} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
 
@@ -110,6 +112,7 @@ function LanguageSyncRouter() {
       <Route path="/en/portal/admin/customers" component={AdminCustomers} />
       <Route path="/en/portal/admin/tickets" component={AdminTickets} />
       <Route path="/en/portal/admin/staff" component={AdminStaff} />
+      <Route path="/en/portal/admin/blog" component={AdminBlog} />
       <Route path="/en/privacy" component={Privacy} />
       <Route path="/en/terms" component={Terms} />
 
@@ -136,6 +139,7 @@ function LanguageSyncRouter() {
       <Route path="/kr/portal/admin/customers" component={AdminCustomers} />
       <Route path="/kr/portal/admin/tickets" component={AdminTickets} />
       <Route path="/kr/portal/admin/staff" component={AdminStaff} />
+      <Route path="/kr/portal/admin/blog" component={AdminBlog} />
       <Route path="/kr/privacy" component={Privacy} />
       <Route path="/kr/terms" component={Terms} />
 
@@ -162,6 +166,7 @@ function LanguageSyncRouter() {
       <Route path="/jp/portal/admin/customers" component={AdminCustomers} />
       <Route path="/jp/portal/admin/tickets" component={AdminTickets} />
       <Route path="/jp/portal/admin/staff" component={AdminStaff} />
+      <Route path="/jp/portal/admin/blog" component={AdminBlog} />
       <Route path="/jp/privacy" component={Privacy} />
       <Route path="/jp/terms" component={Terms} />
 
