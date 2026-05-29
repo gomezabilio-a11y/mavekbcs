@@ -1,0 +1,17 @@
+{
+  "query": "SELECT id, username, companyName, isActive, (passwordHash IS NOT NULL AND passwordHash != '') as has_pw FROM portal_users LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, username, companyName, isActive, (passwordHash IS NOT NULL AND passwordHash != '') as has_pw FROM portal_users LIMIT 10;",
+  "rows": [
+    {
+      "id": "30001",
+      "username": "rds",
+      "companyName": "Royal Dutch Shell",
+      "isActive": "1",
+      "has_pw": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tusername\tcompanyName\tisActive\thas_pw\n30001\trds\tRoyal Dutch Shell\t1\t1\n",
+  "stderr": "",
+  "execution_time_ms": 1877
+}

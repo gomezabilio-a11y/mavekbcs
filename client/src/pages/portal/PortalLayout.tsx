@@ -4,7 +4,8 @@ import { usePortalSession } from "@/contexts/PortalContext";
 import { usePortalT } from "@/lib/portalI18n";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Ticket, PlusCircle, LogOut } from "lucide-react";
+import { LayoutDashboard, Ticket, PlusCircle, LogOut, ShieldCheck } from "lucide-react";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 interface PortalLayoutProps {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
   const [location, navigate] = useLocation();
   const { language } = useLanguage();
   const t = usePortalT(language as "en" | "ko" | "ja");
+  const { user: adminUser } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -65,9 +67,20 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
               </Link>
             );
           })}
-
-
         </nav>
+
+        {/* Admin Portal link — only visible to admin Manus users */}
+        {adminUser?.role === "admin" && (
+          <div className="px-3 pb-3 border-t border-gray-700/40 pt-3">
+            <Link
+              href="/portal/admin"
+              className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-[#c9a84c] hover:bg-[#c9a84c]/10 transition-colors"
+            >
+              <ShieldCheck size={16} />
+              Go to Admin Portal
+            </Link>
+          </div>
+        )}
 
         {/* Sign out */}
         <div className="px-3 py-4 border-t border-gray-700/40">
