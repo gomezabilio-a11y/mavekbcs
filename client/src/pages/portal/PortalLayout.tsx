@@ -3,9 +3,8 @@ import { useLocation, Link } from "wouter";
 import { usePortalSession } from "@/contexts/PortalContext";
 import { usePortalT } from "@/lib/portalI18n";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Ticket, PlusCircle, Users, ListChecks, LogOut, ShieldCheck } from "lucide-react";
+import { LayoutDashboard, Ticket, PlusCircle, LogOut } from "lucide-react";
 
 interface PortalLayoutProps {
   children: React.ReactNode;
@@ -16,7 +15,6 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
   const [location, navigate] = useLocation();
   const { language } = useLanguage();
   const t = usePortalT(language as "en" | "ko" | "ja");
-  const { user: adminUser } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -26,17 +24,10 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
 
   if (!isAuthenticated) return null;
 
-  const isAdmin = adminUser?.role === "admin";
-
   const customerNav = [
     { href: "/portal/dashboard", icon: LayoutDashboard, label: t.dashboard },
     { href: "/portal/tickets", icon: Ticket, label: t.tickets },
     { href: "/portal/tickets/new", icon: PlusCircle, label: t.newTicket },
-  ];
-
-  const adminNav = [
-    { href: "/portal/admin/customers", icon: Users, label: t.customers },
-    { href: "/portal/admin/tickets", icon: ListChecks, label: t.allTickets },
   ];
 
   return (
@@ -75,34 +66,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
             );
           })}
 
-          {/* Admin section */}
-          {isAdmin && (
-            <>
-              <div className="pt-4 pb-1 px-3">
-                <div className="flex items-center gap-1.5 text-[10px] text-gray-500 uppercase tracking-wider">
-                  <ShieldCheck size={11} />
-                  {t.adminPanel}
-                </div>
-              </div>
-              {adminNav.map((item) => {
-                const active = location === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
-                      active
-                        ? "bg-[#c9a84c]/15 text-[#c9a84c]"
-                        : "text-gray-400 hover:text-white hover:bg-white/5"
-                    }`}
-                  >
-                    <item.icon size={16} />
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </>
-          )}
+
         </nav>
 
         {/* Sign out */}

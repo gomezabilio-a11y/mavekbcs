@@ -99,14 +99,7 @@ export default function PortalLogin() {
         <p className="text-center text-xs text-gray-600 mt-6">
           © {new Date().getFullYear()} MAVEK BCS. All rights reserved.
         </p>
-        <p className="text-center mt-3">
-          <a
-            href="/portal/admin/login"
-            className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
-          >
-            Admin Portal →
-          </a>
-        </p>
+
       </div>
     </div>
   );
