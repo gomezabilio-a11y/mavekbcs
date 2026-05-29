@@ -234,3 +234,14 @@ export const insights = mysqlTable("insights", {
 });
 
 export type Insight = typeof insights.$inferSelect;
+
+export const insightsSettings = mysqlTable("insights_settings", {
+  id: int("id").primaryKey().autoincrement(),
+  bannerSlug: varchar("bannerSlug", { length: 256 }),
+  featured1Slug: varchar("featured1Slug", { length: 256 }),
+  featured2Slug: varchar("featured2Slug", { length: 256 }),
+  featured3Slug: varchar("featured3Slug", { length: 256 }),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+});
+
+export type InsightsSettings = typeof insightsSettings.$inferSelect;

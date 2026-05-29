@@ -2,7 +2,8 @@ import { Link } from "wouter";
 import { ArrowRight, ChevronRight, CheckCircle2, Zap, Shield, BarChart3, Globe, Settings, TrendingUp, Lock } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { SOLUTION_CATEGORIES, INSIGHTS } from "@/lib/siteData";
+import { SOLUTION_CATEGORIES } from "@/lib/siteData";
+import { trpc } from "@/lib/trpc";
 
 interface SolutionDetailProps {
   params: { category: string; slug: string };
@@ -205,8 +206,11 @@ export default function SolutionDetail({ params }: SolutionDetailProps) {
   const keyFeatures = details ? (language === "ko" ? details.keyFeaturesKo : language === "ja" ? details.keyFeaturesJa : details.keyFeatures) : [];
   const benefits = details ? (language === "ko" ? details.benefitsKo : language === "ja" ? details.benefitsJa : details.benefits) : [];
 
-  // Related insights
-  const relatedInsights = INSIGHTS.filter((i) => i.relatedSolutions.includes(slug)).slice(0, 3);
+  // Related insights from DB (with thumbnails)
+  const { data: allInsights = [] } = trpc.blog.listInsights.useQuery();
+  const relatedInsights = allInsights
+    .filter((i) => Array.isArray(i.relatedSolutions) && (i.relatedSolutions as string[]).includes(slug))
+    .slice(0, 3);
 
   return (
     <Layout>
@@ -368,16 +372,27 @@ export default function SolutionDetail({ params }: SolutionDetailProps) {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {relatedInsights.map((insight) => (
-                <Link key={insight.slug} href={`/insights/${insight.slug}`} className="p-6 bg-white border border-gray-100 card-hover no-underline group">
-                  <span className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 mb-3 inline-block" style={{ backgroundColor: "var(--navy-dark)", color: "white" }}>
-                    {insight.category}
-                  </span>
-                  <h4 className="text-sm font-bold mb-2 group-hover:text-[var(--navy)] transition-colors" style={{ color: "var(--navy-dark)" }}>
-                    {language === "ko" ? insight.titleKo : language === "ja" ? insight.titleJa : insight.title}
-                  </h4>
-                  <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">
-                    {language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}
-                  </p>
+                <Link key={insight.slug} href={`/insights/${insight.slug}`} className="flex flex-col bg-white border border-gray-100 card-hover no-underline group overflow-hidden">
+                  {insight.imageUrl && (
+                    <div className="w-full h-36 overflow-hidden">
+                      <img
+                        src={insight.imageUrl}
+                        alt={insight.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6 flex-1">
+                    <span className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 mb-3 inline-block" style={{ backgroundColor: "var(--navy-dark)", color: "white" }}>
+                      {insight.category}
+                    </span>
+                    <h4 className="text-sm font-bold mb-2 group-hover:text-[var(--navy)] transition-colors" style={{ color: "var(--navy-dark)" }}>
+                      {language === "ko" ? (insight.titleKo ?? insight.title) : language === "ja" ? (insight.titleJa ?? insight.title) : insight.title}
+                    </h4>
+                    <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">
+                      {language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}
+                    </p>
+                  </div>
                 </Link>
               ))}
             </div>

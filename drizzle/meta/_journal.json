@@ -71,6 +71,13 @@
       "when": 1780012898833,
       "tag": "0009_bitter_kingpin",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1780031472316,
+      "tag": "0010_cloudy_cloak",
+      "breakpoints": true
     }
   ]
 }

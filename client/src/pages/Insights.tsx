@@ -14,6 +14,25 @@ export default function Insights() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const { data: allInsights = [], isLoading } = trpc.blog.listInsights.useQuery();
+  const { data: settings } = trpc.blog.getInsightsSettings.useQuery();
+
+  // Resolve banner and featured articles from settings
+  const bannerArticle = settings?.bannerSlug
+    ? allInsights.find((a) => a.slug === settings.bannerSlug) ?? null
+    : null;
+
+  const featuredArticles = [
+    settings?.featured1Slug,
+    settings?.featured2Slug,
+    settings?.featured3Slug,
+  ]
+    .filter(Boolean)
+    .map((slug) => allInsights.find((a) => a.slug === slug))
+    .filter(Boolean) as typeof allInsights;
+
+  // Fallback: if no settings configured, use featured flag
+  const fallbackFeatured = allInsights.filter((i) => i.featured).slice(0, 3);
+  const showFeatured = featuredArticles.length > 0 ? featuredArticles : fallbackFeatured;
 
   const filtered = allInsights.filter((insight) => {
     const matchesCategory = activeCategory === "All" || insight.category === activeCategory;
@@ -27,8 +46,6 @@ export default function Insights() {
     return matchesCategory && matchesSearch;
   });
 
-  const featured = allInsights.filter((i) => i.featured).slice(0, 3);
-
   const getTitle = (insight: typeof allInsights[0]) =>
     language === "ko" ? (insight.titleKo ?? insight.title) : language === "ja" ? (insight.titleJa ?? insight.title) : insight.title;
 
@@ -37,28 +54,74 @@ export default function Insights() {
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-24 relative overflow-hidden" style={{ backgroundColor: "var(--navy-dark)" }}>
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.2) 40px, rgba(255,255,255,0.2) 41px)" }} />
-        <div className="container relative z-10">
-          <div className="max-w-3xl">
-            <div className="section-divider" />
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-              {language === "ko" ? "인사이트" : language === "ja" ? "インサイト" : "Insights"}
-            </h1>
-            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
-              {language === "ko"
-                ? "재무 혁신, 기술 트렌드 및 업계 관점에 대한 전문가의 관점."
-                : language === "ja"
-                ? "財務変革、テクノロジートレンド、業界の視点に関する専門家の見解。"
-                : "Expert perspectives on finance transformation, technology trends, and industry developments."}
-            </p>
+      {/* Hero Banner — admin-selected article */}
+      {!isLoading && bannerArticle ? (
+        <section className="relative overflow-hidden" style={{ backgroundColor: "var(--navy-dark)", minHeight: "480px" }}>
+          {/* Background thumbnail */}
+          {bannerArticle.imageUrl && (
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url(${bannerArticle.imageUrl})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                opacity: 0.18,
+              }}
+            />
+          )}
+          <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(10,15,30,0.97) 40%, rgba(10,15,30,0.55) 100%)" }} />
+          <div className="container relative z-10 py-20 md:py-28">
+            <div className="max-w-2xl">
+              <div className="section-divider" />
+              <div className="flex items-center gap-3 mb-5">
+                <span className="text-xs font-semibold uppercase tracking-widest px-3 py-1" style={{ backgroundColor: "var(--gold)", color: "var(--navy-dark)" }}>
+                  {bannerArticle.category}
+                </span>
+                <span className="text-xs text-gray-400 flex items-center gap-1">
+                  <Clock size={10} /> {bannerArticle.readTimeMinutes} min
+                </span>
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-5 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+                {getTitle(bannerArticle)}
+              </h1>
+              <p className="text-base text-gray-300 leading-relaxed mb-8 max-w-xl line-clamp-3">
+                {getExcerpt(bannerArticle)}
+              </p>
+              <Link
+                href={`/insights/${bannerArticle.slug}`}
+                className="inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm no-underline transition-all"
+                style={{ backgroundColor: "var(--gold)", color: "var(--navy-dark)" }}
+              >
+                {language === "ko" ? "아티클 읽기" : language === "ja" ? "記事を読む" : "Read Article"}
+                <ArrowRight size={14} />
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        /* Default hero when no banner set */
+        <section className="py-24 relative overflow-hidden" style={{ backgroundColor: "var(--navy-dark)" }}>
+          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.2) 40px, rgba(255,255,255,0.2) 41px)" }} />
+          <div className="container relative z-10">
+            <div className="max-w-3xl">
+              <div className="section-divider" />
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+                {language === "ko" ? "인사이트" : language === "ja" ? "インサイト" : "Insights"}
+              </h1>
+              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
+                {language === "ko"
+                  ? "재무 혁신, 기술 트렌드 및 업계 관점에 대한 전문가의 관점."
+                  : language === "ja"
+                  ? "財務変革、テクノロジートレンド、業界の視点に関する専門家の見解。"
+                  : "Expert perspectives on finance transformation, technology trends, and industry developments."}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
 
-      {/* Featured */}
-      {!isLoading && featured.length > 0 && (
+      {/* Featured Articles — 3 slots */}
+      {!isLoading && showFeatured.length > 0 && (
         <section className="section-off-white py-16">
           <div className="container">
             <div className="section-divider" />
@@ -66,19 +129,25 @@ export default function Insights() {
               {language === "ko" ? "주요 인사이트" : language === "ja" ? "注目のインサイト" : "Featured Insights"}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {featured.map((insight) => (
+              {showFeatured.map((insight) => (
                 <Link
                   key={insight.slug}
                   href={`/insights/${insight.slug}`}
                   className="flex flex-col bg-white border border-gray-100 card-hover no-underline group overflow-hidden"
                 >
-                  {insight.imageUrl && (
+                  {insight.imageUrl ? (
                     <div className="w-full h-44 overflow-hidden">
                       <img
                         src={insight.imageUrl}
                         alt={getTitle(insight)}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
+                    </div>
+                  ) : (
+                    <div className="w-full h-44 flex items-center justify-center" style={{ backgroundColor: "var(--navy-dark)", opacity: 0.85 }}>
+                      <span className="text-xs font-semibold uppercase tracking-widest px-3 py-1" style={{ backgroundColor: "var(--gold)", color: "var(--navy-dark)" }}>
+                        {insight.category}
+                      </span>
                     </div>
                   )}
                   <div className="p-6 flex-1">

@@ -1,18 +1,13 @@
-/**
- * Blog / Insights CMS router
- */
 import { z } from "zod/v4";
 import { TRPCError } from "@trpc/server";
 import { router, publicProcedure, protectedProcedure } from "../_core/trpc";
 import { getDb } from "../db";
-import { insights } from "../../drizzle/schema";
+import { insights, insightsSettings } from "../../drizzle/schema";
 import { eq, desc } from "drizzle-orm";
 import { storagePut } from "../storage";
 
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
-  if (ctx.user.role !== "admin") {
-    throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" });
-  }
+  if (ctx.user.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
   return next({ ctx });
 });
 
@@ -73,24 +68,13 @@ export const blogRouter = router({
       }
       const publishedAt = input.publishedAt ? new Date(input.publishedAt) : new Date();
       await db.insert(insights).values({
-        slug: input.slug,
-        title: input.title,
-        titleKo: input.titleKo ?? null,
-        titleJa: input.titleJa ?? null,
-        excerpt: input.excerpt ?? null,
-        excerptKo: input.excerptKo ?? null,
-        excerptJa: input.excerptJa ?? null,
-        content: input.content ?? null,
-        contentKo: input.contentKo ?? null,
-        contentJa: input.contentJa ?? null,
-        category: input.category ?? null,
-        tags: input.tags ?? [],
-        relatedIndustries: input.relatedIndustries ?? [],
-        relatedSolutions: input.relatedSolutions ?? [],
-        imageUrl,
-        readTimeMinutes: input.readTimeMinutes ?? 5,
-        featured: input.featured ?? false,
-        publishedAt,
+        slug: input.slug, title: input.title,
+        titleKo: input.titleKo ?? null, titleJa: input.titleJa ?? null,
+        excerpt: input.excerpt ?? null, excerptKo: input.excerptKo ?? null, excerptJa: input.excerptJa ?? null,
+        content: input.content ?? null, contentKo: input.contentKo ?? null, contentJa: input.contentJa ?? null,
+        category: input.category ?? null, tags: input.tags ?? [], relatedIndustries: input.relatedIndustries ?? [],
+        relatedSolutions: input.relatedSolutions ?? [], imageUrl,
+        readTimeMinutes: input.readTimeMinutes ?? 5, featured: input.featured ?? false, publishedAt,
       });
       const created = await db.select().from(insights).where(eq(insights.slug, input.slug)).limit(1);
       return created[0];
@@ -102,9 +86,7 @@ export const blogRouter = router({
       const db = await getDb();
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
       const existing = await db.select({ id: insights.id }).from(insights).where(eq(insights.slug, input.slug)).limit(1);
-      if (existing.length && existing[0].id !== input.id) {
-        throw new TRPCError({ code: "CONFLICT", message: "Slug already used by another article" });
-      }
+      if (existing.length && existing[0].id !== input.id) throw new TRPCError({ code: "CONFLICT", message: "Slug already used" });
       let imageUrl: string | null = input.imageUrl ?? null;
       if (input.thumbnailBase64 && input.thumbnailMime) {
         const buffer = Buffer.from(input.thumbnailBase64, "base64");
@@ -115,23 +97,13 @@ export const blogRouter = router({
       }
       const publishedAt = input.publishedAt ? new Date(input.publishedAt) : undefined;
       await db.update(insights).set({
-        slug: input.slug,
-        title: input.title,
-        titleKo: input.titleKo ?? null,
-        titleJa: input.titleJa ?? null,
-        excerpt: input.excerpt ?? null,
-        excerptKo: input.excerptKo ?? null,
-        excerptJa: input.excerptJa ?? null,
-        content: input.content ?? null,
-        contentKo: input.contentKo ?? null,
-        contentJa: input.contentJa ?? null,
-        category: input.category ?? null,
-        tags: input.tags ?? [],
-        relatedIndustries: input.relatedIndustries ?? [],
-        relatedSolutions: input.relatedSolutions ?? [],
-        imageUrl,
-        readTimeMinutes: input.readTimeMinutes ?? 5,
-        featured: input.featured ?? false,
+        slug: input.slug, title: input.title,
+        titleKo: input.titleKo ?? null, titleJa: input.titleJa ?? null,
+        excerpt: input.excerpt ?? null, excerptKo: input.excerptKo ?? null, excerptJa: input.excerptJa ?? null,
+        content: input.content ?? null, contentKo: input.contentKo ?? null, contentJa: input.contentJa ?? null,
+        category: input.category ?? null, tags: input.tags ?? [], relatedIndustries: input.relatedIndustries ?? [],
+        relatedSolutions: input.relatedSolutions ?? [], imageUrl,
+        readTimeMinutes: input.readTimeMinutes ?? 5, featured: input.featured ?? false,
         ...(publishedAt ? { publishedAt } : {}),
       }).where(eq(insights.id, input.id));
       const updated = await db.select().from(insights).where(eq(insights.id, input.id)).limit(1);
@@ -145,5 +117,38 @@ export const blogRouter = router({
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
       await db.delete(insights).where(eq(insights.id, input.id));
       return { success: true };
+    }),
+
+  getInsightsSettings: publicProcedure.query(async () => {
+    const db = await getDb();
+    if (!db) return null;
+    const rows = await db.select().from(insightsSettings).where(eq(insightsSettings.id, 1)).limit(1);
+    if (!rows.length) return { id: 1, bannerSlug: null, featured1Slug: null, featured2Slug: null, featured3Slug: null };
+    return rows[0];
+  }),
+
+  updateInsightsSettings: adminProcedure
+    .input(z.object({
+      bannerSlug: z.string().max(256).optional(),
+      featured1Slug: z.string().max(256).optional(),
+      featured2Slug: z.string().max(256).optional(),
+      featured3Slug: z.string().max(256).optional(),
+    }))
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+      const existing = await db.select({ id: insightsSettings.id }).from(insightsSettings).where(eq(insightsSettings.id, 1)).limit(1);
+      const data = {
+        bannerSlug: input.bannerSlug ?? null,
+        featured1Slug: input.featured1Slug ?? null,
+        featured2Slug: input.featured2Slug ?? null,
+        featured3Slug: input.featured3Slug ?? null,
+      };
+      if (existing.length) {
+        await db.update(insightsSettings).set(data).where(eq(insightsSettings.id, 1));
+      } else {
+        await db.insert(insightsSettings).values({ id: 1, ...data });
+      }
+      return data;
     }),
 });

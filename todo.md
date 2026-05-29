@@ -300,14 +300,29 @@
 - [x] Write vitest tests for email helpers (4 tests passing)
 - [x] TypeScript 0 errors verified
 
-## Phase 42: Blog CMS Admin
+## Phase 41: Unified Ticket + History Page
+- [x] Merge PortalTickets and PortalTicketHistory into single page
+- [x] Active tickets (non-resolved/closed) shown in top card section
+- [x] Completed ticket history table below, sorted newest-first by resolvedAt
+- [x] Summary stats (total, hours used, deducted count) shown above history table
+- [x] Screenshot lightbox: click any thumbnail to open full-screen viewer with prev/next navigation
+- [x] Screenshots column added to history table (thumbnails clickable)
+- [x] Remove Ticket History nav item from PortalLayout sidebar
+- [x] /portal/history route redirects to /portal/tickets
+- [x] TypeScript 0 errors verified
 
-- [x] blog.ts tRPC router with listInsights, getInsight, createInsight, updateInsight, deleteInsight
-- [x] AdminBlog.tsx - article list table with thumbnail, title, category, published date, featured star
-- [x] Create/Edit dialog with 3-language tabs (EN / KO / JA)
-- [x] TipTap rich text editor (StarterKit) with toolbar: bold, italic, strike, code, h2, h3, lists, blockquote, hr, undo/redo
-- [x] Thumbnail upload (file upload → base64 → S3) or external URL input
-- [x] Slug auto-generation from EN title
-- [x] Featured toggle, category select, tags, read time, published date
-- [x] Blog nav item added to AdminLayout (EN/KO/JA labels)
-- [x] Routes added to App.tsx for all language prefixes
+## Phase 43: Insights Thumbnail & DB Migration (2026-05-29)
+- [x] Generate 12 category thumbnail images (AI-generated, uploaded to storage)
+- [x] Migrate 59 articles from siteData.ts to DB with category-based thumbnails
+- [x] Update Insights.tsx to use DB via tRPC (listInsights) with thumbnail display
+- [x] Update InsightDetail.tsx to use DB via tRPC (getInsight) with thumbnail in hero
+- [x] Add thumbnail to related articles section in InsightDetail
+- [x] Fix AdminBlog.tsx to use correct DB field names
+- [x] TypeScript: 0 errors confirmed
+
+## Phase 43: Insights Featured Banner & Admin Selection
+- [ ] Add insights_settings DB table (bannerSlug, featured1Slug, featured2Slug, featured3Slug)
+- [ ] Run DB migration for insights_settings table
+- [ ] Add tRPC procedures: getInsightsSettings (public), updateInsightsSettings (admin)
+- [ ] Add banner/featured article selector UI in AdminBlog
+- [ ] Update public Insights.tsx with hero banner + featured 3 articles section

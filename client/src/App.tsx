@@ -5,7 +5,10 @@ import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider, useLanguage } from "./contexts/LanguageContext";
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
+
+// Lazy imports for new pages
+const AdminBlog = lazy(() => import("./pages/portal/AdminBlog"));
 
 // Pages
 import Home from "./pages/Home";
@@ -32,8 +35,7 @@ import AdminCustomers from "./pages/portal/AdminCustomers";
 import AdminTickets from "./pages/portal/AdminTickets";
 import AdminLogin from "./pages/portal/AdminLogin";
 import AdminStaff from "./pages/portal/AdminStaff";
-import AdminBlog from "./pages/portal/AdminBlog";
-
+import PortalTicketHistory from "./pages/portal/PortalTicketHistory";
 import { PortalProvider } from "./contexts/PortalContext";
 import { AdminProvider } from "./contexts/AdminContext";
 
@@ -80,12 +82,11 @@ function LanguageSyncRouter() {
       <Route path="/portal/dashboard" component={PortalDashboard} />
       <Route path="/portal/tickets/new" component={PortalNewTicket} />
       <Route path="/portal/tickets" component={PortalTickets} />
-      <Route path="/portal/history" component={() => { const [, navigate] = useLocation(); useEffect(() => navigate("/portal/tickets"), []); return null; }} />
+      <Route path="/portal/history" component={PortalTicketHistory} />
       <Route path="/portal/admin/login" component={AdminLogin} />
       <Route path="/portal/admin/customers" component={AdminCustomers} />
       <Route path="/portal/admin/tickets" component={AdminTickets} />
       <Route path="/portal/admin/staff" component={AdminStaff} />
-      <Route path="/portal/admin/blog" component={AdminBlog} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
 
@@ -112,7 +113,6 @@ function LanguageSyncRouter() {
       <Route path="/en/portal/admin/customers" component={AdminCustomers} />
       <Route path="/en/portal/admin/tickets" component={AdminTickets} />
       <Route path="/en/portal/admin/staff" component={AdminStaff} />
-      <Route path="/en/portal/admin/blog" component={AdminBlog} />
       <Route path="/en/privacy" component={Privacy} />
       <Route path="/en/terms" component={Terms} />
 
@@ -139,7 +139,6 @@ function LanguageSyncRouter() {
       <Route path="/kr/portal/admin/customers" component={AdminCustomers} />
       <Route path="/kr/portal/admin/tickets" component={AdminTickets} />
       <Route path="/kr/portal/admin/staff" component={AdminStaff} />
-      <Route path="/kr/portal/admin/blog" component={AdminBlog} />
       <Route path="/kr/privacy" component={Privacy} />
       <Route path="/kr/terms" component={Terms} />
 
@@ -166,7 +165,6 @@ function LanguageSyncRouter() {
       <Route path="/jp/portal/admin/customers" component={AdminCustomers} />
       <Route path="/jp/portal/admin/tickets" component={AdminTickets} />
       <Route path="/jp/portal/admin/staff" component={AdminStaff} />
-      <Route path="/jp/portal/admin/blog" component={AdminBlog} />
       <Route path="/jp/privacy" component={Privacy} />
       <Route path="/jp/terms" component={Terms} />
 

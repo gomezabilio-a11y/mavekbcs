@@ -2,10 +2,9 @@ import { Link } from "wouter";
 import { ArrowRight, ChevronRight, Clock, Tag } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { SOLUTION_CATEGORIES, INDUSTRIES } from "@/lib/siteData";
+import { INSIGHTS, SOLUTION_CATEGORIES, INDUSTRIES } from "@/lib/siteData";
 import { useHreflang, getHreflangLinks } from "@/hooks/useHreflang";
 import { useLocation } from "wouter";
-import { trpc } from "@/lib/trpc";
 
 interface InsightDetailProps {
   params: { slug: string };
@@ -786,15 +785,18 @@ MAVEK BCSは、さまざまな業界や地域で財務変革プログラムを�
 電子請求書義務化は、単なる規制負担として捉えるべきではありません。これは財務組織が業務を近代化する絶好の機会です。SAP DRCのような高度なソリューションによってプロセスを自動化することで、CFOは手作業依存を排除し、内部統制を強化し、グローバル税務状況のリアルタイム可視化を実現できます。ますます厳格化する規制環境の中で、選択肢は明確です。戦略的自動化を受け入れる企業は、より迅速で、より信頼性が高く、より統制されたオペレーションを実現できる一方で、手作業に依存し続ける企業は、変化のスピードについていくことが難しくなるでしょう。`,
 };
 
-function generateGenericContent(insight: { title: string; excerpt?: string | null; tags?: unknown; relatedIndustries?: unknown }, language: string): string {
-  const tags = Array.isArray(insight.tags) ? (insight.tags as string[]) : [];
-  const industries = Array.isArray(insight.relatedIndustries) ? (insight.relatedIndustries as string[]) : [];
-  return `${insight.excerpt ?? ""}
+function generateGenericContent(insight: typeof INSIGHTS[0], language: string): string {
+  return `${insight.excerpt}
+
 This insight explores the key dimensions of ${insight.title.toLowerCase()}, drawing on MAVEK BCS's experience delivering finance transformation programs across multiple industries and geographies.
+
 **Key Themes**
-${tags.map((tag: string) => `- **${tag}**: Understanding the role of ${tag.toLowerCase()} in modern finance operations`).join('\n')}
+
+${insight.tags.map(tag => `- **${tag}**: Understanding the role of ${tag.toLowerCase()} in modern finance operations`).join('\n')}
+
 **Industry Relevance**
-The topics covered in this insight are particularly relevant for organizations in ${industries.join(', ')} industries, where the challenges described are most acute.e.
+
+The topics covered in this insight are particularly relevant for organizations in ${insight.relatedIndustries.join(', ')} industries, where the challenges described are most acute.
 
 **MAVEK BCS Perspective**
 
@@ -814,21 +816,7 @@ export default function InsightDetail({ params }: InsightDetailProps) {
   const basePath = `/insights/${slug}`;
   useHreflang(getHreflangLinks(basePath));
 
-  const { data: insight, isLoading } = trpc.blog.getInsight.useQuery({ slug });
-  const { data: allInsights = [] } = trpc.blog.listInsights.useQuery();
-
-  if (isLoading) {
-    return (
-      <Layout>
-        <div className="container py-24 text-center">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-1/2 mx-auto mb-4" />
-            <div className="h-4 bg-gray-200 rounded w-1/3 mx-auto" />
-          </div>
-        </div>
-      </Layout>
-    );
-  }
+  const insight = INSIGHTS.find((i) => i.slug === slug);
 
   if (!insight) {
     return (
@@ -841,23 +829,18 @@ export default function InsightDetail({ params }: InsightDetailProps) {
     );
   }
 
-  const title = language === "ko" ? (insight.titleKo ?? insight.title) : language === "ja" ? (insight.titleJa ?? insight.title) : insight.title;
-  const dbContent = language === "ko" ? (insight.contentKo ?? insight.content ?? "") : language === "ja" ? (insight.contentJa ?? insight.content ?? "") : (insight.content ?? "");
-  const content = dbContent || (articleContent[slug] ? articleContent[slug] : generateGenericContent(insight as any, language));
+  const title = language === "ko" ? insight.titleKo : language === "ja" ? insight.titleJa : insight.title;
+  const content = (language === "ko" ? articleContentKo[slug] : language === "ja" ? articleContentJa[slug] : articleContent[slug]) || generateGenericContent(insight, language);
 
   // Related insights (same category, exclude current)
-  const related = allInsights.filter((i) => i.category === insight.category && i.slug !== slug).slice(0, 3);
+  const related = INSIGHTS.filter((i) => i.category === insight.category && i.slug !== slug).slice(0, 3);
 
   // Related industries
-  const insightRelatedIndustries = Array.isArray(insight.relatedIndustries) ? (insight.relatedIndustries as string[]) : [];
-  const insightRelatedSolutions = Array.isArray(insight.relatedSolutions) ? (insight.relatedSolutions as string[]) : [];
-  const insightTags = Array.isArray(insight.tags) ? (insight.tags as string[]) : [];
-
-  const relatedIndustries = INDUSTRIES.filter((ind) => insightRelatedIndustries.includes(ind.slug));
+  const relatedIndustries = INDUSTRIES.filter((ind) => insight.relatedIndustries.includes(ind.slug));
 
   // Related solutions
   const relatedSolutions = SOLUTION_CATEGORIES.flatMap((cat) =>
-    cat.solutions.filter((s) => insightRelatedSolutions.includes(s.slug)).map((s) => ({ ...s, categorySlug: cat.slug }))
+    cat.solutions.filter((s) => insight.relatedSolutions.includes(s.slug)).map((s) => ({ ...s, categorySlug: cat.slug }))
   );
 
   // Format content as paragraphs with bold support
@@ -907,19 +890,30 @@ export default function InsightDetail({ params }: InsightDetailProps) {
             <ChevronRight size={12} />
             <span className="text-gray-300">{insight.category}</span>
           </div>
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-5">
-              <span className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5" style={{ backgroundColor: "var(--gold)", color: "var(--navy-dark)" }}>
-                {insight.category}
-              </span>
-              <span className="text-xs text-gray-400 flex items-center gap-1">
-                <Clock size={10} /> {insight.readTimeMinutes} {language === "ko" ? "분 읽기" : language === "ja" ? "分で読める" : "min read"}
-              </span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center max-w-5xl">
+            <div>
+              <div className="flex items-center gap-3 mb-5">
+                <span className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5" style={{ backgroundColor: "var(--gold)", color: "var(--navy-dark)" }}>
+                  {insight.category}
+                </span>
+                <span className="text-xs text-gray-400 flex items-center gap-1">
+                  <Clock size={10} /> {insight.readTimeMinutes} {language === "ko" ? "분 읽기" : language === "ja" ? "分で読める" : "min read"}
+                </span>
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+                {title}
+              </h1>
+              <p className="text-gray-300 leading-relaxed text-lg">{language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}</p>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-              {title}
-            </h1>
-            <p className="text-gray-300 leading-relaxed text-lg">{language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}</p>
+            {insight.imageUrl && (
+              <div className="hidden lg:block">
+                <img
+                  src={insight.imageUrl}
+                  alt={title}
+                  className="w-full h-64 object-cover rounded shadow-2xl"
+                />
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -1024,27 +1018,16 @@ export default function InsightDetail({ params }: InsightDetailProps) {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {related.map((rel) => (
-                <Link key={rel.slug} href={`/insights/${rel.slug}`} className="flex flex-col bg-white border border-gray-100 card-hover no-underline group overflow-hidden">
-                  {rel.imageUrl && (
-                    <div className="w-full h-36 overflow-hidden">
-                      <img
-                        src={rel.imageUrl}
-                        alt={rel.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  )}
-                  <div className="p-6 flex-1">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="text-xs text-gray-400 flex items-center gap-1">
-                        <Clock size={10} /> {rel.readTimeMinutes} min
-                      </span>
-                    </div>
-                    <h4 className="text-sm font-bold mb-2 group-hover:text-[var(--navy)] transition-colors" style={{ color: "var(--navy-dark)" }}>
-                      {language === "ko" ? (rel.titleKo ?? rel.title) : language === "ja" ? (rel.titleJa ?? rel.title) : rel.title}
-                    </h4>
-                    <p className="text-xs text-gray-500 line-clamp-2">{language === "ko" && rel.excerptKo ? rel.excerptKo : language === "ja" && rel.excerptJa ? rel.excerptJa : rel.excerpt}</p>
+                <Link key={rel.slug} href={`/insights/${rel.slug}`} className="p-6 bg-white border border-gray-100 card-hover no-underline group">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xs text-gray-400 flex items-center gap-1">
+                      <Clock size={10} /> {rel.readTimeMinutes} min
+                    </span>
                   </div>
+                  <h4 className="text-sm font-bold mb-2 group-hover:text-[var(--navy)] transition-colors" style={{ color: "var(--navy-dark)" }}>
+                    {language === "ko" ? rel.titleKo : language === "ja" ? rel.titleJa : rel.title}
+                  </h4>
+                  <p className="text-xs text-gray-500 line-clamp-2">{language === "ko" && rel.excerptKo ? rel.excerptKo : language === "ja" && rel.excerptJa ? rel.excerptJa : rel.excerpt}</p>
                 </Link>
               ))}
             </div>
