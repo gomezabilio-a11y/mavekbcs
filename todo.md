@@ -321,8 +321,8 @@
 - [x] TypeScript: 0 errors confirmed
 
 ## Phase 43: Insights Featured Banner & Admin Selection
-- [ ] Add insights_settings DB table (bannerSlug, featured1Slug, featured2Slug, featured3Slug)
-- [ ] Run DB migration for insights_settings table
-- [ ] Add tRPC procedures: getInsightsSettings (public), updateInsightsSettings (admin)
-- [ ] Add banner/featured article selector UI in AdminBlog
-- [ ] Update public Insights.tsx with hero banner + featured 3 articles section
+- [x] Add insights_settings DB table (bannerSlug, featured1Slug, featured2Slug, featured3Slug)
+- [x] Run DB migration for insights_settings table
+- [x] Add tRPC procedures: getInsightsSettings (public), updateInsightsSettings (admin)
+- [x] Add banner/featured article selector UI in AdminBlog
+- [x] Update public Insights.tsx with hero banner + featured 3 articles section
