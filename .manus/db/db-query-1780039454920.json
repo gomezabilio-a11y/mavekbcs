@@ -1,0 +1,21 @@
+{
+  "query": "SELECT id, slug, title, titleKo, titleJa, imageUrl, LEFT(content, 150) as content_preview, LEFT(contentKo, 150) as contentKo_preview, createdAt FROM insights WHERE slug = 'future-of-the-cfo' LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, slug, title, titleKo, titleJa, imageUrl, LEFT(content, 150) as content_preview, LEFT(contentKo, 150) as contentKo_preview, createdAt FROM insights WHERE slug = 'future-of-the-cfo' LIMIT 1;",
+  "rows": [
+    {
+      "id": "59",
+      "slug": "future-of-the-cfo",
+      "title": "The Strategic Evolution of the CFO",
+      "titleKo": "CFO의 전략적 진화",
+      "titleJa": "CFOの戦略的進化",
+      "imageUrl": "/manus-storage/insights/thumbnails/future-of-the-cfo-1780039157893_c67a194c.jpeg",
+      "content_preview": "<p>The corporate finance function is undergoing a fundamental structural transition. As historical ledger activities and manual transactional reconcil",
+      "contentKo_preview": "<p>기업 재무 기능은 현재 근본적인 구조적 전환을 겪고 있습니다. 과거의 회계 원장 관리와 수작업 기반 거래 대사 업무가 자동화됨에 따라, 현대의 최고재무책임자(CFO)는 단순히 과거 재무 데이터를 관리하는 역할에서 벗어나 기업 혁신을 주도하는 전략 설계자로 변화하고",
+      "createdAt": "2026-05-29 03:37:15"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\ttitleKo\ttitleJa\timageUrl\tcontent_preview\tcontentKo_preview\tcreatedAt\n59\tfuture-of-the-cfo\tThe Strategic Evolution of the CFO\tCFO의 전략적 진화\tCFOの戦略的進化\t/manus-storage/insights/thumbnails/future-of-the-cfo-1780039157893_c67a194c.jpeg\t<p>The corporate finance function is undergoing a fundamental structural transition. As historical ledger activities and manual transactional reconcil\t<p>기업 재무 기능은 현재 근본적인 구조적 전환을 겪고 있습니다. 과거의 회계 원장 관리와 수작업 기반 거래 대사 업무가 자동화됨에 따라, 현대의 최고재무책임자(CFO)는 단순히 과거 재무 데이터를 관리하는 역할에서 벗어나 기업 혁신을 주도하는 전략 설계자로 변화하고\t2026-05-29 03:37:15\n",
+  "stderr": "",
+  "execution_time_ms": 1964
+}

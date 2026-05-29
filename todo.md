@@ -326,3 +326,13 @@
 - [x] Add tRPC procedures: getInsightsSettings (public), updateInsightsSettings (admin)
 - [x] Add banner/featured article selector UI in AdminBlog
 - [x] Update public Insights.tsx with hero banner + featured 3 articles section
+
+## Phase 44: InsightDetail.tsx Full DB Migration (2026-05-29)
+- [x] Remove all static articleContent, articleContentKo, articleContentJa records (~750 lines)
+- [x] Remove INSIGHTS import and generateGenericContent function
+- [x] Rewrite InsightDetail.tsx to fetch article from DB via trpc.blog.getInsight
+- [x] Fetch related articles from DB via trpc.blog.listInsights
+- [x] Language-aware title/excerpt/content from DB fields (titleKo/titleJa, excerptKo/excerptJa, contentKo/contentJa)
+- [x] Tags, relatedIndustries, relatedSolutions from DB JSON fields
+- [x] HTML content rendered via dangerouslySetInnerHTML (TipTap output)
+- [x] TypeScript: 0 errors confirmed
