@@ -71,43 +71,43 @@ function CustomerTicketHistory({ adminToken, customer, lang }: { adminToken: str
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-700">
-              <th className="px-3 py-2 text-left text-xs text-gray-400 font-medium">Ticket #</th>
-              <th className="px-3 py-2 text-left text-xs text-gray-400 font-medium">Subject</th>
-              <th className="px-3 py-2 text-left text-xs text-gray-400 font-medium">Status</th>
-              <th className="px-3 py-2 text-right text-xs text-gray-400 font-medium">Hours</th>
-              <th className="px-3 py-2 text-center text-xs text-gray-400 font-medium">Deducted</th>
-              <th className="px-3 py-2 text-left text-xs text-gray-400 font-medium">Created</th>
-              <th className="px-3 py-2 text-left text-xs text-gray-400 font-medium">Internal Note</th>
+              <th className="px-4 py-3 text-left text-xs text-gray-400 font-medium whitespace-nowrap">Ticket #</th>
+              <th className="px-4 py-3 text-left text-xs text-gray-400 font-medium w-full">Subject</th>
+              <th className="px-4 py-3 text-left text-xs text-gray-400 font-medium whitespace-nowrap">Status</th>
+              <th className="px-4 py-3 text-right text-xs text-gray-400 font-medium whitespace-nowrap">Hours</th>
+              <th className="px-4 py-3 text-center text-xs text-gray-400 font-medium whitespace-nowrap">Deducted</th>
+              <th className="px-4 py-3 text-left text-xs text-gray-400 font-medium whitespace-nowrap">Created</th>
+              <th className="px-4 py-3 text-left text-xs text-gray-400 font-medium whitespace-nowrap">Internal Note</th>
             </tr>
           </thead>
           <tbody>
             {customerTickets.map((tk) => (
               <tr key={tk.id} className="border-b border-gray-800 hover:bg-[#1a2235]">
-                <td className="px-3 py-2 text-gray-300 text-xs font-mono">{tk.ticketNumber}</td>
-                <td className="px-3 py-2 text-white text-xs max-w-[180px]">
-                  <div className="truncate">{tk.title}</div>
+                <td className="px-4 py-3 text-gray-300 text-xs font-mono whitespace-nowrap">{tk.ticketNumber}</td>
+                <td className="px-4 py-3 text-white text-sm">
+                  <div>{tk.title}</div>
                   {tk.adminFeedback && (
-                    <div className="text-gray-400 text-[10px] truncate mt-0.5">{tk.adminFeedback}</div>
+                    <div className="text-gray-400 text-xs mt-0.5">{tk.adminFeedback}</div>
                   )}
                 </td>
-                <td className="px-3 py-2">
-                  <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium ${getStatusColor(tk.status)}`}>
+                <td className="px-4 py-3 whitespace-nowrap">
+                  <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${getStatusColor(tk.status)}`}>
                     {tk.status.replace("_", " ")}
                   </span>
                 </td>
-                <td className="px-3 py-2 text-right text-gray-300 text-xs">
+                <td className="px-4 py-3 text-right text-gray-300 text-sm whitespace-nowrap">
                   {tk.spentHours ? `${parseFloat(String(tk.spentHours)).toFixed(1)}h` : "-"}
                 </td>
-                <td className="px-3 py-2 text-center">
+                <td className="px-4 py-3 text-center whitespace-nowrap">
                   {tk.hoursDeducted
-                    ? <span className="text-green-400 text-xs">✓</span>
-                    : <span className="text-gray-600 text-xs">-</span>}
+                    ? <span className="text-green-400 text-sm font-bold">✓</span>
+                    : <span className="text-gray-600 text-sm">-</span>}
                 </td>
-                <td className="px-3 py-2 text-gray-400 text-xs">
+                <td className="px-4 py-3 text-gray-400 text-xs whitespace-nowrap">
                   {formatInTimezone(tk.createdAtUtc, customer.timezone, lang)}
                 </td>
-                <td className="px-3 py-2 text-gray-400 text-xs max-w-[150px]">
-                  <div className="truncate">{tk.internalNote ?? "-"}</div>
+                <td className="px-4 py-3 text-gray-300 text-sm">
+                  {tk.internalNote ?? <span className="text-gray-600">-</span>}
                 </td>
               </tr>
             ))}
@@ -547,23 +547,39 @@ export default function AdminCustomers() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      {/* Customer Ticket History Dialog */}
+      {/* Customer Ticket History Dialog — full viewport overlay */}
       <Dialog open={!!historyCustomer} onOpenChange={(o) => !o && setHistoryCustomer(null)}>
-        <DialogContent className="bg-[#111827] border-gray-700 text-white max-w-6xl w-[95vw] max-h-[90vh] overflow-y-auto">
+        <DialogContent
+          className="bg-[#111827] border-gray-700 text-white flex flex-col"
+          style={{
+            position: "fixed",
+            top: "2vh",
+            left: "2vw",
+            width: "96vw",
+            maxWidth: "96vw",
+            height: "96vh",
+            maxHeight: "96vh",
+            transform: "none",
+            translate: "none",
+            overflowY: "auto",
+          }}
+        >
           <DialogHeader>
-            <DialogTitle className="text-white flex items-center gap-2">
-              <History size={16} className="text-blue-400" />
+            <DialogTitle className="text-white flex items-center gap-2 text-lg">
+              <History size={18} className="text-blue-400" />
               Ticket History — {historyCustomer?.companyName}
             </DialogTitle>
           </DialogHeader>
-          {historyCustomer && (
-            <CustomerTicketHistory
-              adminToken={adminToken ?? ""}
-              customer={historyCustomer}
-              lang={lang}
-            />
-          )}
-          <DialogFooter>
+          <div className="flex-1 overflow-y-auto">
+            {historyCustomer && (
+              <CustomerTicketHistory
+                adminToken={adminToken ?? ""}
+                customer={historyCustomer}
+                lang={lang}
+              />
+            )}
+          </div>
+          <DialogFooter className="pt-2 border-t border-gray-700">
             <Button variant="ghost" className="text-gray-400" onClick={() => setHistoryCustomer(null)}>Close</Button>
           </DialogFooter>
         </DialogContent>

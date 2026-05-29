@@ -5,7 +5,7 @@ import { usePortalT } from "@/lib/portalI18n";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Ticket, PlusCircle, Users, ListChecks, LogOut, ShieldCheck } from "lucide-react";
+import { LayoutDashboard, Ticket, PlusCircle, Users, ListChecks, LogOut, ShieldCheck, History } from "lucide-react";
 
 interface PortalLayoutProps {
   children: React.ReactNode;
@@ -32,6 +32,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
     { href: "/portal/dashboard", icon: LayoutDashboard, label: t.dashboard },
     { href: "/portal/tickets", icon: Ticket, label: t.tickets },
     { href: "/portal/tickets/new", icon: PlusCircle, label: t.newTicket },
+    { href: "/portal/history", icon: History, label: t.ticketHistory },
   ];
 
   const adminNav = [

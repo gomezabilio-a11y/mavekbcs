@@ -3,8 +3,9 @@ import { Link } from "wouter";
 import { ArrowRight, Clock, Search } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { INSIGHTS, INSIGHT_CATEGORIES } from "@/lib/siteData";
+import { INSIGHT_CATEGORIES } from "@/lib/siteData";
 import { useHreflang, getHreflangLinks } from "@/hooks/useHreflang";
+import { trpc } from "@/lib/trpc";
 
 export default function Insights() {
   const { language } = useLanguage();
@@ -12,16 +13,27 @@ export default function Insights() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filtered = INSIGHTS.filter((insight) => {
+  const { data: allInsights = [], isLoading } = trpc.blog.listInsights.useQuery();
+
+  const filtered = allInsights.filter((insight) => {
     const matchesCategory = activeCategory === "All" || insight.category === activeCategory;
+    const q = searchQuery.toLowerCase();
     const matchesSearch =
-      searchQuery === "" ||
-      insight.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      insight.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+      q === "" ||
+      (insight.title ?? "").toLowerCase().includes(q) ||
+      (insight.excerpt ?? "").toLowerCase().includes(q) ||
+      (insight.titleKo ?? "").toLowerCase().includes(q) ||
+      (insight.titleJa ?? "").toLowerCase().includes(q);
     return matchesCategory && matchesSearch;
   });
 
-  const featured = INSIGHTS.filter((i) => i.featured).slice(0, 3);
+  const featured = allInsights.filter((i) => i.featured).slice(0, 3);
+
+  const getTitle = (insight: typeof allInsights[0]) =>
+    language === "ko" ? (insight.titleKo ?? insight.title) : language === "ja" ? (insight.titleJa ?? insight.title) : insight.title;
+
+  const getExcerpt = (insight: typeof allInsights[0]) =>
+    language === "ko" ? (insight.excerptKo ?? insight.excerpt ?? "") : language === "ja" ? (insight.excerptJa ?? insight.excerpt ?? "") : (insight.excerpt ?? "");
 
   return (
     <Layout>
@@ -46,7 +58,7 @@ export default function Insights() {
       </section>
 
       {/* Featured */}
-      {featured.length > 0 && (
+      {!isLoading && featured.length > 0 && (
         <section className="section-off-white py-16">
           <div className="container">
             <div className="section-divider" />
@@ -58,8 +70,17 @@ export default function Insights() {
                 <Link
                   key={insight.slug}
                   href={`/insights/${insight.slug}`}
-                  className="flex flex-col bg-white border border-gray-100 card-hover no-underline group"
+                  className="flex flex-col bg-white border border-gray-100 card-hover no-underline group overflow-hidden"
                 >
+                  {insight.imageUrl && (
+                    <div className="w-full h-44 overflow-hidden">
+                      <img
+                        src={insight.imageUrl}
+                        alt={getTitle(insight)}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
                   <div className="p-6 flex-1">
                     <div className="flex items-center gap-2 mb-4">
                       <span className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5" style={{ backgroundColor: "var(--navy-dark)", color: "white" }}>
@@ -70,9 +91,9 @@ export default function Insights() {
                       </span>
                     </div>
                     <h3 className="text-base font-bold mb-3 group-hover:text-[var(--navy)] transition-colors leading-snug" style={{ color: "var(--navy-dark)" }}>
-                      {language === "ko" ? insight.titleKo : language === "ja" ? insight.titleJa : insight.title}
+                      {getTitle(insight)}
                     </h3>
-                    <p className="text-sm text-gray-500 leading-relaxed line-clamp-3">{language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}</p>
+                    <p className="text-sm text-gray-500 leading-relaxed line-clamp-3">{getExcerpt(insight)}</p>
                   </div>
                   <div className="px-6 pb-5 flex items-center gap-2 text-xs font-semibold" style={{ color: "var(--navy)" }}>
                     {language === "ko" ? "읽기" : language === "ja" ? "読む" : "Read Article"}
@@ -119,42 +140,71 @@ export default function Insights() {
           </div>
 
           {/* Results count */}
-          <p className="text-xs text-gray-400 mb-6">
-            {filtered.length} {language === "ko" ? "개 인사이트" : language === "ja" ? "件のインサイト" : "insights"}
-          </p>
+          {!isLoading && (
+            <p className="text-xs text-gray-400 mb-6">
+              {filtered.length} {language === "ko" ? "개 인사이트" : language === "ja" ? "件のインサイト" : "insights"}
+            </p>
+          )}
+
+          {/* Loading skeleton */}
+          {isLoading && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="border border-gray-100 overflow-hidden animate-pulse">
+                  <div className="h-40 bg-gray-200" />
+                  <div className="p-6">
+                    <div className="h-4 bg-gray-200 rounded mb-3 w-1/3" />
+                    <div className="h-4 bg-gray-200 rounded mb-2" />
+                    <div className="h-4 bg-gray-200 rounded w-4/5" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((insight) => (
-              <Link
-                key={insight.slug}
-                href={`/insights/${insight.slug}`}
-                className="flex flex-col border border-gray-100 card-hover no-underline group"
-              >
-                <div className="p-6 flex-1">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5" style={{ backgroundColor: "var(--off-white)", color: "var(--navy-dark)", border: "1px solid #e5e7eb" }}>
-                      {insight.category}
-                    </span>
-                    <span className="text-xs text-gray-400 flex items-center gap-1">
-                      <Clock size={10} /> {insight.readTimeMinutes} min
-                    </span>
+          {!isLoading && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filtered.map((insight) => (
+                <Link
+                  key={insight.slug}
+                  href={`/insights/${insight.slug}`}
+                  className="flex flex-col border border-gray-100 card-hover no-underline group overflow-hidden"
+                >
+                  {insight.imageUrl && (
+                    <div className="w-full h-40 overflow-hidden">
+                      <img
+                        src={insight.imageUrl}
+                        alt={getTitle(insight)}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6 flex-1">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5" style={{ backgroundColor: "var(--off-white)", color: "var(--navy-dark)", border: "1px solid #e5e7eb" }}>
+                        {insight.category}
+                      </span>
+                      <span className="text-xs text-gray-400 flex items-center gap-1">
+                        <Clock size={10} /> {insight.readTimeMinutes} min
+                      </span>
+                    </div>
+                    <h3 className="text-sm font-bold mb-2 group-hover:text-[var(--navy)] transition-colors leading-snug" style={{ color: "var(--navy-dark)" }}>
+                      {getTitle(insight)}
+                    </h3>
+                    <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">{getExcerpt(insight)}</p>
                   </div>
-                  <h3 className="text-sm font-bold mb-2 group-hover:text-[var(--navy)] transition-colors leading-snug" style={{ color: "var(--navy-dark)" }}>
-                    {language === "ko" ? insight.titleKo : language === "ja" ? insight.titleJa : insight.title}
-                  </h3>
-                  <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">{language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}</p>
-                </div>
-                <div className="px-6 pb-5 flex flex-wrap gap-1">
-                  {insight.tags.slice(0, 3).map((tag) => (
-                    <span key={tag} className="text-xs px-2 py-0.5 bg-gray-100 text-gray-500">{tag}</span>
-                  ))}
-                </div>
-              </Link>
-            ))}
-          </div>
+                  <div className="px-6 pb-5 flex flex-wrap gap-1">
+                    {((insight.tags as string[]) ?? []).slice(0, 3).map((tag) => (
+                      <span key={tag} className="text-xs px-2 py-0.5 bg-gray-100 text-gray-500">{tag}</span>
+                    ))}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
 
-          {filtered.length === 0 && (
+          {!isLoading && filtered.length === 0 && (
             <div className="text-center py-16 text-gray-400">
               <p className="text-lg font-medium mb-2">
                 {language === "ko" ? "결과 없음" : language === "ja" ? "結果なし" : "No results found"}

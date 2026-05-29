@@ -1,3 +1,6 @@
+/**
+ * Blog / Insights CMS router
+ */
 import { z } from "zod/v4";
 import { TRPCError } from "@trpc/server";
 import { router, publicProcedure, protectedProcedure } from "../_core/trpc";
@@ -7,7 +10,9 @@ import { eq, desc } from "drizzle-orm";
 import { storagePut } from "../storage";
 
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
-  if (ctx.user.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+  if (ctx.user.role !== "admin") {
+    throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" });
+  }
   return next({ ctx });
 });
 
@@ -68,13 +73,24 @@ export const blogRouter = router({
       }
       const publishedAt = input.publishedAt ? new Date(input.publishedAt) : new Date();
       await db.insert(insights).values({
-        slug: input.slug, title: input.title,
-        titleKo: input.titleKo ?? null, titleJa: input.titleJa ?? null,
-        excerpt: input.excerpt ?? null, excerptKo: input.excerptKo ?? null, excerptJa: input.excerptJa ?? null,
-        content: input.content ?? null, contentKo: input.contentKo ?? null, contentJa: input.contentJa ?? null,
-        category: input.category ?? null, tags: input.tags ?? [], relatedIndustries: input.relatedIndustries ?? [],
-        relatedSolutions: input.relatedSolutions ?? [], imageUrl,
-        readTimeMinutes: input.readTimeMinutes ?? 5, featured: input.featured ?? false, publishedAt,
+        slug: input.slug,
+        title: input.title,
+        titleKo: input.titleKo ?? null,
+        titleJa: input.titleJa ?? null,
+        excerpt: input.excerpt ?? null,
+        excerptKo: input.excerptKo ?? null,
+        excerptJa: input.excerptJa ?? null,
+        content: input.content ?? null,
+        contentKo: input.contentKo ?? null,
+        contentJa: input.contentJa ?? null,
+        category: input.category ?? null,
+        tags: input.tags ?? [],
+        relatedIndustries: input.relatedIndustries ?? [],
+        relatedSolutions: input.relatedSolutions ?? [],
+        imageUrl,
+        readTimeMinutes: input.readTimeMinutes ?? 5,
+        featured: input.featured ?? false,
+        publishedAt,
       });
       const created = await db.select().from(insights).where(eq(insights.slug, input.slug)).limit(1);
       return created[0];
@@ -86,7 +102,9 @@ export const blogRouter = router({
       const db = await getDb();
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
       const existing = await db.select({ id: insights.id }).from(insights).where(eq(insights.slug, input.slug)).limit(1);
-      if (existing.length && existing[0].id !== input.id) throw new TRPCError({ code: "CONFLICT", message: "Slug already used" });
+      if (existing.length && existing[0].id !== input.id) {
+        throw new TRPCError({ code: "CONFLICT", message: "Slug already used by another article" });
+      }
       let imageUrl: string | null = input.imageUrl ?? null;
       if (input.thumbnailBase64 && input.thumbnailMime) {
         const buffer = Buffer.from(input.thumbnailBase64, "base64");
@@ -97,13 +115,23 @@ export const blogRouter = router({
       }
       const publishedAt = input.publishedAt ? new Date(input.publishedAt) : undefined;
       await db.update(insights).set({
-        slug: input.slug, title: input.title,
-        titleKo: input.titleKo ?? null, titleJa: input.titleJa ?? null,
-        excerpt: input.excerpt ?? null, excerptKo: input.excerptKo ?? null, excerptJa: input.excerptJa ?? null,
-        content: input.content ?? null, contentKo: input.contentKo ?? null, contentJa: input.contentJa ?? null,
-        category: input.category ?? null, tags: input.tags ?? [], relatedIndustries: input.relatedIndustries ?? [],
-        relatedSolutions: input.relatedSolutions ?? [], imageUrl,
-        readTimeMinutes: input.readTimeMinutes ?? 5, featured: input.featured ?? false,
+        slug: input.slug,
+        title: input.title,
+        titleKo: input.titleKo ?? null,
+        titleJa: input.titleJa ?? null,
+        excerpt: input.excerpt ?? null,
+        excerptKo: input.excerptKo ?? null,
+        excerptJa: input.excerptJa ?? null,
+        content: input.content ?? null,
+        contentKo: input.contentKo ?? null,
+        contentJa: input.contentJa ?? null,
+        category: input.category ?? null,
+        tags: input.tags ?? [],
+        relatedIndustries: input.relatedIndustries ?? [],
+        relatedSolutions: input.relatedSolutions ?? [],
+        imageUrl,
+        readTimeMinutes: input.readTimeMinutes ?? 5,
+        featured: input.featured ?? false,
         ...(publishedAt ? { publishedAt } : {}),
       }).where(eq(insights.id, input.id));
       const updated = await db.select().from(insights).where(eq(insights.id, input.id)).limit(1);
