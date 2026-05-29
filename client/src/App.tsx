@@ -87,6 +87,7 @@ function LanguageSyncRouter() {
       <Route path="/portal/admin/customers" component={AdminCustomers} />
       <Route path="/portal/admin/tickets" component={AdminTickets} />
       <Route path="/portal/admin/staff" component={AdminStaff} />
+      <Route path="/portal/admin/blog" component={() => <Suspense fallback={null}><AdminBlog /></Suspense>} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
 
@@ -113,6 +114,7 @@ function LanguageSyncRouter() {
       <Route path="/en/portal/admin/customers" component={AdminCustomers} />
       <Route path="/en/portal/admin/tickets" component={AdminTickets} />
       <Route path="/en/portal/admin/staff" component={AdminStaff} />
+      <Route path="/en/portal/admin/blog" component={() => <Suspense fallback={null}><AdminBlog /></Suspense>} />
       <Route path="/en/privacy" component={Privacy} />
       <Route path="/en/terms" component={Terms} />
 
@@ -139,6 +141,7 @@ function LanguageSyncRouter() {
       <Route path="/kr/portal/admin/customers" component={AdminCustomers} />
       <Route path="/kr/portal/admin/tickets" component={AdminTickets} />
       <Route path="/kr/portal/admin/staff" component={AdminStaff} />
+      <Route path="/kr/portal/admin/blog" component={() => <Suspense fallback={null}><AdminBlog /></Suspense>} />
       <Route path="/kr/privacy" component={Privacy} />
       <Route path="/kr/terms" component={Terms} />
 
@@ -165,6 +168,7 @@ function LanguageSyncRouter() {
       <Route path="/jp/portal/admin/customers" component={AdminCustomers} />
       <Route path="/jp/portal/admin/tickets" component={AdminTickets} />
       <Route path="/jp/portal/admin/staff" component={AdminStaff} />
+      <Route path="/jp/portal/admin/blog" component={() => <Suspense fallback={null}><AdminBlog /></Suspense>} />
       <Route path="/jp/privacy" component={Privacy} />
       <Route path="/jp/terms" component={Terms} />
 

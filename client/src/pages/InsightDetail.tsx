@@ -905,10 +905,10 @@ export default function InsightDetail({ params }: InsightDetailProps) {
               </h1>
               <p className="text-gray-300 leading-relaxed text-lg">{language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}</p>
             </div>
-            {insight.imageUrl && (
+            {(insight as any).imageUrl && (
               <div className="hidden lg:block">
                 <img
-                  src={insight.imageUrl}
+                  src={(insight as any).imageUrl}
                   alt={title}
                   className="w-full h-64 object-cover rounded shadow-2xl"
                 />
@@ -932,7 +932,7 @@ export default function InsightDetail({ params }: InsightDetailProps) {
               <div className="mt-10 pt-8 border-t border-gray-100">
                 <div className="flex items-center gap-2 flex-wrap">
                   <Tag size={14} className="text-gray-400" />
-                  {insightTags.map((tag: string) => (
+                  {insight.tags.map((tag: string) => (
                     <span key={tag} className="text-xs px-3 py-1 bg-gray-100 text-gray-600 font-medium">{tag}</span>
                   ))}
                 </div>

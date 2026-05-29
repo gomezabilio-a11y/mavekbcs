@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { useLocation, Link } from "wouter";
 import { useAdminSession } from "@/contexts/AdminContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Users, ListChecks, LogOut, Shield, ChevronRight } from "lucide-react";
+import { Users, ListChecks, LogOut, Shield, ChevronRight, BookOpen } from "lucide-react";
 
 const labels = {
   en: {
     adminPanel: "Admin Panel",
     customers: "Customers",
     allTickets: "All Tickets",
+    blog: "Blog Management",
     staff: "Staff Accounts",
     logout: "Sign Out",
     master: "Master",
@@ -18,6 +19,7 @@ const labels = {
     adminPanel: "관리자 패널",
     customers: "고객 관리",
     allTickets: "전체 티켓",
+    blog: "블로그 관리",
     staff: "직원 계정",
     logout: "로그아웃",
     master: "마스터",
@@ -27,6 +29,7 @@ const labels = {
     adminPanel: "管理者パネル",
     customers: "顧客管理",
     allTickets: "全チケット",
+    blog: "ブログ管理",
     staff: "スタッフアカウント",
     logout: "サインアウト",
     master: "マスター",
@@ -55,6 +58,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const navItems = [
     { href: "/portal/admin/customers", icon: Users, label: t.customers },
     { href: "/portal/admin/tickets", icon: ListChecks, label: t.allTickets },
+    { href: "/portal/admin/blog", icon: BookOpen, label: t.blog },
     ...(isMaster ? [{ href: "/portal/admin/staff", icon: Shield, label: t.staff }] : []),
   ];
 

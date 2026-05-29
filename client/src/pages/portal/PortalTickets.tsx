@@ -27,8 +27,7 @@ function ScreenshotLightbox({
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
       <DialogContent
-        className="bg-[#0a0f1e] border-gray-700 p-0 flex flex-col items-center justify-center"
-        style={{ width: "90vw", maxWidth: "90vw", height: "90vh", maxHeight: "90vh", transform: "none", top: "5vh", left: "5vw" }}
+        className="bg-[#0a0f1e] border-gray-700 p-0 flex flex-col items-center justify-center !max-w-[90vw] !w-[90vw] !h-[90vh] !max-h-[90vh]"
       >
         {/* Close */}
         <button
