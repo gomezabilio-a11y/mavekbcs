@@ -96,7 +96,16 @@ export default function PortalLogin() {
           </CardContent>
         </Card>
 
-        <p className="text-center text-xs text-gray-600 mt-6">
+        <div className="text-center mt-5">
+          <a
+            href="/portal/admin/login"
+            className="text-xs text-gray-500 hover:text-[#c9a84c] transition-colors"
+          >
+            Go to Admin Portal →
+          </a>
+        </div>
+
+        <p className="text-center text-xs text-gray-600 mt-4">
           © {new Date().getFullYear()} MAVEK BCS. All rights reserved.
         </p>
 
