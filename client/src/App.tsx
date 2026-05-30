@@ -23,8 +23,7 @@ import Insights from "./pages/Insights";
 import InsightDetail from "./pages/InsightDetail";
 import Contact from "./pages/Contact";
 import Careers from "./pages/Careers";
-import Portal from "./pages/Portal";
-import AdminPortal from "./pages/AdminPortal";
+import { Redirect } from "wouter";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import PortalLogin from "./pages/portal/PortalLogin";
@@ -76,8 +75,8 @@ function LanguageSyncRouter() {
       <Route path="/insights/:slug" component={InsightDetail} />
       <Route path="/contact" component={Contact} />
       <Route path="/careers" component={Careers} />
-      <Route path="/portal" component={Portal} />
-      <Route path="/admin" component={AdminPortal} />
+      <Route path="/portal">{() => <Redirect to="/portal/login" />}</Route>
+      <Route path="/admin">{() => <Redirect to="/portal/admin/login" />}</Route>
       <Route path="/portal/login" component={PortalLogin} />
       <Route path="/portal/dashboard" component={PortalDashboard} />
       <Route path="/portal/tickets/new" component={PortalNewTicket} />
@@ -104,8 +103,8 @@ function LanguageSyncRouter() {
       <Route path="/en/insights/:slug" component={InsightDetail} />
       <Route path="/en/contact" component={Contact} />
       <Route path="/en/careers" component={Careers} />
-      <Route path="/en/portal" component={Portal} />
-      <Route path="/en/admin" component={AdminPortal} />
+      <Route path="/en/portal">{() => <Redirect to="/en/portal/login" />}</Route>
+      <Route path="/en/admin">{() => <Redirect to="/en/portal/admin/login" />}</Route>
       <Route path="/en/portal/login" component={PortalLogin} />
       <Route path="/en/portal/dashboard" component={PortalDashboard} />
       <Route path="/en/portal/tickets/new" component={PortalNewTicket} />
@@ -131,8 +130,8 @@ function LanguageSyncRouter() {
       <Route path="/kr/insights/:slug" component={InsightDetail} />
       <Route path="/kr/contact" component={Contact} />
       <Route path="/kr/careers" component={Careers} />
-      <Route path="/kr/portal" component={Portal} />
-      <Route path="/kr/admin" component={AdminPortal} />
+      <Route path="/kr/portal">{() => <Redirect to="/kr/portal/login" />}</Route>
+      <Route path="/kr/admin">{() => <Redirect to="/kr/portal/admin/login" />}</Route>
       <Route path="/kr/portal/login" component={PortalLogin} />
       <Route path="/kr/portal/dashboard" component={PortalDashboard} />
       <Route path="/kr/portal/tickets/new" component={PortalNewTicket} />
@@ -158,8 +157,8 @@ function LanguageSyncRouter() {
       <Route path="/jp/insights/:slug" component={InsightDetail} />
       <Route path="/jp/contact" component={Contact} />
       <Route path="/jp/careers" component={Careers} />
-      <Route path="/jp/portal" component={Portal} />
-      <Route path="/jp/admin" component={AdminPortal} />
+      <Route path="/jp/portal">{() => <Redirect to="/jp/portal/login" />}</Route>
+      <Route path="/jp/admin">{() => <Redirect to="/jp/portal/admin/login" />}</Route>
       <Route path="/jp/portal/login" component={PortalLogin} />
       <Route path="/jp/portal/dashboard" component={PortalDashboard} />
       <Route path="/jp/portal/tickets/new" component={PortalNewTicket} />

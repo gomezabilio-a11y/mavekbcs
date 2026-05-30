@@ -1,28 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ChevronDown, Globe, User, LogOut } from "lucide-react";
+import { Menu, X, ChevronDown, Globe, User } from "lucide-react";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
-import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl } from "@/const";
 import { INDUSTRIES, SOLUTION_CATEGORIES } from "@/lib/siteData";
-import { trpc } from "@/lib/trpc";
 import { getLocalizedPath, removeLanguagePrefix } from "@/lib/urlHelpers";
 
 export default function Navbar() {
   const { t, language, setLanguage } = useLanguage();
-  const { user, isAuthenticated, logout } = useAuth();
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [langOpen, setLangOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-
-  const logoutMutation = trpc.auth.logout.useMutation({
-    onSuccess: () => {
-      logout();
-      window.location.href = "/";
-    },
-  });
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -347,15 +336,9 @@ export default function Navbar() {
                   </button>
                 ))}
               </div>
-              {isAuthenticated ? (
-                <Link href="/portal/login" className="block px-3 py-2.5 text-sm font-semibold no-underline" style={{ color: "var(--navy)" }}>
-                  {t("nav.clientPortal")}
-                </Link>
-              ) : (
-                <a href={getLoginUrl()} className="block px-3 py-2.5 text-sm font-semibold no-underline" style={{ color: "var(--navy)" }}>
-                  {t("nav.clientPortal")}
-                </a>
-              )}
+              <Link href={getLocalizedPath("/portal/login", language)} className="block px-3 py-2.5 text-sm font-semibold no-underline" style={{ color: "var(--navy)" }}>
+                {t("nav.clientPortal")}
+              </Link>
             </div>
           </div>
         </div>
