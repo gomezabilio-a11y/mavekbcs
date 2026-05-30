@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import AdminLayout from "./AdminLayout";
+import { useAdminSession } from "@/contexts/AdminContext";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,6 +54,7 @@ function slugify(text: string) {
 const fieldStyle = { backgroundColor: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)", color: "#f0e6d3" };
 
 export default function AdminBlog() {
+  const { adminToken } = useAdminSession();
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
@@ -180,14 +182,15 @@ export default function AdminBlog() {
       thumbnailMime: form.thumbnailMime,
     };
     if (isEditing && form.id) {
-      updateMutation.mutate({ id: form.id, ...payload });
+      updateMutation.mutate({ id: form.id, adminToken: adminToken ?? "", ...payload });
     } else {
-      createMutation.mutate(payload);
+      createMutation.mutate({ adminToken: adminToken ?? "", ...payload });
     }
   }
 
   function handleSettingsSave() {
     updateSettingsMutation.mutate({
+      adminToken: adminToken ?? "",
       bannerSlug: settingsForm.bannerSlug || undefined,
       featured1Slug: settingsForm.featured1Slug || undefined,
       featured2Slug: settingsForm.featured2Slug || undefined,
@@ -532,7 +535,7 @@ export default function AdminBlog() {
             <p style={{ color: "#8a9bb0" }}>Are you sure you want to delete this article? This action cannot be undone.</p>
             <div className="flex justify-end gap-3 mt-4">
               <Button variant="outline" onClick={() => setDeleteId(null)} style={{ borderColor: "rgba(255,255,255,0.15)", color: "#8a9bb0" }}>Cancel</Button>
-              <Button onClick={() => deleteId && deleteMutation.mutate({ id: deleteId })} disabled={deleteMutation.isPending}
+              <Button onClick={() => deleteId && deleteMutation.mutate({ id: deleteId, adminToken: adminToken ?? "" })} disabled={deleteMutation.isPending}
                 style={{ backgroundColor: "#ef4444", color: "white" }}>
                 {deleteMutation.isPending ? "Deleting..." : "Delete"}
               </Button>

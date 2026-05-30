@@ -1,15 +1,18 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { router, publicProcedure, protectedProcedure } from "../_core/trpc";
+import { router, publicProcedure } from "../_core/trpc";
 import { getDb } from "../db";
 import { insights, insightsSettings } from "../../drizzle/schema";
 import { eq, desc } from "drizzle-orm";
 import { storagePut } from "../storage";
+import { verifyAdminToken } from "./admin";
 
-const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
-  if (ctx.user.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
-  return next({ ctx });
-});
+// Admin auth via JWT token passed as input (no Manus OAuth required)
+async function requireAdminToken(adminToken: string) {
+  const payload = await verifyAdminToken(adminToken);
+  if (!payload) throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid or expired admin token" });
+  return payload;
+}
 
 const insightBodySchema = z.object({
   slug: z.string().min(1).max(256).regex(/^[a-z0-9-]+$/),
@@ -51,9 +54,10 @@ export const blogRouter = router({
       return rows[0];
     }),
 
-  createInsight: adminProcedure
-    .input(insightBodySchema)
+  createInsight: publicProcedure
+    .input(insightBodySchema.extend({ adminToken: z.string() }))
     .mutation(async ({ input }) => {
+      await requireAdminToken(input.adminToken);
       const db = await getDb();
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
       const existing = await db.select({ id: insights.id }).from(insights).where(eq(insights.slug, input.slug)).limit(1);
@@ -80,9 +84,10 @@ export const blogRouter = router({
       return created[0];
     }),
 
-  updateInsight: adminProcedure
-    .input(insightBodySchema.extend({ id: z.number().int() }))
+  updateInsight: publicProcedure
+    .input(insightBodySchema.extend({ id: z.number().int(), adminToken: z.string() }))
     .mutation(async ({ input }) => {
+      await requireAdminToken(input.adminToken);
       const db = await getDb();
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
       const existing = await db.select({ id: insights.id }).from(insights).where(eq(insights.slug, input.slug)).limit(1);
@@ -110,9 +115,10 @@ export const blogRouter = router({
       return updated[0];
     }),
 
-  deleteInsight: adminProcedure
-    .input(z.object({ id: z.number().int() }))
+  deleteInsight: publicProcedure
+    .input(z.object({ id: z.number().int(), adminToken: z.string() }))
     .mutation(async ({ input }) => {
+      await requireAdminToken(input.adminToken);
       const db = await getDb();
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
       await db.delete(insights).where(eq(insights.id, input.id));
@@ -127,14 +133,15 @@ export const blogRouter = router({
     return rows[0];
   }),
 
-  updateInsightsSettings: adminProcedure
-    .input(z.object({
+  updateInsightsSettings: publicProcedure
+    .input(z.object({ adminToken: z.string(),
       bannerSlug: z.string().max(256).optional(),
       featured1Slug: z.string().max(256).optional(),
       featured2Slug: z.string().max(256).optional(),
       featured3Slug: z.string().max(256).optional(),
     }))
     .mutation(async ({ input }) => {
+      await requireAdminToken(input.adminToken);
       const db = await getDb();
       if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
       const existing = await db.select({ id: insightsSettings.id }).from(insightsSettings).where(eq(insightsSettings.id, 1)).limit(1);
