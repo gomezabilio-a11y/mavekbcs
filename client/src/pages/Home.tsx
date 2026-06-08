@@ -2,11 +2,11 @@ import { Link } from "wouter";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { INDUSTRIES, SOLUTION_CATEGORIES, INSIGHTS } from "@/lib/siteData";
+import { INDUSTRIES, SOLUTION_CATEGORIES } from "@/lib/siteData";
 import { useHreflang, getHreflangLinks } from "@/hooks/useHreflang";
 import { getLocalizedPath } from "@/lib/urlHelpers";
+import { trpc } from "@/lib/trpc";
 
-const featuredInsights = INSIGHTS.filter((i) => i.featured).slice(0, 3);
 const featuredIndustries = INDUSTRIES.slice(0, 6);
 
 const stats = [
@@ -41,6 +41,12 @@ const vendors = ["SAP", "Oracle", "Blackline"];
 export default function Home() {
   const { t, language } = useLanguage();
   useHreflang(getHreflangLinks(""));
+  const { data: allInsights = [] } = trpc.blog.listInsights.useQuery();
+  const { data: settings } = trpc.blog.getInsightsSettings.useQuery();
+  const featuredSlugs = [settings?.featured1Slug, settings?.featured2Slug, settings?.featured3Slug].filter(Boolean) as string[];
+  const featuredInsights = featuredSlugs.length > 0
+    ? featuredSlugs.map((slug) => allInsights.find((i) => i.slug === slug)).filter(Boolean) as typeof allInsights
+    : allInsights.filter((i) => i.featured).slice(0, 3);
 
   return (
     <Layout>
@@ -357,6 +363,17 @@ export default function Home() {
                     backgroundColor: idx === 0 ? "var(--navy)" : idx === 1 ? "var(--navy-mid)" : "var(--navy-light)",
                   }}
                 >
+                  {insight.imageUrl && (
+                    <img
+                      src={insight.imageUrl}
+                      alt={insight.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  )}
+                  <div
+                    className="absolute inset-0"
+                    style={{ background: "linear-gradient(to top, rgba(10,14,30,0.7) 0%, transparent 60%)" }}
+                  />
                   <div
                     className="absolute top-0 right-0 w-32 h-32 opacity-10"
                     style={{
@@ -364,7 +381,7 @@ export default function Home() {
                     }}
                   />
                   <span
-                    className="text-xs font-semibold uppercase tracking-wider px-2 py-1"
+                    className="relative z-10 text-xs font-semibold uppercase tracking-wider px-2 py-1"
                     style={{ backgroundColor: "var(--gold)", color: "var(--navy-dark)" }}
                   >
                     {insight.category}
