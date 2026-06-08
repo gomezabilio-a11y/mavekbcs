@@ -359,6 +359,39 @@
     border-radius: 0.25rem;
     font-size: 0.875em;
   }
+  .article-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    display: block;
+  }
+  .article-content th {
+    background-color: var(--navy-dark);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.65rem 1rem;
+    border: 1px solid #cbd5e1;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .article-content td {
+    padding: 0.6rem 1rem;
+    border: 1px solid #e2e8f0;
+    color: #374151;
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  .article-content tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+  .article-content tr:hover td {
+    background-color: #f1f5f9;
+  }
 
   /**
    * Custom container utility that centers content and adds responsive padding.

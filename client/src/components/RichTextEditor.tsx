@@ -4,13 +4,18 @@ import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import TextAlign from "@tiptap/extension-text-align";
 import Placeholder from "@tiptap/extension-placeholder";
+import { Table } from "@tiptap/extension-table";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableCell } from "@tiptap/extension-table-cell";
+import { TableHeader } from "@tiptap/extension-table-header";
 import {
   Bold, Italic, Underline as UnderlineIcon, Strikethrough,
   AlignLeft, AlignCenter, AlignRight, AlignJustify,
   List, ListOrdered, Quote, Minus, Link as LinkIcon, Undo, Redo,
-  Heading1, Heading2, Heading3,
+  Heading1, Heading2, Heading3, Table as TableIcon,
+  Columns2, Rows2, Trash2, Plus,
 } from "lucide-react";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState, useRef } from "react";
 
 interface RichTextEditorProps {
   value: string;
@@ -20,6 +25,9 @@ interface RichTextEditorProps {
 }
 
 export default function RichTextEditor({ value, onChange, placeholder = "Write content here...", minHeight = "300px" }: RichTextEditorProps) {
+  const [tableMenuOpen, setTableMenuOpen] = useState(false);
+  const tableMenuRef = useRef<HTMLDivElement>(null);
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -27,6 +35,10 @@ export default function RichTextEditor({ value, onChange, placeholder = "Write c
       Link.configure({ openOnClick: false, HTMLAttributes: { class: "text-blue-400 underline cursor-pointer" } }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       Placeholder.configure({ placeholder }),
+      Table.configure({ resizable: true }),
+      TableRow,
+      TableCell,
+      TableHeader,
     ],
     content: value,
     onUpdate: ({ editor }) => {
@@ -47,6 +59,17 @@ export default function RichTextEditor({ value, onChange, placeholder = "Write c
     }
   }, [value, editor]);
 
+  // Close table menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (tableMenuRef.current && !tableMenuRef.current.contains(e.target as Node)) {
+        setTableMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const setLink = useCallback(() => {
     if (!editor) return;
     const prev = editor.getAttributes("link").href as string | undefined;
@@ -65,6 +88,8 @@ export default function RichTextEditor({ value, onChange, placeholder = "Write c
     `p-1.5 rounded transition-colors ${active ? "bg-[#b48f4b]/30 text-[#b48f4b]" : "text-gray-400 hover:text-white hover:bg-white/10"}`;
 
   const Divider = () => <div className="w-px h-5 bg-gray-700 mx-0.5" />;
+
+  const isInTable = editor.isActive("table");
 
   return (
     <div className="rounded-lg border border-gray-700 overflow-hidden bg-[#0d1526]">
@@ -97,6 +122,100 @@ export default function RichTextEditor({ value, onChange, placeholder = "Write c
         <button type="button" onClick={() => editor.chain().focus().toggleOrderedList().run()} className={btnClass(editor.isActive("orderedList"))} title="Ordered List"><ListOrdered size={14} /></button>
         <button type="button" onClick={() => editor.chain().focus().toggleBlockquote().run()} className={btnClass(editor.isActive("blockquote"))} title="Blockquote"><Quote size={14} /></button>
         <button type="button" onClick={() => editor.chain().focus().setHorizontalRule().run()} className={btnClass(false)} title="Horizontal Rule"><Minus size={14} /></button>
+        <Divider />
+        {/* Table */}
+        <div className="relative" ref={tableMenuRef}>
+          <button
+            type="button"
+            onClick={() => setTableMenuOpen((v) => !v)}
+            className={btnClass(isInTable || tableMenuOpen)}
+            title="Table"
+          >
+            <TableIcon size={14} />
+          </button>
+          {tableMenuOpen && (
+            <div className="absolute left-0 top-full mt-1 z-50 bg-[#0a0f1e] border border-gray-700 rounded-lg shadow-xl py-1 min-w-[180px]">
+              {/* Insert table */}
+              {!isInTable && (
+                <button
+                  type="button"
+                  className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
+                  onClick={() => {
+                    editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+                    setTableMenuOpen(false);
+                  }}
+                >
+                  <TableIcon size={13} />
+                  Insert Table (3×3)
+                </button>
+              )}
+              {isInTable && (
+                <>
+                  <div className="px-3 py-1 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Columns</div>
+                  <button
+                    type="button"
+                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
+                    onClick={() => { editor.chain().focus().addColumnBefore().run(); setTableMenuOpen(false); }}
+                  >
+                    <Plus size={13} />
+                    Add Column Before
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
+                    onClick={() => { editor.chain().focus().addColumnAfter().run(); setTableMenuOpen(false); }}
+                  >
+                    <Plus size={13} />
+                    Add Column After
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
+                    onClick={() => { editor.chain().focus().deleteColumn().run(); setTableMenuOpen(false); }}
+                  >
+                    <Columns2 size={13} />
+                    Delete Column
+                  </button>
+                  <div className="border-t border-gray-700 my-1" />
+                  <div className="px-3 py-1 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Rows</div>
+                  <button
+                    type="button"
+                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
+                    onClick={() => { editor.chain().focus().addRowBefore().run(); setTableMenuOpen(false); }}
+                  >
+                    <Plus size={13} />
+                    Add Row Before
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
+                    onClick={() => { editor.chain().focus().addRowAfter().run(); setTableMenuOpen(false); }}
+                  >
+                    <Plus size={13} />
+                    Add Row After
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
+                    onClick={() => { editor.chain().focus().deleteRow().run(); setTableMenuOpen(false); }}
+                  >
+                    <Rows2 size={13} />
+                    Delete Row
+                  </button>
+                  <div className="border-t border-gray-700 my-1" />
+                  <button
+                    type="button"
+                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
+                    onClick={() => { editor.chain().focus().deleteTable().run(); setTableMenuOpen(false); }}
+                  >
+                    <Trash2 size={13} />
+                    Delete Table
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Editor content */}
@@ -116,6 +235,14 @@ export default function RichTextEditor({ value, onChange, placeholder = "Write c
         .tiptap.ProseMirror strong { color: #f0e6d3; }
         .tiptap.ProseMirror em { color: #d4c4a8; }
         .tiptap.ProseMirror p.is-editor-empty:first-child::before { content: attr(data-placeholder); float: left; color: #4a5568; pointer-events: none; height: 0; }
+        /* Table styles - editor */
+        .tiptap.ProseMirror table { border-collapse: collapse; width: 100%; margin: 1rem 0; table-layout: fixed; }
+        .tiptap.ProseMirror th { background-color: #1a2540; color: #b48f4b; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.6rem 0.75rem; border: 1px solid #2a3a5c; text-align: left; }
+        .tiptap.ProseMirror td { padding: 0.5rem 0.75rem; border: 1px solid #2a3a5c; color: #c8bfb0; font-size: 0.875rem; vertical-align: top; }
+        .tiptap.ProseMirror tr:nth-child(even) td { background-color: rgba(255,255,255,0.02); }
+        .tiptap.ProseMirror .selectedCell:after { z-index: 2; position: absolute; content: ""; left: 0; right: 0; top: 0; bottom: 0; background: rgba(180,143,75,0.15); pointer-events: none; }
+        .tiptap.ProseMirror .column-resize-handle { position: absolute; right: -2px; top: 0; bottom: -2px; width: 4px; background-color: #b48f4b; pointer-events: none; }
+        .tiptap.ProseMirror.resize-cursor { cursor: col-resize; }
       `}</style>
     </div>
   );
