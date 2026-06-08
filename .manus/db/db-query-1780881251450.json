@@ -1,0 +1,34 @@
+{
+  "query": "SELECT id, slug, title, featured FROM insights WHERE featured = true;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, slug, title, featured FROM insights WHERE featured = true;",
+  "rows": [
+    {
+      "id": "1",
+      "slug": "what-is-advanced-financial-closing-afc",
+      "title": "Streamlining the Entity Close: Leveraging SAP Advanced Financial Closing and the Implementation Expertise of MAVEK BCS",
+      "featured": "1"
+    },
+    {
+      "id": "12",
+      "slug": "global-e-invoicing-trends",
+      "title": "Global E-Invoicing Trends",
+      "featured": "1"
+    },
+    {
+      "id": "26",
+      "slug": "why-cfos-invest-in-finance-transformation",
+      "title": "Why CFOs Invest in Finance Transformation",
+      "featured": "1"
+    },
+    {
+      "id": "45",
+      "slug": "ai-in-finance",
+      "title": "AI in Finance",
+      "featured": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\tfeatured\n1\twhat-is-advanced-financial-closing-afc\tStreamlining the Entity Close: Leveraging SAP Advanced Financial Closing and the Implementation Expertise of MAVEK BCS\t1\n12\tglobal-e-invoicing-trends\tGlobal E-Invoicing Trends\t1\n26\twhy-cfos-invest-in-finance-transformation\tWhy CFOs Invest in Finance Transformation\t1\n45\tai-in-finance\tAI in Finance\t1\n",
+  "stderr": "",
+  "execution_time_ms": 1777
+}

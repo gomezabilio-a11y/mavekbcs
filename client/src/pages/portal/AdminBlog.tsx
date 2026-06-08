@@ -9,10 +9,9 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import RichTextEditor from "@/components/RichTextEditor";
-import { Plus, Pencil, Trash2, Star, Image as ImageIcon, X, Search, Settings2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Image as ImageIcon, X, Search, Settings2 } from "lucide-react";
 import { toast } from "sonner";
 
 const CATEGORIES = [
@@ -256,11 +255,6 @@ export default function AdminBlog() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
                     <Badge variant="outline" className="text-xs" style={{ borderColor: "#b48f4b", color: "#b48f4b" }}>{a.category}</Badge>
-                    {a.featured && (
-                      <Badge className="text-xs" style={{ backgroundColor: "#b48f4b", color: "#0a0f1e" }}>
-                        <Star size={10} className="mr-1" />Featured
-                      </Badge>
-                    )}
                     <span className="text-xs font-mono" style={{ color: "#8a9bb0" }}>{a.slug}</span>
                   </div>
                   <p className="text-sm font-semibold truncate" style={{ color: "#f0e6d3" }}>{a.title}</p>
@@ -423,13 +417,6 @@ export default function AdminBlog() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <Switch
-                  checked={form.featured}
-                  onCheckedChange={(v) => setForm((f) => ({ ...f, featured: v }))}
-                />
-                <Label style={{ color: "#8a9bb0" }}>Mark as featured (fallback when Page Settings not configured)</Label>
-              </div>
 
               {/* Thumbnail */}
               <div className="space-y-1.5">
