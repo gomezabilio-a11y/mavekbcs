@@ -1,0 +1,70 @@
+{
+  "query": "SELECT slug, title, relatedIndustries, relatedSolutions FROM insights WHERE relatedIndustries != '[]' AND relatedIndustries IS NOT NULL LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT slug, title, relatedIndustries, relatedSolutions FROM insights WHERE relatedIndustries != '[]' AND relatedIndustries IS NOT NULL LIMIT 10;",
+  "rows": [
+    {
+      "slug": "what-is-advanced-financial-closing-afc",
+      "title": "Streamlining the Entity Close: Leveraging SAP Advanced Financial Closing and the Implementation Expertise of MAVEK BCS",
+      "relatedIndustries": "[]",
+      "relatedSolutions": "[]"
+    },
+    {
+      "slug": "group-reporting-explained",
+      "title": "Modernizing Corporate Consolidation: The Strategic Imperative of SAP Group Reporting and the MAVEK BCS Advantage",
+      "relatedIndustries": "[]",
+      "relatedSolutions": "[]"
+    },
+    {
+      "slug": "why-financial-close-is-still-broken",
+      "title": "The Spreadsheet Trap: Version Chaos and Financial Close Vulnerabilities",
+      "relatedIndustries": "[]",
+      "relatedSolutions": "[]"
+    },
+    {
+      "slug": "blackline-vs-erp-close-tools",
+      "title": "Beyond the Ledger: BlackLine vs. Native ERP Closing Tools — A Strategic Blueprint for CFOs",
+      "relatedIndustries": "[]",
+      "relatedSolutions": "[]"
+    },
+    {
+      "slug": "oracle-fccs-for-complex-consolidations",
+      "title": "Oracle FCCS for Complex Consolidations",
+      "relatedIndustries": "[]",
+      "relatedSolutions": "[]"
+    },
+    {
+      "slug": "account-reconciliation-best-practices",
+      "title": "Account Reconciliation Best Practices: Building a Rock-Solid Foundation for the Financial Close with Mavek BCS",
+      "relatedIndustries": "[]",
+      "relatedSolutions": "[]"
+    },
+    {
+      "slug": "continuous-planning-vs-traditional-budgeting",
+      "title": "Continuous Planning vs Traditional Budgeting: Agility in EPM",
+      "relatedIndustries": "[]",
+      "relatedSolutions": "[]"
+    },
+    {
+      "slug": "sap-analytics-cloud-for-planning",
+      "title": "SAP Analytics Cloud for Planning",
+      "relatedIndustries": "[]",
+      "relatedSolutions": "[]"
+    },
+    {
+      "slug": "why-excel-based-planning-fails",
+      "title": "Beyond the Grid: Why Enterprises are Migrating from Spreadsheets to Dedicated Planning Platforms",
+      "relatedIndustries": "[]",
+      "relatedSolutions": "[]"
+    },
+    {
+      "slug": "driver-based-planning-explained",
+      "title": "The Practical Mechanism of Driver-Based Planning and Enterprise Performance Management Transformation",
+      "relatedIndustries": "[]",
+      "relatedSolutions": "[]"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\ttitle\trelatedIndustries\trelatedSolutions\nwhat-is-advanced-financial-closing-afc\tStreamlining the Entity Close: Leveraging SAP Advanced Financial Closing and the Implementation Expertise of MAVEK BCS\t[]\t[]\ngroup-reporting-explained\tModernizing Corporate Consolidation: The Strategic Imperative of SAP Group Reporting and the MAVEK BCS Advantage\t[]\t[]\nwhy-financial-close-is-still-broken\tThe Spreadsheet Trap: Version Chaos and Financial Close Vulnerabilities\t[]\t[]\nblackline-vs-erp-close-tools\tBeyond the Ledger: BlackLine vs. Native ERP Closing Tools — A Strategic Blueprint for CFOs\t[]\t[]\noracle-fccs-for-complex-consolidations\tOracle FCCS for Complex Consolidations\t[]\t[]\naccount-reconciliation-best-practices\tAccount Reconciliation Best Practices: Building a Rock-Solid Foundation for the Financial Close with Mavek BCS\t[]\t[]\ncontinuous-planning-vs-traditional-budgeting\tContinuous Planning vs Traditional Budgeting: Agility in EPM\t[]\t[]\nsap-analytics-cloud-for-planning\tSAP Analytics Cloud for Planning\t[]\t[]\nwhy-excel-based-planning-fails\tBeyond the Grid: Why Enterprises are Migrating from Spreadsheets to Dedicated Planning Platforms\t[]\t[]\ndriver-based-planning-explained\tThe Practical Mechanism of Driver-Based Planning and Enterprise Performance Management Transformation\t[]\t[]\n",
+  "stderr": "",
+  "execution_time_ms": 1719
+}

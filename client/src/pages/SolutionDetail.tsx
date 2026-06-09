@@ -5,6 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { SOLUTION_CATEGORIES } from "@/lib/siteData";
 import { trpc } from "@/lib/trpc";
 import { getLocalizedPath } from "@/lib/urlHelpers";
+import { articleMatchesSolution } from "@/lib/insightMapping";
 
 interface SolutionDetailProps {
   params: { category: string; slug: string };
@@ -210,7 +211,7 @@ export default function SolutionDetail({ params }: SolutionDetailProps) {
   // Related insights from DB (with thumbnails)
   const { data: allInsights = [] } = trpc.blog.listInsights.useQuery();
   const relatedInsights = allInsights
-    .filter((i) => Array.isArray(i.relatedSolutions) && (i.relatedSolutions as string[]).includes(slug))
+    .filter((i) => articleMatchesSolution(slug, i.category, Array.isArray(i.tags) ? (i.tags as string[]) : []))
     .slice(0, 3);
 
   return (

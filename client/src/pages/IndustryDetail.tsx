@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { INDUSTRIES, SOLUTION_CATEGORIES } from "@/lib/siteData";
 import { trpc } from "@/lib/trpc";
+import { articleMatchesIndustry } from "@/lib/insightMapping";
 import { getLocalizedPath } from "@/lib/urlHelpers";
 
 interface IndustryDetailProps {
@@ -243,9 +244,9 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
     cat.solutions.filter((s) => relatedSolutionSlugs.includes(s.slug)).map((s) => ({ ...s, categorySlug: cat.slug }))
   );
 
-  // Find related insights from DB
+  // Find related insights from DB using category/tag auto-mapping
   const relatedInsights = allInsights
-    .filter((i) => Array.isArray(i.relatedIndustries) && (i.relatedIndustries as string[]).includes(slug))
+    .filter((i) => articleMatchesIndustry(slug, i.category, Array.isArray(i.tags) ? (i.tags as string[]) : []))
     .slice(0, 4);
 
   return (
