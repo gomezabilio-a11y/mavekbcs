@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, title, category, tags FROM insights WHERE title LIKE '%Semiconductor%' LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, title, category, tags FROM insights WHERE title LIKE '%Semiconductor%' LIMIT 5;",
+  "rows": [
+    {
+      "id": "51",
+      "title": "Next-Generation Semiconductor Financial Technology: Overcoming R&D Cycles, Complex IP Licensing, and Intercompany Profit in Inventory (PII) Complexities",
+      "category": "Industry Focus",
+      "tags": "[\"Semiconductors\", \"Finance\", \"R&D\"]"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tcategory\ttags\n51\tNext-Generation Semiconductor Financial Technology: Overcoming R&D Cycles, Complex IP Licensing, and Intercompany Profit in Inventory (PII) Complexities\tIndustry Focus\t[\"Semiconductors\", \"Finance\", \"R&D\"]\n",
+  "stderr": "",
+  "execution_time_ms": 1792
+}

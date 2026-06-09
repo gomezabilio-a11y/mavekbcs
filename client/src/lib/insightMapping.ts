@@ -122,9 +122,23 @@ function unique(arr: string[]): string[] {
   });
 }
 
-function matchTags(tags: string[], map: Record<string, string[]>): string[] {
+function matchTags(tags: string[] | null | undefined, map: Record<string, string[]>): string[] {
+  if (!tags || tags.length === 0) return [];
   const result: string[] = [];
-  const lowerTags = tags.map((t) => t.toLowerCase());
+  
+  // Parse tags if they're in JSON format (e.g., '["Semiconductors", "Finance"]')
+  let parsedTags: string[] = [];
+  if (typeof tags[0] === 'string' && tags[0].startsWith('[')) {
+    try {
+      parsedTags = JSON.parse(tags[0]);
+    } catch {
+      parsedTags = tags;
+    }
+  } else {
+    parsedTags = tags;
+  }
+  
+  const lowerTags = parsedTags.map((t) => String(t).toLowerCase());
   for (const [keyword, slugs] of Object.entries(map)) {
     if (lowerTags.some((t) => t.includes(keyword) || keyword.includes(t))) {
       result.push(...slugs);
