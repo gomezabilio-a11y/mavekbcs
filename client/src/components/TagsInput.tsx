@@ -1,6 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { X } from "lucide-react";
-import { Input } from "@/components/ui/input";
 
 // All available tags from insightMapping
 const AVAILABLE_TAGS = [
@@ -23,28 +22,25 @@ interface TagsInputProps {
 export default function TagsInput({ value, onChange, placeholder = "Add tags..." }: TagsInputProps) {
   const [input, setInput] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
-  const [filteredTags, setFilteredTags] = useState<string[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const tags = value
-    .split(",")
-    .map((t) => t.trim())
-    .filter(Boolean);
+  const tags = useMemo(
+    () =>
+      value
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean),
+    [value]
+  );
 
-  useEffect(() => {
-    if (input.length > 0) {
-      const filtered = AVAILABLE_TAGS.filter(
-        (tag) =>
-          tag.toLowerCase().includes(input.toLowerCase()) &&
-          !tags.some((t) => t.toLowerCase() === tag.toLowerCase())
-      );
-      setFilteredTags(filtered);
-      setShowDropdown(filtered.length > 0);
-    } else {
-      setFilteredTags([]);
-      setShowDropdown(false);
-    }
+  const filteredTags = useMemo(() => {
+    if (input.length === 0) return [];
+    return AVAILABLE_TAGS.filter(
+      (tag) =>
+        tag.toLowerCase().includes(input.toLowerCase()) &&
+        !tags.some((t) => t.toLowerCase() === tag.toLowerCase())
+    );
   }, [input, tags]);
 
   useEffect(() => {
@@ -63,38 +59,53 @@ export default function TagsInput({ value, onChange, placeholder = "Add tags..."
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleAddTag = (tag: string) => {
-    const newTags = [...tags, tag];
-    onChange(newTags.join(", "));
-    setInput("");
-    setShowDropdown(false);
-    inputRef.current?.focus();
-  };
+  const handleAddTag = useCallback(
+    (tag: string) => {
+      const newTags = [...tags, tag];
+      onChange(newTags.join(", "));
+      setInput("");
+      setShowDropdown(false);
+      inputRef.current?.focus();
+    },
+    [tags, onChange]
+  );
 
-  const handleRemoveTag = (index: number) => {
-    const newTags = tags.filter((_, i) => i !== index);
-    onChange(newTags.join(", "));
-  };
+  const handleRemoveTag = useCallback(
+    (index: number) => {
+      const newTags = tags.filter((_, i) => i !== index);
+      onChange(newTags.join(", "));
+    },
+    [tags, onChange]
+  );
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
-  };
+  }, []);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && input.trim()) {
-      e.preventDefault();
-      handleAddTag(input.trim());
-    } else if (e.key === "Backspace" && input === "" && tags.length > 0) {
-      handleRemoveTag(tags.length - 1);
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter" && input.trim()) {
+        e.preventDefault();
+        handleAddTag(input.trim());
+      } else if (e.key === "Backspace" && input === "" && tags.length > 0) {
+        handleRemoveTag(tags.length - 1);
+      }
+    },
+    [input, tags.length, handleAddTag, handleRemoveTag]
+  );
+
+  const handleInputFocus = useCallback(() => {
+    if (input.length > 0 && filteredTags.length > 0) {
+      setShowDropdown(true);
     }
-  };
+  }, [input, filteredTags.length]);
 
   return (
     <div className="relative">
       <div className="flex flex-wrap gap-2 p-2 border border-gray-300 rounded-md bg-white min-h-10">
         {tags.map((tag, index) => (
           <div
-            key={index}
+            key={`${tag}-${index}`}
             className="flex items-center gap-1 bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm"
           >
             {tag}
@@ -113,7 +124,7 @@ export default function TagsInput({ value, onChange, placeholder = "Add tags..."
           value={input}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          onFocus={() => input.length > 0 && setShowDropdown(true)}
+          onFocus={handleInputFocus}
           placeholder={tags.length === 0 ? placeholder : ""}
           className="flex-1 outline-none text-sm min-w-24 bg-transparent"
         />
