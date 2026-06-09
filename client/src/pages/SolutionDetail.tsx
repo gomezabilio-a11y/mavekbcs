@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { SOLUTION_CATEGORIES } from "@/lib/siteData";
 import { trpc } from "@/lib/trpc";
 import { getLocalizedPath } from "@/lib/urlHelpers";
-import { articleMatchesSolution } from "@/lib/insightMapping";
+import { getRelatedArticlesForSolution } from "@/lib/insightMapping";
 
 interface SolutionDetailProps {
   params: { category: string; slug: string };
@@ -210,9 +210,12 @@ export default function SolutionDetail({ params }: SolutionDetailProps) {
 
   // Related insights from DB (with thumbnails)
   const { data: allInsights = [] } = trpc.blog.listInsights.useQuery();
-  const relatedInsights = allInsights
-    .filter((i) => articleMatchesSolution(slug, i.category, Array.isArray(i.tags) ? (i.tags as string[]) : []))
-    .slice(0, 3);
+  const relatedInsights = getRelatedArticlesForSolution(
+    allInsights.map((i) => ({ category: i.category, tags: Array.isArray(i.tags) ? (i.tags as string[]) : [] })),
+    slug,
+    3
+  ).map((match) => allInsights.find((i) => i.category === match.category && JSON.stringify(i.tags) === JSON.stringify(match.tags)));
+  const relatedInsightsFiltered = relatedInsights.filter((i) => i !== undefined) as typeof allInsights;
 
   return (
     <Layout>
@@ -365,7 +368,7 @@ export default function SolutionDetail({ params }: SolutionDetailProps) {
       </section>
 
       {/* Related Insights */}
-      {relatedInsights.length > 0 && (
+      {relatedInsightsFiltered.length > 0 && (
         <section className="section-off-white py-20">
           <div className="container">
             <div className="section-divider" />
@@ -373,7 +376,7 @@ export default function SolutionDetail({ params }: SolutionDetailProps) {
               {language === "ko" ? "관련 인사이트" : language === "ja" ? "関連インサイト" : "Related Insights"}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedInsights.map((insight) => (
+              {relatedInsightsFiltered.map((insight) => (
                 <Link key={insight.slug} href={getLocalizedPath(`/insights/${insight.slug}`, language)} className="flex flex-col bg-white border border-gray-100 card-hover no-underline group overflow-hidden">
                   {insight.imageUrl && (
                     <div className="w-full h-36 overflow-hidden">

@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { INDUSTRIES, SOLUTION_CATEGORIES } from "@/lib/siteData";
 import { trpc } from "@/lib/trpc";
-import { articleMatchesIndustry } from "@/lib/insightMapping";
+import { getRelatedArticlesForIndustry } from "@/lib/insightMapping";
 import { getLocalizedPath } from "@/lib/urlHelpers";
 
 interface IndustryDetailProps {
@@ -244,10 +244,13 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
     cat.solutions.filter((s) => relatedSolutionSlugs.includes(s.slug)).map((s) => ({ ...s, categorySlug: cat.slug }))
   );
 
-  // Find related insights from DB using category/tag auto-mapping
-  const relatedInsights = allInsights
-    .filter((i) => articleMatchesIndustry(slug, i.category, Array.isArray(i.tags) ? (i.tags as string[]) : []))
-    .slice(0, 4);
+  // Find related insights from DB using category/tag auto-mapping with fallback
+  const relatedInsights = getRelatedArticlesForIndustry(
+    allInsights.map((i) => ({ category: i.category, tags: Array.isArray(i.tags) ? (i.tags as string[]) : [] })),
+    slug,
+    4
+  ).map((match) => allInsights.find((i) => i.category === match.category && JSON.stringify(i.tags) === JSON.stringify(match.tags)));
+  const relatedInsightsFiltered = relatedInsights.filter((i) => i !== undefined) as typeof allInsights;
 
   return (
     <Layout>
@@ -420,7 +423,7 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
       )}
 
       {/* Related Insights */}
-      {relatedInsights.length > 0 && (
+        {relatedInsightsFiltered.length > 0 && (
         <section className="section-navy py-20">
           <div className="container">
             <div className="section-divider" />
@@ -428,7 +431,7 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
               {language === "ko" ? "관련 인사이트" : language === "ja" ? "関連インサイト" : "Related Insights"}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {relatedInsights.map((insight) => (
+              {relatedInsightsFiltered.map((insight) => (
                 <Link
                   key={insight.slug}
                   href={getLocalizedPath(`/insights/${insight.slug}`, language)}

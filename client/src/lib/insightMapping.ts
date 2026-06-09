@@ -88,6 +88,7 @@ const TAG_TO_SOLUTIONS: Record<string, string[]> = {
 const TAG_TO_INDUSTRIES: Record<string, string[]> = {
   "automotive": ["automotive"],
   "semiconductor": ["semiconductors"],
+  "semiconductors": ["semiconductors"],
   "pharma": ["pharmaceuticals"],
   "pharmaceutical": ["pharmaceuticals"],
   "telecom": ["telecommunications"],
@@ -170,4 +171,64 @@ export function articleMatchesIndustry(
   tags: string[] | null | undefined
 ): boolean {
   return getRelatedIndustries(category, tags).includes(industrySlug);
+}
+
+/**
+ * Get related articles for an industry page with fallback.
+ * If fewer than minCount articles match, include additional articles from related categories.
+ */
+export function getRelatedArticlesForIndustry(
+  allArticles: Array<{ category: string | null; tags: string[] | null }>,
+  industrySlug: string,
+  minCount: number = 3
+): typeof allArticles {
+  // First pass: exact matches
+  const exactMatches = allArticles.filter((a) =>
+    articleMatchesIndustry(industrySlug, a.category, Array.isArray(a.tags) ? (a.tags as string[]) : [])
+  );
+
+  if (exactMatches.length >= minCount) {
+    return exactMatches.slice(0, minCount);
+  }
+
+  // Fallback: include articles from related categories
+  const fallbackCategories = ["Industry Focus", "Industry Trends", "Finance Transformation"];
+  const fallbackMatches = allArticles.filter(
+    (a) =>
+      !exactMatches.includes(a) &&
+      a.category &&
+      fallbackCategories.includes(a.category)
+  );
+
+  return [...exactMatches, ...fallbackMatches].slice(0, minCount);
+}
+
+/**
+ * Get related articles for a solution page with fallback.
+ * If fewer than minCount articles match, include additional articles from related categories.
+ */
+export function getRelatedArticlesForSolution(
+  allArticles: Array<{ category: string | null; tags: string[] | null }>,
+  solutionSlug: string,
+  minCount: number = 3
+): typeof allArticles {
+  // First pass: exact matches
+  const exactMatches = allArticles.filter((a) =>
+    articleMatchesSolution(solutionSlug, a.category, Array.isArray(a.tags) ? (a.tags as string[]) : [])
+  );
+
+  if (exactMatches.length >= minCount) {
+    return exactMatches.slice(0, minCount);
+  }
+
+  // Fallback: include articles from related categories
+  const fallbackCategories = ["Finance Transformation", "Technology", "Industry Focus"];
+  const fallbackMatches = allArticles.filter(
+    (a) =>
+      !exactMatches.includes(a) &&
+      a.category &&
+      fallbackCategories.includes(a.category)
+  );
+
+  return [...exactMatches, ...fallbackMatches].slice(0, minCount);
 }
