@@ -419,40 +419,41 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
 
       {/* Related Insights */}
       {relatedInsightsFiltered.length > 0 && (
-        <section className="section-navy py-20">
+        <section className="section-off-white py-20">
           <div className="container">
             <div className="section-divider" />
-            <h2 className="text-3xl font-bold text-white mb-10" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <h2 className="text-3xl font-bold mb-10" style={{ color: "var(--navy-dark)" }}>
               {language === "ko" ? "관련 인사이트" : language === "ja" ? "関連インサイト" : "Related Insights"}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {relatedInsightsFiltered.map((insight) => (
                 <Link
                   key={insight.slug}
                   href={getLocalizedPath(`/insights/${insight.slug}`, language)}
-                  className="no-underline group card-hover overflow-hidden"
-                  style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
+                  className="flex flex-col bg-white border border-gray-100 card-hover no-underline group overflow-hidden"
                 >
                   {insight.imageUrl && (
-                    <div className="h-36 relative overflow-hidden">
+                    <div className="w-full h-36 overflow-hidden">
                       <img
                         src={insight.imageUrl}
                         alt={insight.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,14,30,0.6) 0%, transparent 60%)" }} />
                     </div>
                   )}
-                  <div className="p-5">
+                  <div className="p-6 flex-1">
                     <span
                       className="text-xs font-semibold uppercase tracking-wider px-2 py-0.5 mb-3 inline-block"
-                      style={{ backgroundColor: "var(--gold)", color: "var(--navy-dark)" }}
+                      style={{ backgroundColor: "var(--navy-dark)", color: "white" }}
                     >
                       {insight.category}
                     </span>
-                    <h4 className="text-sm font-bold text-white leading-snug group-hover:text-gray-200 transition-colors">
-                      {language === "ko" ? insight.titleKo : language === "ja" ? insight.titleJa : insight.title}
+                    <h4 className="text-sm font-bold mb-2 group-hover:text-[var(--navy)] transition-colors" style={{ color: "var(--navy-dark)" }}>
+                      {language === "ko" ? (insight.titleKo ?? insight.title) : language === "ja" ? (insight.titleJa ?? insight.title) : insight.title}
                     </h4>
+                    <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">
+                      {language === "ko" && insight.excerptKo ? insight.excerptKo : language === "ja" && insight.excerptJa ? insight.excerptJa : insight.excerpt}
+                    </p>
                   </div>
                 </Link>
               ))}
