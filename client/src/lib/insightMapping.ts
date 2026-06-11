@@ -95,7 +95,7 @@ const TAG_TO_INDUSTRIES: Record<string, string[]> = {
   "telecommunications": ["telecommunications"],
   "oil": ["oil-and-gas"],
   "gas": ["oil-and-gas"],
-  "energy": ["oil-and-gas", "renewable-energy"],
+  "energy": ["energy", "oil-and-gas", "renewable-energy"],
   "renewable": ["renewable-energy"],
   "financial services": ["financial-services"],
   "banking": ["financial-services"],
@@ -109,6 +109,7 @@ const TAG_TO_INDUSTRIES: Record<string, string[]> = {
   "logistics": ["automotive", "electronics-manufacturing"],
   "saas": [],
   "e-commerce": ["retail"],
+  "renewable energy": ["renewable-energy"],
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

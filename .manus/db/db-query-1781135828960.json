@@ -1,0 +1,64 @@
+{
+  "query": "SELECT id, title, category, tags FROM insights WHERE category = 'Industry Focus' OR tags LIKE '%Semiconductor%' LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, title, category, tags FROM insights WHERE category = 'Industry Focus' OR tags LIKE '%Semiconductor%' LIMIT 10;",
+  "rows": [
+    {
+      "id": "50",
+      "title": "Steering Through Disruptive Change: Why the Automotive Industry Requires Next-Generation Financial Solutions",
+      "category": "Industry Focus",
+      "tags": "[\"Automotive\", \"Finance Transformation\", \"EV\"]"
+    },
+    {
+      "id": "51",
+      "title": "Next-Generation Semiconductor Financial Technology: Overcoming R&D Cycles, Complex IP Licensing, and Intercompany Profit in Inventory (PII) Complexities",
+      "category": "Industry Focus",
+      "tags": "[\"Semiconductors\", \"Finance\", \"R&D\"]"
+    },
+    {
+      "id": "52",
+      "title": "Navigating Financial Complexity in the Energy Sector: Advanced Finance Solutions for a Transforming Industry",
+      "category": "Industry Focus",
+      "tags": "[\"Energy\", \"Finance\", \"Commodity Risk\"]"
+    },
+    {
+      "id": "53",
+      "title": "Transforming Telecom Finance: Advanced Financial Solutions for Modern Telecommunications Companies",
+      "category": "Industry Focus",
+      "tags": "[\"Telecommunications\", \"Finance\", \"Billing\"]"
+    },
+    {
+      "id": "54",
+      "title": "The Paradigm Shift in SaaS Finance Models: Hybrid Pricing and AI-Driven Revenue Recognition Automation",
+      "category": "Industry Focus",
+      "tags": "[\"SaaS\", \"Finance\", \"Revenue Recognition\", \"Billing\"]"
+    },
+    {
+      "id": "55",
+      "title": "Next-Generation Enterprise E-Commerce Financial Technology: Overcoming Transaction Volume, Multi-Jurisdictional Tax, and Inventory Valuation Complexities",
+      "category": "Industry Focus",
+      "tags": "[\"E-commerce\", \"Finance\", \"Tax Compliance\"]"
+    },
+    {
+      "id": "56",
+      "title": "Financial Challenges in Biopharma and MAVEK BCS Solutions",
+      "category": "Industry Focus",
+      "tags": "[\"Pharmaceuticals\", \"Finance\", \"R&D\", \"Compliance\"]"
+    },
+    {
+      "id": "57",
+      "title": "Driving Efficiency: Why Modern Logistics Demands Advanced Financial Solutions",
+      "category": "Industry Focus",
+      "tags": "[\"Logistics\", \"Finance\", \"Supply Chain\"]"
+    },
+    {
+      "id": "58",
+      "title": "Optimizing Real Estate Financial Operations: Overcoming Standard ERP Limitations with SAP Lease Management and Mavek BCS",
+      "category": "Industry Focus",
+      "tags": "[\"Real Estate\", \"Finance\", \"Lease Management\", \"IFRS 16\"]"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tcategory\ttags\n50\tSteering Through Disruptive Change: Why the Automotive Industry Requires Next-Generation Financial Solutions\tIndustry Focus\t[\"Automotive\", \"Finance Transformation\", \"EV\"]\n51\tNext-Generation Semiconductor Financial Technology: Overcoming R&D Cycles, Complex IP Licensing, and Intercompany Profit in Inventory (PII) Complexities\tIndustry Focus\t[\"Semiconductors\", \"Finance\", \"R&D\"]\n52\tNavigating Financial Complexity in the Energy Sector: Advanced Finance Solutions for a Transforming Industry\tIndustry Focus\t[\"Energy\", \"Finance\", \"Commodity Risk\"]\n53\tTransforming Telecom Finance: Advanced Financial Solutions for Modern Telecommunications Companies\tIndustry Focus\t[\"Telecommunications\", \"Finance\", \"Billing\"]\n54\tThe Paradigm Shift in SaaS Finance Models: Hybrid Pricing and AI-Driven Revenue Recognition Automation\tIndustry Focus\t[\"SaaS\", \"Finance\", \"Revenue Recognition\", \"Billing\"]\n55\tNext-Generation Enterprise E-Commerce Financial Technology: Overcoming Transaction Volume, Multi-Jurisdictional Tax, and Inventory Valuation Complexities\tIndustry Focus\t[\"E-commerce\", \"Finance\", \"Tax Compliance\"]\n56\tFinancial Challenges in Biopharma and MAVEK BCS Solutions\tIndustry Focus\t[\"Pharmaceuticals\", \"Finance\", \"R&D\", \"Compliance\"]\n57\tDriving Efficiency: Why Modern Logistics Demands Advanced Financial Solutions\tIndustry Focus\t[\"Logistics\", \"Finance\", \"Supply Chain\"]\n58\tOptimizing Real Estate Financial Operations: Overcoming Standard ERP Limitations with SAP Lease Management and Mavek BCS\tIndustry Focus\t[\"Real Estate\", \"Finance\", \"Lease Management\", \"IFRS 16\"]\n",
+  "stderr": "",
+  "execution_time_ms": 2413
+}

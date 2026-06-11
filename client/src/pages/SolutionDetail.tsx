@@ -210,12 +210,23 @@ export default function SolutionDetail({ params }: SolutionDetailProps) {
 
   // Related insights from DB (with thumbnails)
   const { data: allInsights = [] } = trpc.blog.listInsights.useQuery();
-  const relatedInsights = getRelatedArticlesForSolution(
-    allInsights.map((i) => ({ category: i.category, tags: Array.isArray(i.tags) ? (i.tags as string[]) : [] })),
+  const insightsWithParsedTags = allInsights.map((i) => ({
+    ...i,
+    parsedTags: Array.isArray(i.tags) ? (i.tags as string[]) : (typeof i.tags === 'string' ? JSON.parse(i.tags) : []),
+  }));
+  const matchedInsights = getRelatedArticlesForSolution(
+    insightsWithParsedTags.map((i) => ({ category: i.category, tags: i.parsedTags })),
     slug,
     3
-  ).map((match) => allInsights.find((i) => i.category === match.category && JSON.stringify(i.tags) === JSON.stringify(match.tags)));
-  const relatedInsightsFiltered = relatedInsights.filter((i) => i !== undefined) as typeof allInsights;
+  );
+  const relatedInsightsFiltered = matchedInsights
+    .map((match) =>
+      insightsWithParsedTags.find(
+        (i) => i.category === match.category && JSON.stringify(i.parsedTags) === JSON.stringify(match.tags)
+      )
+    )
+    .filter((i) => i !== undefined)
+    .map(({ parsedTags, ...rest }) => rest) as typeof allInsights;
 
   return (
     <Layout>

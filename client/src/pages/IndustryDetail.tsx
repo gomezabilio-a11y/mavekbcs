@@ -245,12 +245,23 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
   );
 
   // Find related insights from DB using category/tag auto-mapping with fallback
-  const relatedInsights = getRelatedArticlesForIndustry(
-    allInsights.map((i) => ({ category: i.category, tags: Array.isArray(i.tags) ? (i.tags as string[]) : [] })),
+  const insightsWithParsedTags = allInsights.map((i) => ({
+    ...i,
+    parsedTags: Array.isArray(i.tags) ? (i.tags as string[]) : (typeof i.tags === 'string' ? JSON.parse(i.tags) : []),
+  }));
+  const matchedInsights = getRelatedArticlesForIndustry(
+    insightsWithParsedTags.map((i) => ({ category: i.category, tags: i.parsedTags })),
     slug,
     4
-  ).map((match) => allInsights.find((i) => i.category === match.category && JSON.stringify(i.tags) === JSON.stringify(match.tags)));
-  const relatedInsightsFiltered = relatedInsights.filter((i) => i !== undefined) as typeof allInsights;
+  );
+  const relatedInsightsFiltered = matchedInsights
+    .map((match) =>
+      insightsWithParsedTags.find(
+        (i) => i.category === match.category && JSON.stringify(i.parsedTags) === JSON.stringify(match.tags)
+      )
+    )
+    .filter((i) => i !== undefined)
+    .map(({ parsedTags, ...rest }) => rest) as typeof allInsights;
 
   return (
     <Layout>
