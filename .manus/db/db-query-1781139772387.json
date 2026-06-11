@@ -1,0 +1,86 @@
+{
+  "query": "SELECT id, slug FROM insights ORDER BY id LIMIT 20 OFFSET 40;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, slug FROM insights ORDER BY id LIMIT 20 OFFSET 40;",
+  "rows": [
+    {
+      "id": "41",
+      "slug": "esg-reporting-impact"
+    },
+    {
+      "id": "42",
+      "slug": "cross-border-complexity"
+    },
+    {
+      "id": "43",
+      "slug": "data-accuracy-importance"
+    },
+    {
+      "id": "44",
+      "slug": "predictive-finance"
+    },
+    {
+      "id": "45",
+      "slug": "ai-in-finance"
+    },
+    {
+      "id": "46",
+      "slug": "modern-finance-stack-in-2026"
+    },
+    {
+      "id": "47",
+      "slug": "best-of-breed-vs-erp"
+    },
+    {
+      "id": "48",
+      "slug": "sap-vs-oracle-finance"
+    },
+    {
+      "id": "49",
+      "slug": "why-companies-use-both-sap-and-oracle"
+    },
+    {
+      "id": "50",
+      "slug": "automotive-finance-transformation"
+    },
+    {
+      "id": "51",
+      "slug": "semiconductor-finance-complexity"
+    },
+    {
+      "id": "52",
+      "slug": "energy-sector-finance"
+    },
+    {
+      "id": "53",
+      "slug": "telecom-finance-challenges"
+    },
+    {
+      "id": "54",
+      "slug": "saas-finance-models"
+    },
+    {
+      "id": "55",
+      "slug": "e-commerce-finance"
+    },
+    {
+      "id": "56",
+      "slug": "pharma-finance"
+    },
+    {
+      "id": "57",
+      "slug": "logistics-finance"
+    },
+    {
+      "id": "58",
+      "slug": "real-estate-finance"
+    },
+    {
+      "id": "59",
+      "slug": "future-of-the-cfo"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\n41\tesg-reporting-impact\n42\tcross-border-complexity\n43\tdata-accuracy-importance\n44\tpredictive-finance\n45\tai-in-finance\n46\tmodern-finance-stack-in-2026\n47\tbest-of-breed-vs-erp\n48\tsap-vs-oracle-finance\n49\twhy-companies-use-both-sap-and-oracle\n50\tautomotive-finance-transformation\n51\tsemiconductor-finance-complexity\n52\tenergy-sector-finance\n53\ttelecom-finance-challenges\n54\tsaas-finance-models\n55\te-commerce-finance\n56\tpharma-finance\n57\tlogistics-finance\n58\treal-estate-finance\n59\tfuture-of-the-cfo\n",
+  "stderr": "",
+  "execution_time_ms": 1782
+}

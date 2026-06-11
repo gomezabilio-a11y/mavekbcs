@@ -1,0 +1,90 @@
+{
+  "query": "SELECT id, slug FROM insights ORDER BY id LIMIT 20 OFFSET 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, slug FROM insights ORDER BY id LIMIT 20 OFFSET 20;",
+  "rows": [
+    {
+      "id": "21",
+      "slug": "revenue-recognition-explained"
+    },
+    {
+      "id": "22",
+      "slug": "what-is-grc"
+    },
+    {
+      "id": "23",
+      "slug": "audit-automation"
+    },
+    {
+      "id": "24",
+      "slug": "ifrs-16-explained"
+    },
+    {
+      "id": "25",
+      "slug": "lease-management-solutions"
+    },
+    {
+      "id": "26",
+      "slug": "why-cfos-invest-in-finance-transformation"
+    },
+    {
+      "id": "27",
+      "slug": "evolution-of-finance-teams"
+    },
+    {
+      "id": "28",
+      "slug": "why-month-end-close-is-inefficient"
+    },
+    {
+      "id": "29",
+      "slug": "automation-in-finance"
+    },
+    {
+      "id": "30",
+      "slug": "real-time-finance-reporting"
+    },
+    {
+      "id": "31",
+      "slug": "erp-vs-finance-transformation"
+    },
+    {
+      "id": "32",
+      "slug": "standardizing-global-finance"
+    },
+    {
+      "id": "33",
+      "slug": "rise-of-saas-finance-systems"
+    },
+    {
+      "id": "34",
+      "slug": "importance-of-integration"
+    },
+    {
+      "id": "35",
+      "slug": "finance-as-competitive-advantage"
+    },
+    {
+      "id": "36",
+      "slug": "global-tax-regulation-changes"
+    },
+    {
+      "id": "37",
+      "slug": "inflation-and-interest-rate-impact"
+    },
+    {
+      "id": "38",
+      "slug": "supply-chain-disruptions"
+    },
+    {
+      "id": "39",
+      "slug": "financial-transparency-trends"
+    },
+    {
+      "id": "40",
+      "slug": "real-time-government-reporting"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\n21\trevenue-recognition-explained\n22\twhat-is-grc\n23\taudit-automation\n24\tifrs-16-explained\n25\tlease-management-solutions\n26\twhy-cfos-invest-in-finance-transformation\n27\tevolution-of-finance-teams\n28\twhy-month-end-close-is-inefficient\n29\tautomation-in-finance\n30\treal-time-finance-reporting\n31\terp-vs-finance-transformation\n32\tstandardizing-global-finance\n33\trise-of-saas-finance-systems\n34\timportance-of-integration\n35\tfinance-as-competitive-advantage\n36\tglobal-tax-regulation-changes\n37\tinflation-and-interest-rate-impact\n38\tsupply-chain-disruptions\n39\tfinancial-transparency-trends\n40\treal-time-government-reporting\n",
+  "stderr": "",
+  "execution_time_ms": 1786
+}

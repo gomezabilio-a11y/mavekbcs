@@ -11,7 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import RichTextEditor from "@/components/RichTextEditor";
-import TagsInput from "@/components/TagsInput";
+import MultiSelectTags from "@/components/MultiSelectTags";
 import { Plus, Pencil, Trash2, Image as ImageIcon, X, Search, Settings2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -409,10 +409,10 @@ export default function AdminBlog() {
                 </div>
                 <div className="space-y-1.5">
                   <Label style={{ color: "#8a9bb0" }}>Tags</Label>
-                  <TagsInput
+                  <MultiSelectTags
                     value={form.tags}
                     onChange={(value) => setForm((f) => ({ ...f, tags: value }))}
-                    placeholder="Select or type tags..."
+                    placeholder="Select tags..."
                   />
                 </div>
               </div>

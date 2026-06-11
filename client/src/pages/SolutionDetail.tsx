@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { SOLUTION_CATEGORIES } from "@/lib/siteData";
 import { trpc } from "@/lib/trpc";
 import { getLocalizedPath } from "@/lib/urlHelpers";
-import { getRelatedArticlesForSolution } from "@/lib/insightMapping";
+import { getRelatedArticles } from "@/lib/articleSelection";
 
 interface SolutionDetailProps {
   params: { category: string; slug: string };
@@ -208,25 +208,9 @@ export default function SolutionDetail({ params }: SolutionDetailProps) {
   const keyFeatures = details ? (language === "ko" ? details.keyFeaturesKo : language === "ja" ? details.keyFeaturesJa : details.keyFeatures) : [];
   const benefits = details ? (language === "ko" ? details.benefitsKo : language === "ja" ? details.benefitsJa : details.benefits) : [];
 
-  // Related insights from DB (with thumbnails)
+  // Related insights from DB using new random selection logic
   const { data: allInsights = [] } = trpc.blog.listInsights.useQuery();
-  const insightsWithParsedTags = allInsights.map((i) => ({
-    ...i,
-    parsedTags: Array.isArray(i.tags) ? (i.tags as string[]) : (typeof i.tags === 'string' ? JSON.parse(i.tags) : []),
-  }));
-  const matchedInsights = getRelatedArticlesForSolution(
-    insightsWithParsedTags.map((i) => ({ category: i.category, tags: i.parsedTags })),
-    slug,
-    3
-  );
-  const relatedInsightsFiltered = matchedInsights
-    .map((match) =>
-      insightsWithParsedTags.find(
-        (i) => i.category === match.category && JSON.stringify(i.parsedTags) === JSON.stringify(match.tags)
-      )
-    )
-    .filter((i) => i !== undefined)
-    .map(({ parsedTags, ...rest }) => rest) as typeof allInsights;
+  const relatedInsightsFiltered = getRelatedArticles(allInsights as any, slug, 3);
 
   return (
     <Layout>

@@ -1,0 +1,205 @@
+{
+  "query": "SELECT id, slug, tags FROM insights ORDER BY id LIMIT 100 OFFSET 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, slug, tags FROM insights ORDER BY id LIMIT 100 OFFSET 20;",
+  "rows": [
+    {
+      "id": "21",
+      "slug": "revenue-recognition-explained",
+      "tags": "[\"Revenue Recognition\", \"IFRS 15\", \"ASC 606\", \"SAP BRIM\"]"
+    },
+    {
+      "id": "22",
+      "slug": "what-is-grc",
+      "tags": "[\"SAP GRC\", \"Governance\", \"Risk\", \"Compliance\"]"
+    },
+    {
+      "id": "23",
+      "slug": "audit-automation",
+      "tags": "[\"Audit\", \"Automation\", \"SAP GRC\", \"Compliance\"]"
+    },
+    {
+      "id": "24",
+      "slug": "ifrs-16-explained",
+      "tags": "[\"IFRS 16\", \"Lease Management\", \"SAP RE-FX\"]"
+    },
+    {
+      "id": "25",
+      "slug": "lease-management-solutions",
+      "tags": "[\"Lease Management\", \"SAP RE-FX\", \"IFRS 16\"]"
+    },
+    {
+      "id": "26",
+      "slug": "why-cfos-invest-in-finance-transformation",
+      "tags": "[\"Finance Transformation\", \"CFO\", \"Strategy\"]"
+    },
+    {
+      "id": "27",
+      "slug": "evolution-of-finance-teams",
+      "tags": "[\"Finance Transformation\", \"Future of Finance\", \"Strategy\"]"
+    },
+    {
+      "id": "28",
+      "slug": "why-month-end-close-is-inefficient",
+      "tags": "[\"Financial Close\", \"Finance Transformation\", \"Automation\"]"
+    },
+    {
+      "id": "29",
+      "slug": "automation-in-finance",
+      "tags": "[\"Automation\", \"RPA\", \"AI\", \"Finance Transformation\"]"
+    },
+    {
+      "id": "30",
+      "slug": "real-time-finance-reporting",
+      "tags": "[\"Real-Time Reporting\", \"Finance Transformation\", \"Analytics\"]"
+    },
+    {
+      "id": "31",
+      "slug": "erp-vs-finance-transformation",
+      "tags": "[\"ERP\", \"Finance Transformation\", \"SAP\", \"Oracle\"]"
+    },
+    {
+      "id": "32",
+      "slug": "standardizing-global-finance",
+      "tags": "[\"Global Finance\", \"Standardization\", \"Finance Transformation\"]"
+    },
+    {
+      "id": "33",
+      "slug": "rise-of-saas-finance-systems",
+      "tags": "[\"SaaS\", \"Cloud\", \"Finance Transformation\"]"
+    },
+    {
+      "id": "34",
+      "slug": "importance-of-integration",
+      "tags": "[\"Integration\", \"Finance Transformation\", \"Data Quality\"]"
+    },
+    {
+      "id": "35",
+      "slug": "finance-as-competitive-advantage",
+      "tags": "[\"Finance Transformation\", \"Strategy\", \"Competitive Advantage\"]"
+    },
+    {
+      "id": "36",
+      "slug": "global-tax-regulation-changes",
+      "tags": "[\"Tax Regulation\", \"Compliance\", \"Global\"]"
+    },
+    {
+      "id": "37",
+      "slug": "inflation-and-interest-rate-impact",
+      "tags": "[\"Treasury\", \"Inflation\", \"Interest Rates\", \"CFO\"]"
+    },
+    {
+      "id": "38",
+      "slug": "supply-chain-disruptions",
+      "tags": "[\"Supply Chain\", \"Financial Supply Chain\", \"Risk\"]"
+    },
+    {
+      "id": "39",
+      "slug": "financial-transparency-trends",
+      "tags": "[\"Transparency\", \"Reporting\", \"ESG\"]"
+    },
+    {
+      "id": "40",
+      "slug": "real-time-government-reporting",
+      "tags": "[\"Government Reporting\", \"Compliance\", \"E-Invoicing\"]"
+    },
+    {
+      "id": "41",
+      "slug": "esg-reporting-impact",
+      "tags": "[\"ESG\", \"Reporting\", \"Sustainability\"]"
+    },
+    {
+      "id": "42",
+      "slug": "cross-border-complexity",
+      "tags": "[\"Cross-Border\", \"Global Finance\", \"Tax Compliance\"]"
+    },
+    {
+      "id": "43",
+      "slug": "data-accuracy-importance",
+      "tags": "[\"Data Quality\", \"Finance\", \"Reporting\"]"
+    },
+    {
+      "id": "44",
+      "slug": "predictive-finance",
+      "tags": "[\"Predictive Analytics\", \"AI\", \"Finance\"]"
+    },
+    {
+      "id": "45",
+      "slug": "ai-in-finance",
+      "tags": "[\"AI\", \"Machine Learning\", \"Finance Transformation\"]"
+    },
+    {
+      "id": "46",
+      "slug": "modern-finance-stack-in-2026",
+      "tags": "[\"Finance Stack\", \"Technology\", \"ERP\", \"Best-of-Breed\"]"
+    },
+    {
+      "id": "47",
+      "slug": "best-of-breed-vs-erp",
+      "tags": "[\"Best-of-Breed\", \"ERP\", \"Technology Strategy\"]"
+    },
+    {
+      "id": "48",
+      "slug": "sap-vs-oracle-finance",
+      "tags": "[\"SAP\", \"Oracle\", \"ERP\", \"Technology\"]"
+    },
+    {
+      "id": "49",
+      "slug": "why-companies-use-both-sap-and-oracle",
+      "tags": "[\"SAP\", \"Oracle\", \"ERP\", \"Integration\"]"
+    },
+    {
+      "id": "50",
+      "slug": "automotive-finance-transformation",
+      "tags": "[\"Automotive\", \"Finance Transformation\", \"EV\"]"
+    },
+    {
+      "id": "51",
+      "slug": "semiconductor-finance-complexity",
+      "tags": "[\"Semiconductors\", \"Finance\", \"R&D\"]"
+    },
+    {
+      "id": "52",
+      "slug": "energy-sector-finance",
+      "tags": "[\"Energy\", \"Finance\", \"Commodity Risk\"]"
+    },
+    {
+      "id": "53",
+      "slug": "telecom-finance-challenges",
+      "tags": "[\"Telecommunications\", \"Finance\", \"Billing\"]"
+    },
+    {
+      "id": "54",
+      "slug": "saas-finance-models",
+      "tags": "[\"SaaS\", \"Finance\", \"Revenue Recognition\", \"Billing\"]"
+    },
+    {
+      "id": "55",
+      "slug": "e-commerce-finance",
+      "tags": "[\"E-commerce\", \"Finance\", \"Tax Compliance\"]"
+    },
+    {
+      "id": "56",
+      "slug": "pharma-finance",
+      "tags": "[\"Pharmaceuticals\", \"Finance\", \"R&D\", \"Compliance\"]"
+    },
+    {
+      "id": "57",
+      "slug": "logistics-finance",
+      "tags": "[\"Logistics\", \"Finance\", \"Supply Chain\"]"
+    },
+    {
+      "id": "58",
+      "slug": "real-estate-finance",
+      "tags": "[\"Real Estate\", \"Finance\", \"Lease Management\", \"IFRS 16\"]"
+    },
+    {
+      "id": "59",
+      "slug": "future-of-the-cfo",
+      "tags": "[\"CFO\", \"Future of Finance\", \"Strategy\"]"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttags\n21\trevenue-recognition-explained\t[\"Revenue Recognition\", \"IFRS 15\", \"ASC 606\", \"SAP BRIM\"]\n22\twhat-is-grc\t[\"SAP GRC\", \"Governance\", \"Risk\", \"Compliance\"]\n23\taudit-automation\t[\"Audit\", \"Automation\", \"SAP GRC\", \"Compliance\"]\n24\tifrs-16-explained\t[\"IFRS 16\", \"Lease Management\", \"SAP RE-FX\"]\n25\tlease-management-solutions\t[\"Lease Management\", \"SAP RE-FX\", \"IFRS 16\"]\n26\twhy-cfos-invest-in-finance-transformation\t[\"Finance Transformation\", \"CFO\", \"Strategy\"]\n27\tevolution-of-finance-teams\t[\"Finance Transformation\", \"Future of Finance\", \"Strategy\"]\n28\twhy-month-end-close-is-inefficient\t[\"Financial Close\", \"Finance Transformation\", \"Automation\"]\n29\tautomation-in-finance\t[\"Automation\", \"RPA\", \"AI\", \"Finance Transformation\"]\n30\treal-time-finance-reporting\t[\"Real-Time Reporting\", \"Finance Transformation\", \"Analytics\"]\n31\terp-vs-finance-transformation\t[\"ERP\", \"Finance Transformation\", \"SAP\", \"Oracle\"]\n32\tstandardizing-global-finance\t[\"Global Finance\", \"Standardization\", \"Finance Transformation\"]\n33\trise-of-saas-finance-systems\t[\"SaaS\", \"Cloud\", \"Finance Transformation\"]\n34\timportance-of-integration\t[\"Integration\", \"Finance Transformation\", \"Data Quality\"]\n35\tfinance-as-competitive-advantage\t[\"Finance Transformation\", \"Strategy\", \"Competitive Advantage\"]\n36\tglobal-tax-regulation-changes\t[\"Tax Regulation\", \"Compliance\", \"Global\"]\n37\tinflation-and-interest-rate-impact\t[\"Treasury\", \"Inflation\", \"Interest Rates\", \"CFO\"]\n38\tsupply-chain-disruptions\t[\"Supply Chain\", \"Financial Supply Chain\", \"Risk\"]\n39\tfinancial-transparency-trends\t[\"Transparency\", \"Reporting\", \"ESG\"]\n40\treal-time-government-reporting\t[\"Government Reporting\", \"Compliance\", \"E-Invoicing\"]\n41\tesg-reporting-impact\t[\"ESG\", \"Reporting\", \"Sustainability\"]\n42\tcross-border-complexity\t[\"Cross-Border\", \"Global Finance\", \"Tax Compliance\"]\n43\tdata-accuracy-importance\t[\"Data Quality\", \"Finance\", \"Reporting\"]\n44\tpredictive-finance\t[\"Predictive Analytics\", \"AI\", \"Finance\"]\n45\tai-in-finance\t[\"AI\", \"Machine Learning\", \"Finance Transformation\"]\n46\tmodern-finance-stack-in-2026\t[\"Finance Stack\", \"Technology\", \"ERP\", \"Best-of-Breed\"]\n47\tbest-of-breed-vs-erp\t[\"Best-of-Breed\", \"ERP\", \"Technology Strategy\"]\n48\tsap-vs-oracle-finance\t[\"SAP\", \"Oracle\", \"ERP\", \"Technology\"]\n49\twhy-companies-use-both-sap-and-oracle\t[\"SAP\", \"Oracle\", \"ERP\", \"Integration\"]\n50\tautomotive-finance-transformation\t[\"Automotive\", \"Finance Transformation\", \"EV\"]\n51\tsemiconductor-finance-complexity\t[\"Semiconductors\", \"Finance\", \"R&D\"]\n52\tenergy-sector-finance\t[\"Energy\", \"Finance\", \"Commodity Risk\"]\n53\ttelecom-finance-challenges\t[\"Telecommunications\", \"Finance\", \"Billing\"]\n54\tsaas-finance-models\t[\"SaaS\", \"Finance\", \"Revenue Recognition\", \"Billing\"]\n55\te-commerce-finance\t[\"E-commerce\", \"Finance\", \"Tax Compliance\"]\n56\tpharma-finance\t[\"Pharmaceuticals\", \"Finance\", \"R&D\", \"Compliance\"]\n57\tlogistics-finance\t[\"Logistics\", \"Finance\", \"Supply Chain\"]\n58\treal-estate-finance\t[\"Real Estate\", \"Finance\", \"Lease Management\", \"IFRS 16\"]\n59\tfuture-of-the-cfo\t[\"CFO\", \"Future of Finance\", \"Strategy\"]\n",
+  "stderr": "",
+  "execution_time_ms": 1812
+}

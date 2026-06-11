@@ -58,18 +58,16 @@ export default function InsightDetail({ params }: InsightDetailProps) {
     : insight.content ?? "";
 
   const tags: string[] = Array.isArray(insight.tags) ? insight.tags as string[] : [];
-  const relatedIndustrySlugs: string[] = Array.isArray(insight.relatedIndustries) ? insight.relatedIndustries as string[] : [];
-  const relatedSolutionSlugs: string[] = Array.isArray(insight.relatedSolutions) ? insight.relatedSolutions as string[] : [];
 
   const related = allInsights
     .filter((i) => i.category === insight.category && i.slug !== slug)
     .slice(0, 3);
 
-  const relatedIndustries = INDUSTRIES.filter((ind) => relatedIndustrySlugs.includes(ind.slug));
+  const relatedIndustries = INDUSTRIES.filter((ind) => tags.includes(ind.slug));
 
   const relatedSolutions = SOLUTION_CATEGORIES.flatMap((cat) =>
     cat.solutions
-      .filter((s) => relatedSolutionSlugs.includes(s.slug))
+      .filter((s) => tags.includes(s.slug))
       .map((s) => ({ ...s, categorySlug: cat.slug }))
   );
 

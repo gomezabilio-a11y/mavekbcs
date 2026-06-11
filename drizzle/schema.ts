@@ -224,8 +224,6 @@ export const insights = mysqlTable("insights", {
   contentJa: text("contentJa"),
   category: varchar("category", { length: 128 }),
   tags: json("tags"),
-  relatedIndustries: json("relatedIndustries"),
-  relatedSolutions: json("relatedSolutions"),
   imageUrl: varchar("imageUrl", { length: 512 }),
   readTimeMinutes: int("readTimeMinutes").default(5),
   publishedAt: timestamp("publishedAt").defaultNow().notNull(),

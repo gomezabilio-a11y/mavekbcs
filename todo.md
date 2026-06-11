@@ -336,3 +336,15 @@
 - [x] Tags, relatedIndustries, relatedSolutions from DB JSON fields
 - [x] HTML content rendered via dangerouslySetInnerHTML (TipTap output)
 - [x] TypeScript: 0 errors confirmed
+
+
+## Phase 31: Tag System Refactoring (Dropdown-based)
+- [x] Update database schema: remove relatedIndustries and relatedSolutions fields from insights table
+- [x] Update insights table: tags field to store array of industry/solution slugs (keep JSON format)
+- [x] Update backend router (blog.ts): modify createInsight and updateInsight mutations to accept tags array
+- [x] Update insight creation/edit UI: replace free-text tags with multi-select dropdown (industries + solutions)
+- [x] Implement random selection logic: getRelatedArticles function for both industry and solution pages
+- [x] Migrate existing data: convert old tags to new format (map to industry/solution slugs)
+- [x] Test all industry pages: verify 3 related articles display with correct random selection
+- [x] Test all solution pages: verify 3 related articles display with correct random selection
+- [x] Verify no TypeScript errors and all tests pass

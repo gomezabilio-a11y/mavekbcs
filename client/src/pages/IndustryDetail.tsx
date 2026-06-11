@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { INDUSTRIES, SOLUTION_CATEGORIES } from "@/lib/siteData";
 import { trpc } from "@/lib/trpc";
-import { getRelatedArticlesForIndustry } from "@/lib/insightMapping";
+import { getRelatedArticles } from "@/lib/articleSelection";
 import { getLocalizedPath } from "@/lib/urlHelpers";
 
 interface IndustryDetailProps {
@@ -244,24 +244,8 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
     cat.solutions.filter((s) => relatedSolutionSlugs.includes(s.slug)).map((s) => ({ ...s, categorySlug: cat.slug }))
   );
 
-  // Find related insights from DB using category/tag auto-mapping with fallback
-  const insightsWithParsedTags = allInsights.map((i) => ({
-    ...i,
-    parsedTags: Array.isArray(i.tags) ? (i.tags as string[]) : (typeof i.tags === 'string' ? JSON.parse(i.tags) : []),
-  }));
-  const matchedInsights = getRelatedArticlesForIndustry(
-    insightsWithParsedTags.map((i) => ({ category: i.category, tags: i.parsedTags })),
-    slug,
-    4
-  );
-  const relatedInsightsFiltered = matchedInsights
-    .map((match) =>
-      insightsWithParsedTags.find(
-        (i) => i.category === match.category && JSON.stringify(i.parsedTags) === JSON.stringify(match.tags)
-      )
-    )
-    .filter((i) => i !== undefined)
-    .map(({ parsedTags, ...rest }) => rest) as typeof allInsights;
+  // Find related insights using new random selection logic
+  const relatedInsightsFiltered = getRelatedArticles(allInsights as any, slug, 3);
 
   return (
     <Layout>
@@ -434,7 +418,7 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
       )}
 
       {/* Related Insights */}
-        {relatedInsightsFiltered.length > 0 && (
+      {relatedInsightsFiltered.length > 0 && (
         <section className="section-navy py-20">
           <div className="container">
             <div className="section-divider" />

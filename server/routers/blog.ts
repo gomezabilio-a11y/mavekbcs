@@ -27,8 +27,6 @@ const insightBodySchema = z.object({
   contentJa: z.string().optional(),
   category: z.string().max(128).optional(),
   tags: z.array(z.string()).optional(),
-  relatedIndustries: z.array(z.string()).optional(),
-  relatedSolutions: z.array(z.string()).optional(),
   imageUrl: z.string().max(512).optional(),
   thumbnailBase64: z.string().optional(),
   thumbnailMime: z.string().optional(),
@@ -76,8 +74,7 @@ export const blogRouter = router({
         titleKo: input.titleKo ?? null, titleJa: input.titleJa ?? null,
         excerpt: input.excerpt ?? null, excerptKo: input.excerptKo ?? null, excerptJa: input.excerptJa ?? null,
         content: input.content ?? null, contentKo: input.contentKo ?? null, contentJa: input.contentJa ?? null,
-        category: input.category ?? null, tags: input.tags ?? [], relatedIndustries: input.relatedIndustries ?? [],
-        relatedSolutions: input.relatedSolutions ?? [], imageUrl,
+        category: input.category ?? null, tags: input.tags ?? [], imageUrl,
         readTimeMinutes: input.readTimeMinutes ?? 5, featured: input.featured ?? false, publishedAt,
       });
       const created = await db.select().from(insights).where(eq(insights.slug, input.slug)).limit(1);
@@ -106,8 +103,7 @@ export const blogRouter = router({
         titleKo: input.titleKo ?? null, titleJa: input.titleJa ?? null,
         excerpt: input.excerpt ?? null, excerptKo: input.excerptKo ?? null, excerptJa: input.excerptJa ?? null,
         content: input.content ?? null, contentKo: input.contentKo ?? null, contentJa: input.contentJa ?? null,
-        category: input.category ?? null, tags: input.tags ?? [], relatedIndustries: input.relatedIndustries ?? [],
-        relatedSolutions: input.relatedSolutions ?? [], imageUrl,
+        category: input.category ?? null, tags: input.tags ?? [], imageUrl,
         readTimeMinutes: input.readTimeMinutes ?? 5, featured: input.featured ?? false,
         ...(publishedAt ? { publishedAt } : {}),
       }).where(eq(insights.id, input.id));

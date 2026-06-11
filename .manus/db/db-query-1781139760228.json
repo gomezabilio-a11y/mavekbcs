@@ -1,0 +1,246 @@
+{
+  "query": "SELECT id, slug FROM insights ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, slug FROM insights ORDER BY id;",
+  "rows": [
+    {
+      "id": "1",
+      "slug": "what-is-advanced-financial-closing-afc"
+    },
+    {
+      "id": "2",
+      "slug": "group-reporting-explained"
+    },
+    {
+      "id": "3",
+      "slug": "why-financial-close-is-still-broken"
+    },
+    {
+      "id": "4",
+      "slug": "blackline-vs-erp-close-tools"
+    },
+    {
+      "id": "5",
+      "slug": "oracle-fccs-for-complex-consolidations"
+    },
+    {
+      "id": "6",
+      "slug": "account-reconciliation-best-practices"
+    },
+    {
+      "id": "7",
+      "slug": "continuous-planning-vs-traditional-budgeting"
+    },
+    {
+      "id": "8",
+      "slug": "sap-analytics-cloud-for-planning"
+    },
+    {
+      "id": "9",
+      "slug": "why-excel-based-planning-fails"
+    },
+    {
+      "id": "10",
+      "slug": "driver-based-planning-explained"
+    },
+    {
+      "id": "11",
+      "slug": "what-is-sap-document-and-reporting-compliance"
+    },
+    {
+      "id": "12",
+      "slug": "global-e-invoicing-trends"
+    },
+    {
+      "id": "13",
+      "slug": "tax-compliance-automation"
+    },
+    {
+      "id": "14",
+      "slug": "treasury-and-risk-management-trm"
+    },
+    {
+      "id": "15",
+      "slug": "importance-of-cash-visibility"
+    },
+    {
+      "id": "16",
+      "slug": "multi-bank-connectivity-mbc"
+    },
+    {
+      "id": "17",
+      "slug": "credit-management-explained"
+    },
+    {
+      "id": "18",
+      "slug": "collections-management"
+    },
+    {
+      "id": "19",
+      "slug": "dispute-management"
+    },
+    {
+      "id": "20",
+      "slug": "what-is-brim"
+    },
+    {
+      "id": "21",
+      "slug": "revenue-recognition-explained"
+    },
+    {
+      "id": "22",
+      "slug": "what-is-grc"
+    },
+    {
+      "id": "23",
+      "slug": "audit-automation"
+    },
+    {
+      "id": "24",
+      "slug": "ifrs-16-explained"
+    },
+    {
+      "id": "25",
+      "slug": "lease-management-solutions"
+    },
+    {
+      "id": "26",
+      "slug": "why-cfos-invest-in-finance-transformation"
+    },
+    {
+      "id": "27",
+      "slug": "evolution-of-finance-teams"
+    },
+    {
+      "id": "28",
+      "slug": "why-month-end-close-is-inefficient"
+    },
+    {
+      "id": "29",
+      "slug": "automation-in-finance"
+    },
+    {
+      "id": "30",
+      "slug": "real-time-finance-reporting"
+    },
+    {
+      "id": "31",
+      "slug": "erp-vs-finance-transformation"
+    },
+    {
+      "id": "32",
+      "slug": "standardizing-global-finance"
+    },
+    {
+      "id": "33",
+      "slug": "rise-of-saas-finance-systems"
+    },
+    {
+      "id": "34",
+      "slug": "importance-of-integration"
+    },
+    {
+      "id": "35",
+      "slug": "finance-as-competitive-advantage"
+    },
+    {
+      "id": "36",
+      "slug": "global-tax-regulation-changes"
+    },
+    {
+      "id": "37",
+      "slug": "inflation-and-interest-rate-impact"
+    },
+    {
+      "id": "38",
+      "slug": "supply-chain-disruptions"
+    },
+    {
+      "id": "39",
+      "slug": "financial-transparency-trends"
+    },
+    {
+      "id": "40",
+      "slug": "real-time-government-reporting"
+    },
+    {
+      "id": "41",
+      "slug": "esg-reporting-impact"
+    },
+    {
+      "id": "42",
+      "slug": "cross-border-complexity"
+    },
+    {
+      "id": "43",
+      "slug": "data-accuracy-importance"
+    },
+    {
+      "id": "44",
+      "slug": "predictive-finance"
+    },
+    {
+      "id": "45",
+      "slug": "ai-in-finance"
+    },
+    {
+      "id": "46",
+      "slug": "modern-finance-stack-in-2026"
+    },
+    {
+      "id": "47",
+      "slug": "best-of-breed-vs-erp"
+    },
+    {
+      "id": "48",
+      "slug": "sap-vs-oracle-finance"
+    },
+    {
+      "id": "49",
+      "slug": "why-companies-use-both-sap-and-oracle"
+    },
+    {
+      "id": "50",
+      "slug": "automotive-finance-transformation"
+    },
+    {
+      "id": "51",
+      "slug": "semiconductor-finance-complexity"
+    },
+    {
+      "id": "52",
+      "slug": "energy-sector-finance"
+    },
+    {
+      "id": "53",
+      "slug": "telecom-finance-challenges"
+    },
+    {
+      "id": "54",
+      "slug": "saas-finance-models"
+    },
+    {
+      "id": "55",
+      "slug": "e-commerce-finance"
+    },
+    {
+      "id": "56",
+      "slug": "pharma-finance"
+    },
+    {
+      "id": "57",
+      "slug": "logistics-finance"
+    },
+    {
+      "id": "58",
+      "slug": "real-estate-finance"
+    },
+    {
+      "id": "59",
+      "slug": "future-of-the-cfo"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\n1\twhat-is-advanced-financial-closing-afc\n2\tgroup-reporting-explained\n3\twhy-financial-close-is-still-broken\n4\tblackline-vs-erp-close-tools\n5\toracle-fccs-for-complex-consolidations\n6\taccount-reconciliation-best-practices\n7\tcontinuous-planning-vs-traditional-budgeting\n8\tsap-analytics-cloud-for-planning\n9\twhy-excel-based-planning-fails\n10\tdriver-based-planning-explained\n11\twhat-is-sap-document-and-reporting-compliance\n12\tglobal-e-invoicing-trends\n13\ttax-compliance-automation\n14\ttreasury-and-risk-management-trm\n15\timportance-of-cash-visibility\n16\tmulti-bank-connectivity-mbc\n17\tcredit-management-explained\n18\tcollections-management\n19\tdispute-management\n20\twhat-is-brim\n21\trevenue-recognition-explained\n22\twhat-is-grc\n23\taudit-automation\n24\tifrs-16-explained\n25\tlease-management-solutions\n26\twhy-cfos-invest-in-finance-transformation\n27\tevolution-of-finance-teams\n28\twhy-month-end-close-is-inefficient\n29\tautomation-in-finance\n30\treal-time-finance-reporting\n31\terp-vs-finance-transformation\n32\tstandardizing-global-finance\n33\trise-of-saas-finance-systems\n34\timportance-of-integration\n35\tfinance-as-competitive-advantage\n36\tglobal-tax-regulation-changes\n37\tinflation-and-interest-rate-impact\n38\tsupply-chain-disruptions\n39\tfinancial-transparency-trends\n40\treal-time-government-reporting\n41\tesg-reporting-impact\n42\tcross-border-complexity\n43\tdata-accuracy-importance\n44\tpredictive-finance\n45\tai-in-finance\n46\tmodern-finance-stack-in-2026\n47\tbest-of-breed-vs-erp\n48\tsap-vs-oracle-finance\n49\twhy-companies-use-both-sap-and-oracle\n50\tautomotive-finance-transformation\n51\tsemiconductor-finance-complexity\n52\tenergy-sector-finance\n53\ttelecom-finance-challenges\n54\tsaas-finance-models\n55\te-commerce-finance\n56\tpharma-finance\n57\tlogistics-finance\n58\treal-estate-finance\n59\tfuture-of-the-cfo\n",
+  "stderr": "",
+  "execution_time_ms": 1728
+}

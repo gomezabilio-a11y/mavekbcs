@@ -1,0 +1,110 @@
+{
+  "query": "SELECT id, slug, tags FROM insights ORDER BY id LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, slug, tags FROM insights ORDER BY id LIMIT 20;",
+  "rows": [
+    {
+      "id": "1",
+      "slug": "what-is-advanced-financial-closing-afc",
+      "tags": "[\"SAP AFC\", \"Financial Close\", \"Automation\"]"
+    },
+    {
+      "id": "2",
+      "slug": "group-reporting-explained",
+      "tags": "[\"SAP Group Reporting\", \"Consolidation\", \"Financial Close\"]"
+    },
+    {
+      "id": "3",
+      "slug": "why-financial-close-is-still-broken",
+      "tags": "[\"Financial Close\", \"Finance Transformation\", \"ERP\"]"
+    },
+    {
+      "id": "4",
+      "slug": "blackline-vs-erp-close-tools",
+      "tags": "[\"Blackline\", \"ERP\", \"Financial Close\", \"Best-of-Breed\"]"
+    },
+    {
+      "id": "5",
+      "slug": "oracle-fccs-for-complex-consolidations",
+      "tags": "[\"Oracle FCCS\", \"Consolidation\", \"Cloud\"]"
+    },
+    {
+      "id": "6",
+      "slug": "account-reconciliation-best-practices",
+      "tags": "[\"Account Reconciliation\", \"Oracle ARCS\", \"Automation\"]"
+    },
+    {
+      "id": "7",
+      "slug": "continuous-planning-vs-traditional-budgeting",
+      "tags": "[\"Planning\", \"Budgeting\", \"Finance Transformation\"]"
+    },
+    {
+      "id": "8",
+      "slug": "sap-analytics-cloud-for-planning",
+      "tags": "[\"SAP Analytics Cloud\", \"Planning\", \"BI\"]"
+    },
+    {
+      "id": "9",
+      "slug": "why-excel-based-planning-fails",
+      "tags": "[\"Planning\", \"Excel\", \"Finance Transformation\"]"
+    },
+    {
+      "id": "10",
+      "slug": "driver-based-planning-explained",
+      "tags": "[\"Planning\", \"Forecasting\", \"Driver-Based\"]"
+    },
+    {
+      "id": "11",
+      "slug": "what-is-sap-document-and-reporting-compliance",
+      "tags": "[\"SAP DRC\", \"Tax Compliance\", \"E-Invoicing\"]"
+    },
+    {
+      "id": "12",
+      "slug": "global-e-invoicing-trends",
+      "tags": "[\"E-Invoicing\", \"Tax Compliance\", \"Regulation\"]"
+    },
+    {
+      "id": "13",
+      "slug": "tax-compliance-automation",
+      "tags": "[\"Tax Compliance\", \"Automation\", \"SAP DRC\"]"
+    },
+    {
+      "id": "14",
+      "slug": "treasury-and-risk-management-trm",
+      "tags": "[\"SAP TRM\", \"Treasury\", \"Risk Management\"]"
+    },
+    {
+      "id": "15",
+      "slug": "importance-of-cash-visibility",
+      "tags": "[\"Cash Management\", \"Treasury\", \"Liquidity\"]"
+    },
+    {
+      "id": "16",
+      "slug": "multi-bank-connectivity-mbc",
+      "tags": "[\"SAP MBC\", \"Banking\", \"Treasury\"]"
+    },
+    {
+      "id": "17",
+      "slug": "credit-management-explained",
+      "tags": "[\"SAP FSCM\", \"Credit Management\", \"Risk\"]"
+    },
+    {
+      "id": "18",
+      "slug": "collections-management",
+      "tags": "[\"SAP FSCM\", \"Collections\", \"DSO\"]"
+    },
+    {
+      "id": "19",
+      "slug": "dispute-management",
+      "tags": "[\"SAP FSCM\", \"Dispute Management\", \"Collections\"]"
+    },
+    {
+      "id": "20",
+      "slug": "what-is-brim",
+      "tags": "[\"SAP BRIM\", \"Billing\", \"Revenue Management\"]"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttags\n1\twhat-is-advanced-financial-closing-afc\t[\"SAP AFC\", \"Financial Close\", \"Automation\"]\n2\tgroup-reporting-explained\t[\"SAP Group Reporting\", \"Consolidation\", \"Financial Close\"]\n3\twhy-financial-close-is-still-broken\t[\"Financial Close\", \"Finance Transformation\", \"ERP\"]\n4\tblackline-vs-erp-close-tools\t[\"Blackline\", \"ERP\", \"Financial Close\", \"Best-of-Breed\"]\n5\toracle-fccs-for-complex-consolidations\t[\"Oracle FCCS\", \"Consolidation\", \"Cloud\"]\n6\taccount-reconciliation-best-practices\t[\"Account Reconciliation\", \"Oracle ARCS\", \"Automation\"]\n7\tcontinuous-planning-vs-traditional-budgeting\t[\"Planning\", \"Budgeting\", \"Finance Transformation\"]\n8\tsap-analytics-cloud-for-planning\t[\"SAP Analytics Cloud\", \"Planning\", \"BI\"]\n9\twhy-excel-based-planning-fails\t[\"Planning\", \"Excel\", \"Finance Transformation\"]\n10\tdriver-based-planning-explained\t[\"Planning\", \"Forecasting\", \"Driver-Based\"]\n11\twhat-is-sap-document-and-reporting-compliance\t[\"SAP DRC\", \"Tax Compliance\", \"E-Invoicing\"]\n12\tglobal-e-invoicing-trends\t[\"E-Invoicing\", \"Tax Compliance\", \"Regulation\"]\n13\ttax-compliance-automation\t[\"Tax Compliance\", \"Automation\", \"SAP DRC\"]\n14\ttreasury-and-risk-management-trm\t[\"SAP TRM\", \"Treasury\", \"Risk Management\"]\n15\timportance-of-cash-visibility\t[\"Cash Management\", \"Treasury\", \"Liquidity\"]\n16\tmulti-bank-connectivity-mbc\t[\"SAP MBC\", \"Banking\", \"Treasury\"]\n17\tcredit-management-explained\t[\"SAP FSCM\", \"Credit Management\", \"Risk\"]\n18\tcollections-management\t[\"SAP FSCM\", \"Collections\", \"DSO\"]\n19\tdispute-management\t[\"SAP FSCM\", \"Dispute Management\", \"Collections\"]\n20\twhat-is-brim\t[\"SAP BRIM\", \"Billing\", \"Revenue Management\"]\n",
+  "stderr": "",
+  "execution_time_ms": 1733
+}
