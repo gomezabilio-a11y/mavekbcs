@@ -38,6 +38,15 @@ import PortalTicketHistory from "./pages/portal/PortalTicketHistory";
 import { PortalProvider } from "./contexts/PortalContext";
 import { AdminProvider } from "./contexts/AdminContext";
 
+// Scroll to top on every route change
+function ScrollToTop() {
+  const [location] = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [location]);
+  return null;
+}
+
 // Language sync component
 function LanguageSyncRouter() {
   const [location] = useLocation();
@@ -61,7 +70,9 @@ function LanguageSyncRouter() {
   }, [location, setLanguage]);
 
   return (
-    <Switch>
+    <>
+      <ScrollToTop />
+      <Switch>
       {/* English routes (default) */}
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
@@ -174,6 +185,7 @@ function LanguageSyncRouter() {
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
+    </>
   );
 }
 
