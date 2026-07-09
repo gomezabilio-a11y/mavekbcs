@@ -1,0 +1,26 @@
+{
+  "query": "SELECT id, portalUserId, totalHours, usedHours, contractStartDate, contractEndDate FROM portal_contracts;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, portalUserId, totalHours, usedHours, contractStartDate, contractEndDate FROM portal_contracts;",
+  "rows": [
+    {
+      "id": "30001",
+      "portalUserId": "30001",
+      "totalHours": "100.00",
+      "usedHours": "11.00",
+      "contractStartDate": "2026-01-01 00:00:00",
+      "contractEndDate": "2026-12-31 00:00:00"
+    },
+    {
+      "id": "60001",
+      "portalUserId": "60001",
+      "totalHours": "500.00",
+      "usedHours": "490.00",
+      "contractStartDate": "2026-06-22 00:00:00",
+      "contractEndDate": "2026-06-21 00:00:00"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tportalUserId\ttotalHours\tusedHours\tcontractStartDate\tcontractEndDate\n30001\t30001\t100.00\t11.00\t2026-01-01 00:00:00\t2026-12-31 00:00:00\n60001\t60001\t500.00\t490.00\t2026-06-22 00:00:00\t2026-06-21 00:00:00\n",
+  "stderr": "",
+  "execution_time_ms": 1716
+}

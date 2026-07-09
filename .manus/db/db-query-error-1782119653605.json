@@ -1,0 +1,8 @@
+{
+  "query": "SELECT id, ticketNumber, portalUserId, status, spentHours, hoursDeducted FROM portal_tickets WHERE (status = 'closed' OR status = 'resolved') AND spentHours IS NOT NULL AND spentHours > 0 AND hoursDeducted = false;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway06.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 5DX9DXKuVqxA9jr.15b4f38c7c58 --database 9wsYutxKhSEzLK7XGG22CU --execute SELECT id, ticketNumber, portalUserId, status, spentHours, hoursDeducted FROM portal_tickets WHERE (status = 'closed' OR status = 'resolved') AND spentHours IS NOT NULL AND spentHours > 0 AND hoursDeducted = false;",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1146 (42S02) at line 1: Table '9wsyutxkhsezlk7xgg22cu.portal_tickets' doesn't exist"
+  ]
+}

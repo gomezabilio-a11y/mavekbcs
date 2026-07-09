@@ -292,16 +292,19 @@ export async function updateTicketByAdmin(
   if (data.internalNote !== undefined) updateData.internalNote = data.internalNote;
   if (data.spentHours !== undefined) updateData.spentHours = String(data.spentHours);
 
-  // If resolving and spentHours provided, deduct from contract (once)
+  // Deduct hours when ticket is completed (resolved or closed) and spentHours provided (once only)
+  const newStatus = data.status ?? ticket.status;
+  const isCompleted = newStatus === "resolved" || newStatus === "closed";
+  const hoursToDeduct = data.spentHours ?? (ticket.spentHours ? parseFloat(String(ticket.spentHours)) : undefined);
   if (
-    data.status === "resolved" &&
-    data.spentHours !== undefined &&
-    data.spentHours > 0 &&
+    isCompleted &&
+    hoursToDeduct !== undefined &&
+    hoursToDeduct > 0 &&
     !ticket.hoursDeducted
   ) {
     updateData.hoursDeducted = true;
     updateData.resolvedAt = new Date();
-    await deductContractHours(ticket.portalUserId, data.spentHours);
+    await deductContractHours(ticket.portalUserId, hoursToDeduct);
   }
 
   if (Object.keys(updateData).length > 0) {

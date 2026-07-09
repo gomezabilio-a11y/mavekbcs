@@ -348,3 +348,14 @@
 - [x] Test all industry pages: verify 3 related articles display with correct random selection
 - [x] Test all solution pages: verify 3 related articles display with correct random selection
 - [x] Verify no TypeScript errors and all tests pass
+
+
+## Phase 45: Domain Migration & DNS Propagation (2026-07-08)
+- [x] Transfer domain from Wix to Namecheap
+- [x] Configure Manus nameservers in Namecheap (ns1, ns2, ns3, ns4)
+- [x] Remove domain from Wix (moved to Inactive domains)
+- [ ] BLOCKING: Domain still shows Wix error page despite nameserver changes
+- [ ] Contact Manus support to verify domain DNS configuration
+- [ ] Verify mavekbcs.com resolves to Manus servers
+- [ ] Test www.mavekbcs.com access
+- [ ] Confirm site is live on custom domain
