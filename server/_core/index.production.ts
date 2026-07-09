@@ -53,22 +53,6 @@ async function startServer() {
   registerStorageProxy(app);
   registerOAuthRoutes(app);
 
-  // Debug endpoint to check DB connection (remove after debugging)
-  app.get("/api/debug/db", async (_req, res) => {
-    const dbUrl = process.env.DATABASE_URL || "NOT SET";
-    const masked = dbUrl.replace(/:([^@]+)@/, ":***@");
-    try {
-      const { getDb } = await import("../db");
-      const db = await getDb();
-      if (db) {
-        res.json({ status: "connected", url: masked });
-      } else {
-        res.json({ status: "null_db", url: masked });
-      }
-    } catch (e: any) {
-      res.json({ status: "error", url: masked, error: e.message });
-    }
-  });
 
   app.use(
     "/api/trpc",
