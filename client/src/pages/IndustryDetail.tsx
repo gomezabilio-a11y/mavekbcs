@@ -392,7 +392,7 @@ export default function IndustryDetail({ params }: IndustryDetailProps) {
               {relatedSolutions.map((sol) => (
                 <Link
                   key={sol.slug}
-                  href={`/solutions/${sol.categorySlug}/${sol.slug}`}
+                  href={getLocalizedPath(`/solutions/${sol.categorySlug}/${sol.slug}`, language)}
                   className="flex gap-5 p-6 bg-white border border-gray-100 card-hover no-underline group"
                 >
                   <div

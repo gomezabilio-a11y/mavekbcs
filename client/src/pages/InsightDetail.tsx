@@ -194,7 +194,7 @@ export default function InsightDetail({ params }: InsightDetailProps) {
                   </h4>
                   <div className="space-y-2">
                     {relatedSolutions.map((sol) => (
-                      <Link key={sol.slug} href={`/solutions/${sol.categorySlug}/${sol.slug}`} className="flex items-center gap-2 text-xs text-gray-600 hover:text-[var(--navy)] transition-colors no-underline">
+                      <Link key={sol.slug} href={getLocalizedPath(`/solutions/${sol.categorySlug}/${sol.slug}`, language)} className="flex items-center gap-2 text-xs text-gray-600 hover:text-[var(--navy)] transition-colors no-underline">
                         <span className="text-xs font-bold px-1.5 py-0.5 text-white" style={{ backgroundColor: sol.vendor === "SAP" ? "var(--navy)" : sol.vendor === "Oracle" ? "var(--navy-mid)" : "#1a1a2e" }}>
                           {sol.vendor.slice(0, 3)}
                         </span>

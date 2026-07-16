@@ -306,7 +306,7 @@ export default function Home() {
             {SOLUTION_CATEGORIES.map((cat) => (
               <Link
                 key={cat.slug}
-                href={`/solutions/${cat.slug}`}
+                href={getLocalizedPath(`/solutions/${cat.slug}`, language)}
                 className="group p-6 border no-underline transition-all duration-300 card-hover"
                 style={{ borderColor: "rgba(255,255,255,0.1)", backgroundColor: "rgba(255,255,255,0.04)" }}
               >

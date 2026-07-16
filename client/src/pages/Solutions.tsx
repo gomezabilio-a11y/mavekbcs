@@ -3,6 +3,7 @@ import { ArrowRight, CheckSquare, FileText, TrendingUp, Link as LinkIcon, Receip
 import Layout from "@/components/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SOLUTION_CATEGORIES } from "@/lib/siteData";
+import { getLocalizedPath } from "@/lib/urlHelpers";
 
 const iconMap: Record<string, React.ReactNode> = {
   CheckSquare: <CheckSquare size={24} />,
@@ -64,7 +65,7 @@ export default function Solutions() {
                       return (
                         <Link
                           key={sol.slug}
-                          href={`/solutions/${cat.slug}/${sol.slug}`}
+                          href={getLocalizedPath(`/solutions/${cat.slug}/${sol.slug}`, language)}
                           className="flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 transition-colors no-underline group/item"
                         >
                           <div className="flex items-center gap-3">
